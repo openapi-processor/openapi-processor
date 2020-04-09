@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Request Body :: openapi-processor</title>
+    <link rel="canonical" href="https://hauner.github.io/openapi-processor/openapi-processor-spring/antora/processor/requestbody.html">
+    <meta name="generator" content="Antora 2.2.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="../../../_/img/openapi-processor-p.svg" alt="logo" width="100px">
+      <a class="navbar-item" href="https://hauner.github.io/openapi-processor">openapi-processor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring">
+              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> spring
+            </a>
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json">
+              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> json
+            </a>
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle">
+              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> gradle
+            </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="openapi-processor-spring" data-version="antora">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">openapi-processor-spring</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">The Processor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="endpoint-interface.html">Endpoint Grouping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="endpoint-content.html">Endpoint Content Type</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="models.html">Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="parameter.html">Parameter</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="requestbody.html">Request Body</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="response.html">Responses</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="identifier.html">Identifier</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../mapping/index.html">Type Mapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/structure.html">Type Mapping Structure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/basic.html">Default Type Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/global.html">Global Type Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/parameter.html">Global Parameter Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/response.html">Global Response Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/result.html">Global Result Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/single.html">Global Single Result Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../mapping/endpoint.html">Endpoint Mapping</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../gradle.html">Gradle Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../howto/index.html">HowTo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Mapping</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../howto/global-array-mapping.html">Global Array Mapping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../howto/pageable-page-mapping.html">Pageable &amp; Page Mapping</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">OpenAPI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../howto/file_upload.html">File Upload</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../howto/file_download.html">File Download</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../links.html">Links</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">openapi-processor-spring</span>
+    <span class="version">antora</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">openapi-processor-spring</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">antora</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+  <div class="edit-this-page"><a href="https://github.com/hauner/openapi-processor-spring/edit/antora/docs/modules/ROOT/pages/processor/requestbody.adoc">edit</a></div>
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">openapi-processor-spring</a></li>
+    <li><a href="index.html">The Processor</a></li>
+    <li><a href="requestbody.html">Request Body</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Request Body</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This OpenAPI describes an endpoint with <code>requestBody</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openapi: 3.0.2
+info:
+  title: request body
+  version: 1.0.0
+
+paths:
+  /book:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        '201':
+          description: created book
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        isbn:
+          type: string
+        title:
+          type: string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>that the processor will convert into the interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package generated.api;
+
+import generated.model.Book;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+public interface Api {
+
+    @PostMapping(path = "/book", consumes = {"application/json"}, produces = {"application/json"})
+    ResponseEntity&lt;Book&gt; postBook(@RequestBody Book body);
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and a <code>Book</code> pojo.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multipartform_data"><a class="anchor" href="#_multipartform_data"></a>multipart/form-data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="badge  badge-since">since 1.0.0.M5</span></p>
+</div>
+<div class="paragraph">
+<p>For file uploads, where the <code>content</code> of the <code>requestBody</code> is <code>multipart/form-data</code>, the resulting
+code looks a bit different and requires a specific type mapping.</p>
+</div>
+<div class="paragraph">
+<p>The file upload in OpenAPI is described like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/file-upload:
+  summary: upload a file
+  post:
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(See also <a href="#howto/file-upload">OpenAPI - describing a file upload endpoint</a>)</p>
+</div>
+<div class="paragraph">
+<p>The <code>schema</code> must be of type <code>object</code> defining a property for each part in the multipart body.</p>
+</div>
+<div class="paragraph">
+<p>Instead of generating a <code>@RequestBody</code> parameter for the <code>object</code> schema the processor creates
+a parameter for each property of the object annotated with <code>@RequestParam</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package generated.api;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+public interface Api {
+
+    @PostMapping(path = "/file-upload")
+    ResponseEntity&lt;Void&gt; postFileUpload(@RequestParam(name = "file") MultipartFile file);
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the <code>file</code> property (type <code>string</code> format <code>binary</code>) is mapped to Springs <code>MultipartFile</code>
+type.</p>
+</div>
+<div class="paragraph">
+<p>The processor does not have a default mapping for the <code>binary</code> format so to get the code above we
+have to configure it in the type mapping yaml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
+  paths:
+    /file-upload:
+      types:
+        - from: string:binary
+          to: org.springframework.web.multipart.MultipartFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To upload multiple files we can define the body <code>object</code> with an <code>array</code> property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">type: object
+properties:
+  files:
+    type: array
+    items:
+      type: string
+      format: binary</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to get the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@PostMapping(path = "/file-upload")
+ResponseEntity&lt;Void&gt; postFileUpload(@RequestParam(name = "files") MultipartFile[] files);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+
+  <div class="footer-grid">
+
+    <div class="main">
+
+      <div class="footer-logo-title">
+        <img src="../../../_/img/openapi-processor-p.svg" alt="logo" width="40px">
+        <strong>openapi-processor</strong>
+      </div>
+
+      <div class="footer-license">
+        <div><strong>License</strong></div>
+        <div>
+          openapi-processor packages spring, json & gradle are distributed by
+          <a href="https://www.apache.org/licenses/LICENSE-2.0.txt"> Apache License 2.0</a>.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="gh">
+        <div class="footer-title">GitHub</div>
+
+        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring">
+          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-spring
+        </a>
+
+        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json">
+          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-json
+        </a>
+
+        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle">
+          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-gradle
+        </a>
+    </div>
+
+  </div>
+
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
