@@ -25,6 +25,12 @@ ui:
   - path: ui.yml
     contents: "static_files: [ .nojekyll ]"
 
+output:
+  clean: false
+  dir: ./docs
+#  destinations:
+#  - provider: archive
+
 # run with theme
 # antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
 
