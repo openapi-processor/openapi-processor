@@ -33,17 +33,5 @@ output:
 #  destinations:
 #  - provider: archive
 
-
-
-# run with theme
-# antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
-
-# run site
-# node-srv build/site
-
 # branches allows lists
 # branches: [v2.0, v1.0]
-
-## local paths
-# - url: ../openapi-processor-spring
-# - url: ../openapi-processor-spring-mvc-sample

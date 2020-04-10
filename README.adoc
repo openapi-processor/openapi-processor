@@ -18,6 +18,11 @@
 
     ./node_modules/@antora/cli/bin/antora antora-playbook.yml
 
+== serve locally
+
+    node-srv docs
+
+
 == publishing
 
 . delete docs folder
