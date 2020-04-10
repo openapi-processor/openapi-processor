@@ -1,0 +1,36 @@
+= openapi-processor website
+
+
+== running antora
+
+    antora antora-playbook.yml
+
+=== with explicit theme
+
+    antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
+
+
+== install antora to project
+
+    npm i -g @antora/cli@2.3.0-beta.2 @antora/site-generator-default@2.3.0-beta.2
+
+== run antora from project install
+
+    ./node_modules/@antora/cli/bin/antora antora-playbook.yml
+
+== publishing
+
+. delete docs folder
+. commit
+. run
++
+----
+antora antora-playbook.yml
+----
+. add the new docs folder to git
++
+----
+git add docs
+----
+. commit
+. push
