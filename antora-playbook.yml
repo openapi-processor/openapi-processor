@@ -2,19 +2,16 @@ site:
   title: openapi-processor
   url: https://hauner.github.io/openapi-processor
   start_page: openapi-processor-spring::index.adoc
-  # start_page: test-component:index.adoc
+
 content:
   sources:
-#  - url: ../openapi-processor-spring
   - url: https://github.com/hauner/openapi-processor-spring
     start_path: docs
-
     branches: antora
-  #- url: https://gitlab.com/antora/demo/demo-component-a.git
-  #  branches: master
-  #- url: https://gitlab.com/antora/demo/demo-component-b.git
-#    branches: [v2.0, v1.0]
-#    start_path: docs
+  - url: https://github.com/hauner/openapi-processor-spring-mvc-sample
+    start_path: docs
+    branches: master
+
 ui:
   bundle:
     url: https://github.com/hauner/openapi-processor-site-ui/releases/download/v0.1/ui-bundle.zip
@@ -31,8 +28,17 @@ output:
 #  destinations:
 #  - provider: archive
 
+
+
 # run with theme
 # antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
 
 # run site
 # node-srv build/site
+
+# branches allows lists
+# branches: [v2.0, v1.0]
+
+## local paths
+# - url: ../openapi-processor-spring
+# - url: ../openapi-processor-spring-mvc-sample
