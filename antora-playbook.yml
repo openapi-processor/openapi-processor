@@ -24,6 +24,9 @@ ui:
   - path: ui.yml
     contents: "static_files: [ .nojekyll ]"
 
+runtime:
+  fetch: true
+
 output:
   clean: false
   dir: ./docs
