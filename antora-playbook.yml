@@ -1,14 +1,15 @@
 site:
   title: openapi-processor
   url: https://hauner.github.io/openapi-processor
-  start_page: spring::index.adoc
+  start_page: 1.0.0.M13@spring::index.adoc
 
 content:
   sources:
 #  - url: ../openapi-processor-spring
   - url: https://github.com/hauner/openapi-processor-spring
     start_path: docs
-    branches: antora
+    branches: [master]
+    tags: [v1.0.0.M13]
 #  - url: ../openapi-processor-json
   - url: https://github.com/hauner/openapi-processor-json
     start_path: docs
