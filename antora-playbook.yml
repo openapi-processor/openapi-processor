@@ -33,7 +33,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/hauner/openapi-processor-site-ui/releases/download/v0.2/ui-bundle.zip
+    url: https://github.com/hauner/openapi-processor-site-ui/releases/download/v0.4/ui-bundle.zip
 #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   supplemental_files: ./supplemental-ui
