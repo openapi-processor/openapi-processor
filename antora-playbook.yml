@@ -40,6 +40,7 @@ ui:
 
 runtime:
   fetch: true
+  cache_dir: ./.antora-cache
 
 output:
   clean: false
