@@ -22,6 +22,9 @@
 
     node-srv docs
 
+== update antora
+
+    npm i -g @antora/cli @antora/site-generator-default
 
 == publishing
 
