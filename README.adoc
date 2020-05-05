@@ -25,14 +25,15 @@
 
 == publishing
 
-. delete docs folder
-. commit
+. update playbook
+. delete docs folder (if deleting pages)
+.. commit
 . run
 +
 ----
 antora antora-playbook.yml
 ----
-. add the new docs folder to git
+. add the new docs folder to git (only if docs folder was deleted)
 +
 ----
 git add docs
