@@ -1,7 +1,7 @@
 site:
   title: openapi-processor
   url: https://hauner.github.io/openapi-processor
-  start_page: 1.0.0.M14@spring::index.adoc
+  start_page: master@spring::index.adoc
 
 content:
   sources:
