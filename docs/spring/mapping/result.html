@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>(global) Result mapping :: openapi-processor</title>
+    <title>Result mapping :: openapi-processor</title>
     <link rel="canonical" href="https://hauner.github.io/openapi-processor/spring/mapping/result.html">
     <meta name="generator" content="Antora 2.3.0-beta.2">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -25,13 +25,18 @@
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
 
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring">
+            <a class="navbar-link-icon" href="https://openapi-processor-playground.appspot.com" target="_blank">
+<!--              <img src="../../_/img/favicon.ico" alt="playground"> playground-->
+              <img src="../../_/img/openapi-processor-p.svg" class="p" alt="playground"> playground
+            </a>
+
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> spring
             </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json">
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> json
             </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle">
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> gradle
             </a>
 
@@ -108,7 +113,7 @@
     <a class="nav-link" href="result.html">Global Result Mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="single.html">Global Single Result Mapping</a>
+    <a class="nav-link" href="single-multi.html">Global Single &amp; Multi Mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="endpoint.html">Endpoint Mapping</a>
@@ -193,7 +198,7 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
-          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+          <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
     </li>
@@ -221,13 +226,13 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../1.0.0.M14/index.html" class="home-link"></a>
+  <a href="../index.html" class="home-link"></a>
   <div class="edit-this-page"><a href="https://github.com/hauner/openapi-processor-spring/edit/master/docs/modules/ROOT/pages/mapping/result.adoc">edit</a></div>
     <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="result.html">master</a>
-    <a class="version" href="../1.0.0.M14/mapping/result.html">1.0.0.M14</a>
+    <a class="version" href="../1.0.x/mapping/result.html">1.0.x</a>
   </div>
 </div>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
@@ -240,9 +245,112 @@
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">(global) Result mapping</h1>
+<h1 class="page">Result mapping</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>todo&#8230;&#8203;</p>
+<p><span class="badge  badge-since">since 1.0.0.M13</span></p>
+</div>
+<div class="paragraph">
+<p>A <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html"><code>ResponseEntity&lt;&gt;</code></a> allows an endpoint implementation full control of
+the response.</p>
+</div>
+<div class="paragraph">
+<p>Here is a super simple examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public ResponseEntity&lt;String&gt; getFoo() {
+    return ResponseEntity.ok("foo");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable a result wrapper set the <code>result</code> mapping in the mapping yaml to a fully qualified java
+type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
+  result:
+    to: org.springframework.http.ResponseEntity</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The processor expects that it takes a single generic parameter.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Depending on the number of defined response content types the parameter of the <code>ResponseEntity&lt;&gt;</code>
+will be either the java type or the <strong>unknown type</strong>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">responses</th>
+<th class="tableblock halign-left valign-top">ResponseEntity&lt;&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">one</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseEntity&lt;java type&gt;</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">multiple</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseEntity&lt;?&gt;</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+prior to 1.0.0.M13 all results were auto-wrapped with <code>ResponseEntity&lt;&gt;</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limit_to_endpoint"><a class="anchor" href="#_limit_to_endpoint"></a>Limit to Endpoint</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>result</code> mapping works as endpoint specific mapping too. That way it is possible to use the
+<code>ResponseEntity&lt;&gt;</code> only on single endpoints.</p>
+</div>
+<div class="paragraph">
+<p>So a mapping like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
+
+  /foo:
+    result:
+      to: org.springframework.http.ResponseEntity</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will only wrap the result of the endpoint <code>/foo</code>.</p>
+</div>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

@@ -25,13 +25,18 @@
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
 
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring">
+            <a class="navbar-link-icon" href="https://openapi-processor-playground.appspot.com" target="_blank">
+<!--              <img src="../../_/img/favicon.ico" alt="playground"> playground-->
+              <img src="../../_/img/openapi-processor-p.svg" class="p" alt="playground"> playground
+            </a>
+
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> spring
             </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json">
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> json
             </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle">
+            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle" target="_blank">
               <img src="../../_/img/GitHub-Mark-32px.png" alt="GitHub"> gradle
             </a>
 
@@ -108,7 +113,7 @@
     <a class="nav-link" href="../mapping/result.html">Global Result Mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/single.html">Global Single Result Mapping</a>
+    <a class="nav-link" href="../mapping/single-multi.html">Global Single &amp; Multi Mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../mapping/endpoint.html">Endpoint Mapping</a>
@@ -193,7 +198,7 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
-          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+          <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
     </li>
@@ -221,13 +226,13 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../1.0.0.M14/index.html" class="home-link"></a>
+  <a href="../index.html" class="home-link"></a>
   <div class="edit-this-page"><a href="https://github.com/hauner/openapi-processor-spring/edit/master/docs/modules/ROOT/pages/processor/parameter.adoc">edit</a></div>
     <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="parameter.html">master</a>
-    <a class="version" href="../1.0.0.M14/processor/parameter.html">1.0.0.M14</a>
+    <a class="version" href="../1.0.x/processor/parameter.html">1.0.x</a>
   </div>
 </div>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
@@ -283,7 +288,42 @@ ResponseEntity&lt;Void&gt; getEndpoint(@RequestParam(name = "foo", required = fa
 <h2 id="_path_parameters"><a class="anchor" href="#_path_parameters"></a>path parameters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>todo&#8230;&#8203;</p>
+<p>Path parameters get converted to method parameters with a <code>@PathVariable()</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>For example the following endpoint description:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">paths:
+  /endpoint/{foo}:
+    get:
+      parameters:
+        - name: foo
+          description: a path parameter
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: plain text response
+          content:
+            plain/text:
+              schema:
+                type: string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will generate the following interface method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GetMapping(
+        path = "/path/{foo}",
+        produces = {"plain/text"})
+String getEndpointFoo(@PathVariable(name = "foo") String foo);</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -291,7 +331,38 @@ ResponseEntity&lt;Void&gt; getEndpoint(@RequestParam(name = "foo", required = fa
 <h2 id="_header_parameters"><a class="anchor" href="#_header_parameters"></a>header parameters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>todo&#8230;&#8203;</p>
+<p>Header parameters use the <code>@RequestHeader</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>Given the following endpoint description:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">paths:
+  /endpoint:
+    get:
+      tags:
+        - endpoint
+      parameters:
+        - name: x-foo
+          description: a header parameter
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: empty</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the processor generates the following interface method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GetMapping(path = "/endpoint")
+void getEndpoint(@RequestHeader(name = "x-foo") String xFoo);</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -299,7 +370,37 @@ ResponseEntity&lt;Void&gt; getEndpoint(@RequestParam(name = "foo", required = fa
 <h2 id="_cookie_parameters"><a class="anchor" href="#_cookie_parameters"></a>cookie parameters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>todo&#8230;&#8203;</p>
+<p>Cookie parameters use the <code>@CookieValue</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>Given the following endpoint description:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">paths:
+  /endpoint:
+
+    get:
+      parameters:
+        - name: foo
+          description: a cookie
+          in: cookie
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: empty</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the processor generates the following interface method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GetMapping(path = "/endpoint")
+void getEndpoint(@CookieValue(name = "foo") String foo);</code></pre>
+</div>
 </div>
 </div>
 </div>
