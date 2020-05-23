@@ -8,8 +8,7 @@ content:
 #  - url: ../openapi-processor-spring
   - url: https://github.com/hauner/openapi-processor-spring
     start_path: docs
-    branches: [master]
-    tags: [v1.0.0.M14]
+    branches: [master, 1.0.x]
 #  - url: ../openapi-processor-json
   - url: https://github.com/hauner/openapi-processor-json
     start_path: docs
