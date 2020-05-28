@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="endpoint.html">master</a>
+    <a class="version" href="../1.0.0.M14/mapping/endpoint.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/mapping/endpoint.html">1.0.x</a>
   </div>
 </div>
@@ -260,59 +264,61 @@ be placed in the <code>map/paths</code> section as properties to an endpoint giv
   # path mappings, only valid for the given path
   paths:
 
-    # the path
+    # a path
     /foo:
 
-      # single wrapper
-      single:
-        to: ..
+      # path specific result wrapper
+      result: {target type}
 
-      # result wrapper
-      result:
-        to: ..
+      # path specific single wrapper
+      single: {target type}
+
+      # path specific multi wrapper
+      multi: {target type}
 
       # list of path specific mappings
       types:
-        - from: ..
-          to: ..
+        - from: {source type}  =&gt;  {target type}
 
       # list of path specific parameter mappings, mapped by parameter name
       parameters:
-        - name: ..
-          to: ..
+        - name: {parameter name}  =&gt;  {target type}
+
+        # the list of parameter mappings can include additional parameters
+        - add: {parameter name}  =&gt;  {target type}
 
       # list of path specific content mappings, mapped by content type
       responses:
-        - content: ..
-          to: ..
+        - content: {content type}  =&gt;  {target type}
 
-    # another path
-    /foo2:
+    # a path
+    /foobar:
       # excluding an endpoint
       exclude: true
 
-      # single wrapper
-      single:
-        to: ..
+      # path specific result wrapper
+      result: {target type}
 
-      # result wrapper
-      result:
-        to: ..
+      # path specific single wrapper
+      single: {target type}
+
+      # path specific multi wrapper
+      multi: {target type}
 
       # list of path specific mappings
       types:
-        - from: ..
-          to: ..
+        - from: {source type}  =&gt;  {target type}
 
       # list of path specific parameter mappings, mapped by parameter name
       parameters:
-        - name: ..
-          to: ..
+        - name: {parameter name}  =&gt;  {target type}
+
+        # the list of parameter mappings can include additional parameters
+        - add: {parameter name}  =&gt;  {target type}
 
       # list of path specific content mappings, mapped by content type
       responses:
-        - content: ..
-          to: ..</code></pre>
+        - content: {content type}  =&gt;  {target type}</code></pre>
 </div>
 </div>
 <div class="paragraph">

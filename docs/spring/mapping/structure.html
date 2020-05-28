@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="structure.html">master</a>
+    <a class="version" href="../1.0.0.M14/mapping/structure.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/mapping/structure.html">1.0.x</a>
   </div>
 </div>
@@ -246,6 +250,8 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">type mapping structure</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>The type mapping is part of the mapping yaml (see <a href="../processor/configuration.html" class="page">Configuration</a>)
 and configured under the <code>map</code> key. The <code>map</code> key contains multiple sections to define the different
@@ -254,69 +260,120 @@ kinds of type mappings.</p>
 <div class="paragraph">
 <p>All sections are optional.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_type_mapping_structure_v2"><a class="anchor" href="#_type_mapping_structure_v2"></a>type mapping structure (v2)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="badge  badge-since">since 1.0.0.M15</span></p>
+</div>
+<div class="paragraph">
+<p>This is the preferred format for the mapping. It is simpler than the previous format and uses fewer
+keywords.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To use the new format the mapping file needs the following key on the top-level. Best place is the
+first line of the <code>mapping.yaml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openapi-processor-spring: v2</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To map a source type to a destination type it is using an <code>&#8658;</code> arrow as <strong>mapping operator</strong> instead
+of individual keywords:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">some-key: {source type} =&gt; {target type}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The structure of the mapping looks like this:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
 
-  # single wrapper
-  single:
-    to: ..
-
   # result wrapper
-  result:
-    to: ..
+  result: {target type}
+
+  # single wrapper
+  single: {target type}
+
+  # multi wrapper
+  multi: {target type}
 
   # list of global mappings
   types:
-    - from: ..
-      to: ..
+    - type: {source type}  =&gt;  {target type}
 
   # list of global parameter mappings, mapped by parameter name
   parameters:
-    - name: ..
-      to: ..
+    - name: {parameter name}  =&gt;  {target type}
 
     # the list of parameter mappings can include additional parameters
-    - add: ..
-      as: ..
+    - add: {parameter name}  =&gt;  {target type}
 
   # list of global content mappings, mapped by content type
   responses:
-    - content: ..
-      to: ..
+    - content: {content type}  =&gt;  {target type}
 
   # path mappings, only valid for the given path
   paths:
 
     # the path
-    /foo...:
-
-      # path specific single wrapper
-      single:
-        to: ..
+    /foo:
 
       # path specific result wrapper
-      result:
-        to: ..
+      result: {target type}
+
+      # path specific single wrapper
+      single: {target type}
+
+      # path specific multi wrapper
+      multi: {target type}
 
       # list of path specific mappings
       types:
-        - from: ..
-          to: ..
+        - from: {source type}  =&gt;  {target type}
 
       # list of path specific parameter mappings, mapped by parameter name
       parameters:
-        - name: ..
-          to: ..
+        - name: {parameter name}  =&gt;  {target type}
 
         # the list of parameter mappings can include additional parameters
-        - add: ..
-          as: ..
+        - add: {parameter name}  =&gt;  {target type}
 
       # list of path specific content mappings, mapped by content type
       responses:
-        - content: ..
-          to: ..</code></pre>
+        - content: {content type}  =&gt;  {target type}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_type_mapping_structure_v1"><a class="anchor" href="#_type_mapping_structure_v1"></a>type mapping structure (v1)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This format of the mapping ist still available but will go away with the 1.0.0 release.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../1.0.0.M14/mapping/index.html" class="page">old type mapping</a>.</p>
+</div>
 </div>
 </div>
 </article>

@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="single-multi.html">master</a>
+    <a class="version is-missing" href="../1.0.0.M14/index.html">1.0.0.M14</a>
     <a class="version is-missing" href="../1.0.x/index.html">1.0.x</a>
   </div>
 </div>
@@ -290,9 +294,7 @@ this is experimental
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
-  types:
-    - from: multi
-      to: reactor.core.publisher.Flux</code></pre>
+  multi: reactor.core.publisher.Flux</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -308,9 +310,7 @@ list <strong>responses</strong> (or <strong>parameters</strong>). <code>multi</c
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
-  types:
-    - from: single
-      to: reactor.core.publisher.Mono</code></pre>
+ single: reactor.core.publisher.Mono</code></pre>
 </div>
 </div>
 <div class="paragraph">

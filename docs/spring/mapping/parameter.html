@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="parameter.html">master</a>
+    <a class="version" href="../1.0.0.M14/mapping/parameter.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/mapping/parameter.html">1.0.x</a>
   </div>
 </div>
@@ -261,29 +265,32 @@ which is a list of global parameter mappings.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> - name: ..
-   to: ..
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> - name: {parameter name}  =&gt;  {target type}
    generics:
-     - ..
-     - ..</code></pre>
+     - {a generic type}
+     - {another generic type}</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>name</strong> and <strong>to</strong> are required.</p>
+<p><strong>name</strong> is required.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>{parameter name}</strong> is the name of an endpoint parameter used in the OpenAPI description that
+should be  replaced by <strong>{target type}</strong>.</p>
 </li>
 <li>
-<p><strong>name</strong> is the name of an endpoint parameter used in the OpenAPI description that should be
-replaced by <strong>to</strong>.</p>
+<p><strong>{target type}</strong> is the fully qualified class name of the java type that should be used for all
+endpoint content types <strong>{parameter name}</strong>.</p>
 </li>
-<li>
-<p><strong>to</strong> is the fully qualified class name of the java type that should be used for all endpoint
-parameters of <strong>name</strong>.</p>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>generics</strong> defines the list of types that should be used as generic type parameters to the
-java type given by <strong>to</strong>.</p>
+java type given by <strong>{target type}</strong>.</p>
 </li>
 </ul>
 </div>
@@ -316,8 +323,7 @@ that name should really use the same type!</p>
 
   # list of global parameter mappings, mapped by parameter name
   parameters:
-    - name: date
-      to: java.time.ZonedDateTime</code></pre>
+    - name: date =&gt; java.time.ZonedDateTime</code></pre>
 </div>
 </div>
 <div class="paragraph">

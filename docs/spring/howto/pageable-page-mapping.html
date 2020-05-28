@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="pageable-page-mapping.html">master</a>
+    <a class="version" href="../1.0.0.M14/howto/pageable-page-mapping.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/howto/pageable-page-mapping.html">1.0.x</a>
   </div>
 </div>
@@ -434,23 +438,19 @@ public interface Api {
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
 
   types:
-    - from: Pageable <i class="conum" data-value="1"></i><b>(1)</b>
-      to: org.springframework.data.domain.Pageable
+    - type: Pageable =&gt; org.springframework.data.domain.Pageable <i class="conum" data-value="1"></i><b>(1)</b>
 
-    - from: StringPage <i class="conum" data-value="2"></i><b>(2)</b>
-      to: org.springframework.data.domain.Page&lt;java.lang.String&gt;
+    - type: StringPage =&gt; org.springframework.data.domain.Page&lt;java.lang.String&gt; <i class="conum" data-value="2"></i><b>(2)</b>
 
   paths:
 
     /page-inline: <i class="conum" data-value="3"></i><b>(3)</b>
 
       parameters:
-        - name: pageable
-          to: org.springframework.data.domain.Pageable
+        - name: pageable =&gt; org.springframework.data.domain.Pageable
 
       responses:
-        - content: application/json
-          to: org.springframework.data.domain.Page&lt;java.lang.String&gt;</code></pre>
+        - content: application/json =&gt; org.springframework.data.domain.Page&lt;java.lang.String&gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">

@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="global.html">master</a>
+    <a class="version" href="../1.0.0.M14/mapping/global.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/mapping/global.html">1.0.x</a>
   </div>
 </div>
@@ -261,26 +265,29 @@ which is a list of global type mappings.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: ..
-  to: ..
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: {source type} =&gt; {target type}
   generics:
-    - ..
-    - ..</code></pre>
+    - {a generic type}
+    - {another generic type}</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>from</strong> and <strong>to</strong> are required, <strong>generics</strong> is optional.</p>
+<p><strong>type</strong> is required.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>{source type}</strong> is the type name used in the OpenAPI description and names the type that should
+be  replaced by <strong>{target type}</strong>. <strong>{target type}</strong> is the fully qualified class name of the java
+type that should be used instead of <strong>{source type}</strong>.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><strong>from</strong> is the type name used in the OpenAPI description and names the type that should be
-replaced by <strong>to</strong>. <strong>to</strong> is the fully qualified class name of the java type that should be used
-instead of <strong>from</strong>.</p>
-</li>
-<li>
-<p><strong>generics</strong> defines the list of types that should be used as generic type parameters to the
-java type given by <strong>to</strong>.</p>
+<p><strong>generics</strong> is optional. It defines the list of types that should be used as generic type
+parameters to the java type given by <strong>{target type}</strong>.</p>
 </li>
 </ul>
 </div>
@@ -308,8 +315,7 @@ java type given by <strong>to</strong>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: Book
-  to: com.github.hauner.openapi.oap.Book</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: Book =&gt; com.github.hauner.openapi.oap.Book</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -317,8 +323,7 @@ java type given by <strong>to</strong>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: array
-  to: java.util.List</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: array =&gt; java.util.List</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -338,8 +343,8 @@ and will automatically use the <code>items</code> property of the <code>array</c
 <div class="ulist">
 <ul>
 <li>
-<p>OpenAPIs <code>object</code> type has no special handling if given as the <code>from</code> type. The processor
-assumes  that it is just a schema name and it will only match if there is a schema with the name
+<p>OpenAPIs <code>object</code> type has no special handling if given as the <strong>{source type}</strong> type. The processor
+assumes  that it is just a schema name, and it will only match if there is a schema with the name
 "object".</p>
 </li>
 <li>
@@ -365,12 +370,11 @@ that is represented as a <code>string</code>.</p>
 </div>
 <div class="paragraph">
 <p>It is possible to create a global mapping that only matches a specific <code>format</code> by adding the format
-to the <strong>from</strong> property value separated by a ':' like this:</p>
+to the <strong>{source type}</strong> property value separated by a ':' like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: string:date-time
-  to: java.time.ZonedDateTime</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: string:date-time =&gt; java.time.ZonedDateTime</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -393,15 +397,14 @@ by the <strong>generics</strong> property of the mapping. <strong>generics</stro
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: StringPage
-  to: org.springframework.data.domain.Page
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: StringPage =&gt; org.springframework.data.domain.Page
   generics:
     - java.lang.String</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The processor will replace any use of <code>StringPage</code> with the <strong>to</strong> type and add the generic types
- (in the given order) to the <strong>to</strong> type.</p>
+<p>The processor will replace any use of <code>StringPage</code> with the <strong>{target type}</strong> type and add the generic
+types (in the given order) to the <strong>{target type}</strong> type.</p>
 </div>
 <div class="paragraph">
 <p>In case of the example above the processor will create <code>Page&lt;String&gt;</code> instead of <code>StringPage</code> with an
@@ -426,8 +429,7 @@ types:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from: StringPage
-  to: org.springframework.data.domain.Page&lt;java.lang.String&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- type: StringPage =&gt; org.springframework.data.domain.Page&lt;java.lang.String&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">

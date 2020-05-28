@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="global-array-mapping.html">master</a>
+    <a class="version" href="../1.0.0.M14/howto/global-array-mapping.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/howto/global-array-mapping.html">1.0.x</a>
   </div>
 </div>
@@ -293,8 +297,7 @@ ResponseEntity&lt;String[]&gt; getArray();</code></pre>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
   types:
     # map array to java.util.Collection
-    - from: array
-      to: java.util.Collection</code></pre>
+    - type: array =&gt; java.util.Collection</code></pre>
 </div>
 </div>
 <div class="paragraph">

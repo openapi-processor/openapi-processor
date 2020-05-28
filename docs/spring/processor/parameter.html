@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="parameter.html">master</a>
+    <a class="version" href="../1.0.0.M14/processor/parameter.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/processor/parameter.html">1.0.x</a>
   </div>
 </div>
@@ -424,8 +428,7 @@ by using an <code>add &lt;parameter name&gt;</code> <code>as &lt;java type&gt;</
     /foo:
 
       parameters:
-        - add: request
-          as: javax.servlet.http.HttpServletRequest</code></pre>
+        - add: request =&gt; javax.servlet.http.HttpServletRequest</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -198,6 +198,9 @@
           <a href="../index.html">master</a>
         </li>
         <li class="version">
+          <a href="../1.0.0.M14/index.html">1.0.0.M14</a>
+        </li>
+        <li class="version">
           <a href="../1.0.x/index.html">1.0.x</a>
         </li>
       </ul>
@@ -232,6 +235,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">master</button>
   <div class="version-menu">
     <a class="version is-current" href="response.html">master</a>
+    <a class="version" href="../1.0.0.M14/mapping/response.html">1.0.0.M14</a>
     <a class="version" href="../1.0.x/mapping/response.html">1.0.x</a>
   </div>
 </div>
@@ -261,29 +265,32 @@ which is a list of global response mappings.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> - content: ..
-   to: ..
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> - content: {content type}  =&gt;  {target type}
    generics:
-     - ..
-     - ..</code></pre>
+     - {a generic type}
+     - {another generic type}</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>content</strong> and <strong>to</strong> are required.</p>
+<p><strong>content</strong> is required.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>{content type}</strong> is the name of the content type of the endpoint response that should be replaced
+by <strong>{target type}</strong>.</p>
 </li>
 <li>
-<p><strong>content</strong> is the name of the content type of the endpoint response that should be replaced
-by <strong>to</strong>.</p>
+<p><strong>{target type}</strong> is the fully qualified class name of the java type that should be used for all
+endpoint content types <strong>{content type}</strong>.</p>
 </li>
-<li>
-<p><strong>to</strong> is the fully qualified class name of the java type that should be used for all endpoint
-content types with name <strong>content</strong>.</p>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>generics</strong> defines the list of types that should be used as generic type parameters to the
-java type given by <strong>to</strong>.</p>
+java type given by <strong>{target type}</strong>.</p>
 </li>
 </ul>
 </div>
@@ -318,10 +325,9 @@ example of <code>application/json</code> does not look like a good idea.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
 
-  # list of global parameter mappings, mapped by parameter name
+  # list of global response mappings, mapped by content type
   responses:
-    - content: application/vnd.something
-      to: com.github.hauner.openapi.Something</code></pre>
+    - content: application/vnd.something =&gt; com.github.hauner.openapi.Something</code></pre>
 </div>
 </div>
 <div class="paragraph">
