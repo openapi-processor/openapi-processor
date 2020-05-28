@@ -9,6 +9,7 @@ content:
   - url: https://github.com/hauner/openapi-processor-spring
     start_path: docs
     branches: [master, 1.0.x]
+    tags: [v1.0.0.M14]
 #  - url: ../openapi-processor-json
   - url: https://github.com/hauner/openapi-processor-json
     start_path: docs
@@ -46,6 +47,3 @@ output:
   dir: ./docs
 #  destinations:
 #  - provider: archive
-
-# branches allows lists
-# branches: [v2.0, v1.0]
