@@ -1,5 +1,5 @@
 name: oap
 title: oap
-version: master
+version: home
 nav:
 - modules/ROOT/nav.adoc
