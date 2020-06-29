@@ -2,256 +2,74 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>using Spring Pageable &amp; Page :: openapi-processor</title>
-    <link rel="canonical" href="https://hauner.github.io/openapi-processor/spring/howto/pageable-page-mapping.html">
-    <meta name="generator" content="Antora 2.3.0-beta.2">
-    <link rel="stylesheet" href="../../../_/css/site.css">
-    <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<title>oap-spring :: openapi-processor</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="icon" type="image/png" href="../../../_/img/favicon.ico">
+<link rel="stylesheet" href="../../../_/css/oap.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
   </head>
-  <body class="article">
-<header class="header">
-  <nav class="navbar">
-    <div class="navbar-brand">
-      <img src="../../../_/img/openapi-processor-p.svg" alt="logo" width="100px">
-      <a class="navbar-item" href="https://hauner.github.io/openapi-processor">openapi-processor</a>
-      <button class="navbar-burger" data-target="topbar-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
 
-    <div id="topbar-nav" class="navbar-menu">
-      <div class="navbar-end">
+  <body class="text-green-900">
 
-            <a class="navbar-link-icon" href="https://openapi-processor-playground.appspot.com" target="_blank">
-<!--              <img src="../../../_/img/favicon.ico" alt="playground"> playground-->
-              <img src="../../../_/img/openapi-processor-p.svg" class="p" alt="playground"> playground
-            </a>
+    <header class="bg-white w-full fixed top-0 z-30">
 
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring" target="_blank">
-              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> spring
-            </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json" target="_blank">
-              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> json
-            </a>
-            <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle" target="_blank">
-              <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> gradle
-            </a>
+      <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
+        <img src="../../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <div class="text-2xl ml-16">
+          <a href="https://hauner.github.io/openapi-processor/index.html" class="ml-4 hover:text-gray-600">openapi-processor</a>
+        </div>
 
+        <div class="text-2xl">
+          <a href="https://openapi-processor-playground.appspot.com" target="_blank" class="hover:text-gray-600">
+            <i class="far fa-play-circle mr-1"></i>playground
+          </a>
+        </div>
       </div>
 
-    </div>
+    </header>
 
-  </nav>
-</header>
 
-<div class="body">
-<div class="nav-container" data-component="spring" data-version="1.0.0.M14">
-  <aside class="nav">
-    <div class="panels">
-<div class="nav-panel-menu is-active" data-panel="menu">
-  <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">oap-spring</a></h3>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Introduction</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../processor/index.html">The Processor</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/configuration.html">Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/endpoint-interface.html">Endpoint Grouping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/endpoint-content.html">Endpoint Content Type</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/models.html">Models</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/parameter.html">Parameter</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/requestbody.html">Request Body</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/response.html">Responses</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../processor/identifier.html">Identifier</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../mapping/index.html">Type Mapping</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/structure.html">Type Mapping Structure</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/basic.html">Default Type Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/global.html">Global Type Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/parameter.html">Global Parameter Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/response.html">Global Response Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/result.html">Global Result Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/single.html">Global Single Result Mapping</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../mapping/endpoint.html">Endpoint Mapping</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../gradle.html">Gradle Integration</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">HowTo</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Mapping</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="global-array-mapping.html">Global Array Mapping</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="pageable-page-mapping.html">Pageable &amp; Page Mapping</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">OpenAPI</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="file_upload.html">File Upload</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="file_download.html">File Download</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../links.html">Links</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </nav>
-</div>
-<div class="nav-panel-explore" data-panel="explore">
-  <div class="context">
-    <span class="title">oap-spring</span>
-    <span class="version">1.0.0.M14</span>
-  </div>
-  <ul class="components">
-    <li class="component">
-      <span class="title">oap-api</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../api/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">oap-gradle</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../gradle/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">oap-json</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../json/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <span class="title">oap-spring</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../index.html">master</a>
-        </li>
-        <li class="version is-current">
-          <a href="../index.html">1.0.0.M14</a>
-        </li>
-        <li class="version">
-          <a href="../../1.0.x/index.html">1.0.x</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">oap-spring-mvc-sample</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../spring-mvc-sample/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">oap-spring-webflux-sample</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../spring-webflux-sample/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
-    </div>
-  </aside>
-</div>
-<main class="article">
-<div class="toolbar" role="navigation">
-<button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
-  <div class="edit-this-page"><a href="https://github.com/hauner/openapi-processor-spring/blob/v1.0.0.M14/docs/modules/ROOT/pages/howto/pageable-page-mapping.adoc">edit</a></div>
-    <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">1.0.0.M14</button>
-  <div class="version-menu">
-    <a class="version" href="../../howto/pageable-page-mapping.html">master</a>
-    <a class="version is-current" href="pageable-page-mapping.html">1.0.0.M14</a>
-    <a class="version" href="../../1.0.x/howto/pageable-page-mapping.html">1.0.x</a>
-  </div>
-</div>
-<nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">oap-spring</a></li>
-    <li><a href="index.html">HowTo</a></li>
-    <li>Mapping</li>
-    <li><a href="pageable-page-mapping.html">Pageable &amp; Page Mapping</a></li>
+    <main class="m-0 lg:px-5 mt-16 max-w-screen-xl mx-auto">
+
+      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh">
+
+        <section class="flex-col lg:flex-grow lg:w-main px-4">
+
+          <div class="hidden md:flex md:justify-between md:sticky md:top-sidebar md:ml-4 bg-white text-sm py-2 border-b z-20">
+
+            <div class="flex">
+              <div class="mr-1">
+                  <a href="../../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                    <i class="fas fa-home"></i>
+                  </a>
+              </div>
+
+              <div>
+                <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul class="flex text-gray-500">
+    <li><a href="../index.html" class="hover:text-green-600">oap-spring</a></li>
+    <li><a href="index.html" class="hover:text-green-600">HowTo</a></li>
+    <li><span>Mapping</span></li>
+    <li><a href="pageable-page-mapping.html" class="hover:text-green-600">Pageable &amp; Page Mapping</a></li>
   </ul>
 </nav>
-</div>
-  <div class="content">
-<article class="doc">
-<h1 class="page">using Spring Pageable &amp; Page</h1>
-<div class="paragraph">
+              </div>
+            </div>
+
+            <div class="ml-1 text-gray-500 hover:text-green-600">
+              <a href="https://github.com/openapi-processor/openapi-processor-spring/edit/1.0.0.M14/docs/modules/ROOT/pages/howto/pageable-page-mapping.adoc"><i class="fas fa-pen"></i></a>
+                          </div>
+
+          </div>
+
+          <article class="bg-white py-4 doc">
+            <h1 class="page">using Spring Pageable &amp; Page</h1>
+            <div class="paragraph">
 <p>The given (lengthy) openapi yaml example describes a pageable api in two variations. The <code>/page</code>
 endpoint uses named objects, and the second endpoint <code>/page-inline</code> uses inline objects to describe
 the paging parameters and the page response. We fill focus on the first variation.</p>
@@ -482,54 +300,401 @@ endpoints.</p>
 <p>Worth mentioning is that the processor will not generate model classes for the openapi types
 <code>Pageable</code>, <code>Page</code>, <code>StringContent</code> or <code>StringPage</code>.</p>
 </div>
-</article>
-<aside class="toc sidebar" data-title="Contents" data-levels="2">
-  <div class="toc-menu"></div>
-</aside>
-  </div>
-</main>
-</div>
-<footer class="footer">
+          </article>
 
-  <div class="footer-grid">
+          <div class="bg-white text-gray-500 text-sm hidden sm:block">
 
-    <div class="main">
 
-      <div class="footer-logo-title">
-        <img src="../../../_/img/openapi-processor-p.svg" alt="logo" width="40px">
-        <strong>openapi-processor</strong>
+          </div>
+
+        </section>
+
+        <aside class="lg:w-sidebar x-bg-gray-100 px-4 py-3 divide-y">
+
+          <section class="mb-2">
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap</span>
+
+                  <div>
+
+
+                      <a href="/oap/home/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >home</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap-api</span>
+
+                  <div>
+
+
+                      <a href="/api/1.1/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >1.1</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap-gradle</span>
+
+                  <div>
+
+
+                      <a href="/gradle/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >master</a>
+
+
+
+
+
+                      <a href="/gradle/1.0.0.M8/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >1.0.0.M8</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap-json</span>
+
+                  <div>
+
+
+                      <a href="/json/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >master</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="font-bold">oap-spring</span>
+
+                  <div>
+
+
+                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
+                      >master</a>
+
+
+
+
+
+                      <a href="/spring/1.0.0.M14/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
+                      >1.0.0.M14</a>
+
+
+
+
+
+                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
+                      >1.0.x</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap-spring-mvc-sample</span>
+
+                  <div>
+
+
+                      <a href="/spring-mvc-sample/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >master</a>
+
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap justify-between items-center">
+
+                  <span class="">oap-spring-webflux-sample</span>
+
+                  <div>
+
+
+                      <a href="/spring-webflux-sample/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      >master</a>
+
+
+
+                  </div>
+
+                </div>
+
+          </section>
+
+          <section class="lg:sticky pt-2" style="top: 3.95rem">
+
+            <div class="text-xl font-bold text-green-700">oap-spring</div>
+
+
+                <div class="pl-0">
+                  <a href="../index.html" class="hover:text-green-600 ">Introduction</a>
+                </div>
+
+
+                <div class="pl-0">
+                  <a href="../processor/index.html" class="hover:text-green-600 ">The Processor</a>
+                </div>
+
+                  <div class="pl-4">
+                    <a href="../processor/configuration.html" class="hover:text-green-600 ">Configuration</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/endpoint-interface.html" class="hover:text-green-600 ">Endpoint Grouping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/endpoint-content.html" class="hover:text-green-600 ">Endpoint Content Type</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/models.html" class="hover:text-green-600 ">Models</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/parameter.html" class="hover:text-green-600 ">Parameter</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/requestbody.html" class="hover:text-green-600 ">Request Body</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/response.html" class="hover:text-green-600 ">Responses</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../processor/identifier.html" class="hover:text-green-600 ">Identifier</a>
+                  </div>
+
+
+
+                <div class="pl-0">
+                  <a href="../mapping/index.html" class="hover:text-green-600 ">Type Mapping</a>
+                </div>
+
+                  <div class="pl-4">
+                    <a href="../mapping/structure.html" class="hover:text-green-600 ">Type Mapping Structure</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/basic.html" class="hover:text-green-600 ">Default Type Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/global.html" class="hover:text-green-600 ">Global Type Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/parameter.html" class="hover:text-green-600 ">Global Parameter Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/response.html" class="hover:text-green-600 ">Global Response Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/result.html" class="hover:text-green-600 ">Global Result Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/single.html" class="hover:text-green-600 ">Global Single Result Mapping</a>
+                  </div>
+
+
+                  <div class="pl-4">
+                    <a href="../mapping/endpoint.html" class="hover:text-green-600 ">Endpoint Mapping</a>
+                  </div>
+
+
+
+                <div class="pl-0">
+                  <a href="../gradle.html" class="hover:text-green-600 ">Gradle Integration</a>
+                </div>
+
+
+                <div class="pl-0">
+                  <a href="index.html" class="hover:text-green-600 ">HowTo</a>
+                </div>
+
+                  <div class="pl-4">
+                    <a href="#" class="hover:text-green-600 ">Mapping</a>
+                  </div>
+
+                    <div class="pl-8">
+                      <a href="global-array-mapping.html" class="hover:text-green-600 ">Global Array Mapping</a>
+                    </div>
+                    <div class="pl-8">
+                      <a href="pageable-page-mapping.html" class="hover:text-green-600 font-bold">Pageable &amp; Page Mapping</a>
+                    </div>
+
+                  <div class="pl-4">
+                    <a href="#" class="hover:text-green-600 ">OpenAPI</a>
+                  </div>
+
+                    <div class="pl-8">
+                      <a href="file_upload.html" class="hover:text-green-600 ">File Upload</a>
+                    </div>
+                    <div class="pl-8">
+                      <a href="file_download.html" class="hover:text-green-600 ">File Download</a>
+                    </div>
+
+
+                <div class="pl-0">
+                  <a href="../links.html" class="hover:text-green-600 ">Links</a>
+                </div>
+
+
+
+
+          </section>
+
+        </aside>
+
       </div>
 
-      <div class="footer-license">
-        <div><strong>License</strong></div>
-        <div>
-          openapi-processor packages spring, json & gradle are distributed by
-          <a href="https://www.apache.org/licenses/LICENSE-2.0.txt"> Apache License 2.0</a>.
+      <footer class="p-6 mt-4 border footer sticky" style="bottom: -20rem">
+
+        <div class="text-gray-700 text-sm flex justify-between">
+
+          <div class="flex-none w-48 mr-12">
+            <img src="../../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+
+            <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
+          </div>
+
+          <div class="flex justify-between flex-col lg:flex-row">
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Twitter</div>
+
+              <a class="" href="https://twitter.com/OpenApiProcess">
+                <i class="fab fa-twitter"></i> @OpenApiProcess
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Samples - GitHub</div>
+
+              <a class="" href="https://github.com/hauner/openapi-processor-spring-mvc-sample">
+                <i class="fab fa-github"></i> oap-spring-mvc
+              </a>
+
+              <a class="" href="https://github.com/hauner/openapi-processor-spring-webflux-sample">
+                <i class="fab fa-github"></i> oap-spring-webflux
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Plugin - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-gradle">
+                <i class="fab fa-github"></i> oap-gradle
+              </a>
+            </div>
+
+            <div class="flex flex-col mr-12">
+              <div class="font-bold">Processors - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-spring">
+                <i class="fab fa-github"></i> oap-spring
+              </a>
+
+<!--              <a class="" href="https://github.com/openapi-processor/openapi-processor-micronaut">-->
+<!--                <i class="fab fa-github"></i> openapi-processor-micronaut-->
+<!--              </a>-->
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-json">
+                <i class="fab fa-github"></i> oap-json
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-core">
+                <i class="fab fa-github"></i> oap-core
+              </a>
+
+            </div>
+          </div>
+
+
         </div>
-      </div>
 
-    </div>
+      </footer>
 
-    <div class="gh">
-        <div class="footer-title">GitHub</div>
+    </main>
 
-        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-spring">
-          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-spring
-        </a>
+    <script async src="../../../_/js/vendor/highlight.js"></script>
 
-        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-json">
-          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-json
-        </a>
+    <!--
+      site: {"title":"openapi-processor","contentCatalog":{},"path":"/openapi-processor","url":"https://hauner.github.io/openapi-processor","homeUrl":"/oap/home/index.html","components":{"oap":{"name":"oap","latest":{"displayVersion":"home","title":"oap","version":"home","name":"oap","url":"/oap/home/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/oap/home/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"home","title":"oap","version":"home","name":"oap","url":"/oap/home/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/oap/home/index.html","urlType":"internal"}],"root":true,"order":0}]}]},"api":{"name":"api","latest":{"displayVersion":"1.1","title":"oap-api","version":"1.1","name":"api","url":"/api/1.1/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/api/1.1/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"1.1","title":"oap-api","version":"1.1","name":"api","url":"/api/1.1/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/api/1.1/index.html","urlType":"internal"}],"root":true,"order":0}]}]},"gradle":{"name":"gradle","latest":{"displayVersion":"master","title":"oap-gradle","version":"master","name":"gradle","url":"/gradle/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/gradle/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-gradle","version":"master","name":"gradle","url":"/gradle/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/gradle/index.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.0.M8","title":"oap-gradle","version":"1.0.0.M8","name":"gradle","url":"/gradle/1.0.0.M8/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/gradle/1.0.0.M8/index.html","urlType":"internal"}],"root":true,"order":0}]}]},"json":{"name":"json","latest":{"displayVersion":"master","title":"oap-json","version":"master","name":"json","url":"/json/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/json/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-json","version":"master","name":"json","url":"/json/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/json/index.html","urlType":"internal"}],"root":true,"order":0}]}]},"spring":{"name":"spring","latest":{"displayVersion":"master","title":"oap-spring","version":"master","name":"spring","url":"/spring/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/links.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-spring","version":"master","name":"spring","url":"/spring/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.0.M14","title":"oap-spring","version":"1.0.0.M14","name":"spring","url":"/spring/1.0.0.M14/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.0.M14/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.0.M14/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.0.M14/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.0.M14/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.0.M14/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.0.M14/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.0.M14/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.0.M14/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.0.M14/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.0.M14/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.0.M14/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.0.M14/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.0.M14/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.0.M14/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.0.M14/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.0.M14/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.0.M14/mapping/result.html","urlType":"internal"},{"content":"Global Single Result Mapping","url":"/spring/1.0.0.M14/mapping/single.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.0.M14/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.0.M14/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.0.M14/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.x","title":"oap-spring","version":"1.0.x","name":"spring","url":"/spring/1.0.x/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.x/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.x/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.x/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.x/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.x/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.x/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.x/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.x/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.x/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.x/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.x/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.x/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.x/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.x/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.x/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.x/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.x/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/1.0.x/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.x/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.x/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.x/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.x/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.x/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.x/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.x/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.x/links.html","urlType":"internal"}],"root":true,"order":0}]}]},"spring-mvc-sample":{"name":"spring-mvc-sample","latest":{"displayVersion":"master","title":"oap-spring-mvc-sample","version":"master","name":"spring-mvc-sample","url":"/spring-mvc-sample/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/spring-mvc-sample/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-spring-mvc-sample","version":"master","name":"spring-mvc-sample","url":"/spring-mvc-sample/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/spring-mvc-sample/index.html","urlType":"internal"}],"root":true,"order":0}]}]},"spring-webflux-sample":{"name":"spring-webflux-sample","latest":{"displayVersion":"master","title":"oap-spring-webflux-sample","version":"master","name":"spring-webflux-sample","url":"/spring-webflux-sample/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/spring-webflux-sample/index.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-spring-webflux-sample","version":"master","name":"spring-webflux-sample","url":"/spring-webflux-sample/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Documentation","url":"/spring-webflux-sample/index.html","urlType":"internal"}],"root":true,"order":0}]}]}},"keys":{},"ui":{"url":"/_","defaultLayout":"oap"}}
+    -->
 
-        <a class="navbar-link-icon" href="https://github.com/hauner/openapi-processor-gradle">
-          <img src="../../../_/img/GitHub-Mark-32px.png" alt="GitHub"> openapi-processor-gradle
-        </a>
-    </div>
+    <!--
+      page: {"contents":{"type":"Buffer","data":[60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,84,104,101,32,103,105,118,101,110,32,40,108,101,110,103,116,104,121,41,32,111,112,101,110,97,112,105,32,121,97,109,108,32,101,120,97,109,112,108,101,32,100,101,115,99,114,105,98,101,115,32,97,32,112,97,103,101,97,98,108,101,32,97,112,105,32,105,110,32,116,119,111,32,118,97,114,105,97,116,105,111,110,115,46,32,84,104,101,32,60,99,111,100,101,62,47,112,97,103,101,60,47,99,111,100,101,62,10,101,110,100,112,111,105,110,116,32,117,115,101,115,32,110,97,109,101,100,32,111,98,106,101,99,116,115,44,32,97,110,100,32,116,104,101,32,115,101,99,111,110,100,32,101,110,100,112,111,105,110,116,32,60,99,111,100,101,62,47,112,97,103,101,45,105,110,108,105,110,101,60,47,99,111,100,101,62,32,117,115,101,115,32,105,110,108,105,110,101,32,111,98,106,101,99,116,115,32,116,111,32,100,101,115,99,114,105,98,101,10,116,104,101,32,112,97,103,105,110,103,32,112,97,114,97,109,101,116,101,114,115,32,97,110,100,32,116,104,101,32,112,97,103,101,32,114,101,115,112,111,110,115,101,46,32,87,101,32,102,105,108,108,32,102,111,99,117,115,32,111,110,32,116,104,101,32,102,105,114,115,116,32,118,97,114,105,97,116,105,111,110,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,108,105,115,116,105,110,103,98,108,111,99,107,34,62,10,60,100,105,118,32,99,108,97,115,115,61,34,99,111,110,116,101,110,116,34,62,10,60,112,114,101,32,99,108,97,115,115,61,34,104,105,103,104,108,105,103,104,116,106,115,32,104,105,103,104,108,105,103,104,116,34,62,60,99,111,100,101,32,99,108,97,115,115,61,34,108,97,110,103,117,97,103,101,45,121,97,109,108,32,104,108,106,115,34,32,100,97,116,97,45,108,97,110,103,61,34,121,97,109,108,34,62,111,112,101,110,97,112,105,58,32,51,46,48,46,50,10,105,110,102,111,58,10,32,32,116,105,116,108,101,58,32,83,112,114,105,110,103,32,80,97,103,101,47,80,97,103,101,97,98,108,101,32,65,80,73,10,32,32,118,101,114,115,105,111,110,58,32,49,46,48,46,48,10,10,112,97,116,104,115,58,10,32,32,47,112,97,103,101,58,10,32,32,32,32,103,101,116,58,10,32,32,32,32,32,32,112,97,114,97,109,101,116,101,114,115,58,10,32,32,32,32,32,32,32,32,45,32,105,110,58,32,113,117,101,114,121,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,49,34,62,60,47,105,62,60,98,62,40,49,41,60,47,98,62,10,32,32,32,32,32,32,32,32,32,32,110,97,109,101,58,32,112,97,103,101,97,98,108,101,10,32,32,32,32,32,32,32,32,32,32,114,101,113,117,105,114,101,100,58,32,102,97,108,115,101,10,32,32,32,32,32,32,32,32,32,32,115,99,104,101,109,97,58,10,32,32,32,32,32,32,32,32,32,32,32,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,80,97,103,101,97,98,108,101,39,10,32,32,32,32,32,32,114,101,115,112,111,110,115,101,115,58,10,32,32,32,32,32,32,32,32,39,50,48,48,39,58,10,32,32,32,32,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,110,111,110,101,10,32,32,32,32,32,32,32,32,32,32,99,111,110,116,101,110,116,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,50,34,62,60,47,105,62,60,98,62,40,50,41,60,47,98,62,10,32,32,32,32,32,32,32,32,32,32,32,32,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,115,99,104,101,109,97,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,83,116,114,105,110,103,80,97,103,101,39,10,10,32,32,47,112,97,103,101,45,105,110,108,105,110,101,58,10,32,32,32,32,103,101,116,58,10,32,32,32,32,32,32,112,97,114,97,109,101,116,101,114,115,58,10,32,32,32,32,32,32,32,32,45,32,105,110,58,32,113,117,101,114,121,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,51,34,62,60,47,105,62,60,98,62,40,51,41,60,47,98,62,10,32,32,32,32,32,32,32,32,32,32,110,97,109,101,58,32,112,97,103,101,97,98,108,101,10,32,32,32,32,32,32,32,32,32,32,114,101,113,117,105,114,101,100,58,32,102,97,108,115,101,10,32,32,32,32,32,32,32,32,32,32,115,99,104,101,109,97,58,10,32,32,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,32,32,32,32,32,32,112,114,111,112,101,114,116,105,101,115,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,112,97,103,101,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,115,105,122,101,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,32,32,32,32,32,32,114,101,115,112,111,110,115,101,115,58,10,32,32,32,32,32,32,32,32,39,50,48,48,39,58,10,32,32,32,32,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,110,111,110,101,10,32,32,32,32,32,32,32,32,32,32,99,111,110,116,101,110,116,58,10,32,32,32,32,32,32,32,32,32,32,32,32,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,115,99,104,101,109,97,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,52,34,62,60,47,105,62,60,98,62,40,52,41,60,47,98,62,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,97,108,108,79,102,58,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,45,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,80,97,103,101,39,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,45,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,83,116,114,105,110,103,67,111,110,116,101,110,116,39,10,10,99,111,109,112,111,110,101,110,116,115,58,10,32,32,115,99,104,101,109,97,115,58,10,10,32,32,32,32,80,97,103,101,97,98,108,101,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,53,34,62,60,47,105,62,60,98,62,40,53,41,60,47,98,62,10,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,109,105,110,105,109,97,108,32,80,97,103,101,97,98,108,101,32,113,117,101,114,121,32,112,97,114,97,109,101,116,101,114,115,10,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,112,114,111,112,101,114,116,105,101,115,58,10,32,32,32,32,32,32,32,32,112,97,103,101,58,10,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,32,32,32,32,32,32,32,32,115,105,122,101,58,10,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,10,32,32,32,32,80,97,103,101,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,54,34,62,60,47,105,62,60,98,62,40,54,41,60,47,98,62,10,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,109,105,110,105,109,97,108,32,80,97,103,101,32,114,101,115,112,111,110,115,101,32,119,105,116,104,111,117,116,32,99,111,110,116,101,110,116,32,112,114,111,112,101,114,116,121,10,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,112,114,111,112,101,114,116,105,101,115,58,10,32,32,32,32,32,32,32,32,110,117,109,98,101,114,58,10,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,32,32,32,32,32,32,32,32,115,105,122,101,58,10,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,105,110,116,101,103,101,114,10,10,32,32,32,32,83,116,114,105,110,103,67,111,110,116,101,110,116,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,55,34,62,60,47,105,62,60,98,62,40,55,41,60,47,98,62,10,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,115,112,101,99,105,102,105,99,32,99,111,110,116,101,110,116,32,76,105,115,116,32,111,102,32,116,104,101,32,80,97,103,101,32,114,101,115,112,111,110,115,101,10,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,112,114,111,112,101,114,116,105,101,115,58,10,32,32,32,32,32,32,32,32,99,111,110,116,101,110,116,58,10,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,97,114,114,97,121,10,32,32,32,32,32,32,32,32,32,32,105,116,101,109,115,58,10,32,32,32,32,32,32,32,32,32,32,32,32,116,121,112,101,58,32,115,116,114,105,110,103,10,10,32,32,32,32,83,116,114,105,110,103,80,97,103,101,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,56,34,62,60,47,105,62,60,98,62,40,56,41,60,47,98,62,10,32,32,32,32,32,32,100,101,115,99,114,105,112,116,105,111,110,58,32,116,121,112,101,100,32,80,97,103,101,10,32,32,32,32,32,32,116,121,112,101,58,32,111,98,106,101,99,116,10,32,32,32,32,32,32,97,108,108,79,102,58,10,32,32,32,32,32,32,32,32,45,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,80,97,103,101,39,10,32,32,32,32,32,32,32,32,45,32,36,114,101,102,58,32,39,35,47,99,111,109,112,111,110,101,110,116,115,47,115,99,104,101,109,97,115,47,83,116,114,105,110,103,67,111,110,116,101,110,116,39,60,47,99,111,100,101,62,60,47,112,114,101,62,10,60,47,100,105,118,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,99,111,108,105,115,116,32,97,114,97,98,105,99,34,62,10,60,116,97,98,108,101,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,49,34,62,60,47,105,62,60,98,62,49,60,47,98,62,60,47,116,100,62,10,60,116,100,62,68,101,115,99,114,105,98,105,110,103,32,116,104,101,32,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,113,117,101,114,121,32,112,97,114,97,109,101,116,101,114,115,32,60,99,111,100,101,62,112,97,103,101,60,47,99,111,100,101,62,44,32,60,99,111,100,101,62,115,105,122,101,60,47,99,111,100,101,62,32,101,116,99,32,105,110,32,79,112,101,110,65,80,73,32,97,115,32,97,110,32,60,99,111,100,101,62,111,98,106,101,99,116,60,47,99,111,100,101,62,32,108,101,116,115,32,117,115,10,103,114,111,117,112,32,116,104,101,32,112,97,114,97,109,101,116,101,114,115,46,32,84,104,97,116,32,116,101,108,108,115,32,97,32,114,101,97,100,101,114,32,111,102,32,116,104,101,32,97,112,105,32,116,104,97,116,32,116,104,101,121,32,98,101,108,111,110,103,32,116,111,103,101,116,104,101,114,44,32,97,110,100,32,119,101,32,99,97,110,32,97,118,111,105,100,10,99,111,110,102,117,115,105,111,110,32,119,104,101,110,32,116,104,101,114,101,32,97,114,101,32,109,111,114,101,32,113,117,101,114,121,32,112,97,114,97,109,101,116,101,114,115,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,50,34,62,60,47,105,62,60,98,62,50,60,47,98,62,60,47,116,100,62,10,60,116,100,62,68,101,115,99,114,105,98,105,110,103,32,116,104,101,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,114,101,115,117,108,116,32,105,115,32,97,32,98,105,116,32,109,111,114,101,32,99,111,109,112,108,105,99,97,116,101,100,46,32,79,112,101,110,65,80,73,32,100,111,101,115,32,110,111,116,32,104,97,118,101,32,103,101,110,101,114,105,99,32,116,121,112,101,115,10,119,104,105,99,104,32,119,101,32,119,111,117,108,100,32,108,105,107,101,32,116,111,32,104,97,118,101,32,116,111,32,100,101,102,105,110,101,32,119,104,97,116,32,116,121,112,101,32,105,115,32,105,110,32,116,104,101,32,99,111,110,116,101,110,116,32,108,105,115,116,32,111,102,32,116,104,101,32,112,97,103,101,46,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,84,104,101,32,98,101,115,116,32,79,112,101,110,65,80,73,32,119,97,121,32,105,115,32,116,111,32,100,101,102,105,110,101,32,116,119,111,32,111,98,106,101,99,116,115,46,32,84,104,101,32,102,105,114,115,116,32,111,110,101,32,100,101,115,99,114,105,98,101,115,32,116,104,101,32,99,111,109,109,111,110,32,112,114,111,112,101,114,116,105,101,115,32,111,102,32,116,104,101,10,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,114,101,115,112,111,110,115,101,44,32,97,110,100,32,116,104,101,32,115,101,99,111,110,100,32,111,110,101,32,116,104,101,32,99,111,110,116,101,110,116,32,108,105,115,116,32,111,102,32,116,104,101,32,112,97,103,101,46,32,73,110,32,116,104,105,115,32,101,120,97,109,112,108,101,32,116,104,101,32,60,99,111,100,101,62,83,116,114,105,110,103,67,111,110,116,101,110,116,60,47,99,111,100,101,62,10,119,105,116,104,32,97,110,32,97,114,114,97,121,32,111,102,32,60,99,111,100,101,62,115,116,114,105,110,103,60,47,99,111,100,101,62,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,85,115,105,110,103,32,79,112,101,110,65,80,73,115,32,60,99,111,100,101,62,97,108,108,79,102,60,47,99,111,100,101,62,32,99,111,110,115,116,114,117,99,116,32,119,101,32,106,111,105,110,32,98,111,116,104,32,111,98,106,101,99,116,115,32,116,111,32,100,101,115,99,114,105,98,101,32,97,32,99,111,109,112,108,101,116,101,32,114,101,115,112,111,110,115,101,32,116,104,97,116,10,99,111,114,114,101,115,112,111,110,100,115,32,116,111,32,97,32,83,112,114,105,110,103,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,83,112,108,105,116,116,105,110,103,32,116,104,101,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,105,115,32,117,115,101,102,117,108,32,116,111,111,32,105,102,32,119,101,32,104,97,118,101,32,109,117,108,116,105,112,108,101,32,101,110,100,112,111,105,110,116,115,32,119,105,116,104,32,112,97,103,105,110,103,32,98,101,99,97,117,115,101,32,119,101,32,100,111,10,110,111,116,32,104,97,118,101,32,116,111,32,114,101,112,101,97,116,32,116,104,101,32,99,111,109,109,111,110,32,112,114,111,112,101,114,116,105,101,115,32,102,111,114,32,101,118,101,114,121,32,101,110,100,112,111,105,110,116,46,60,47,112,62,10,60,47,100,105,118,62,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,51,34,62,60,47,105,62,60,98,62,51,60,47,98,62,60,47,116,100,62,10,60,116,100,62,73,110,108,105,110,101,32,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,100,101,102,105,110,105,116,105,111,110,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,52,34,62,60,47,105,62,60,98,62,52,60,47,98,62,60,47,116,100,62,10,60,116,100,62,80,97,114,116,105,97,108,32,105,110,108,105,110,101,32,100,101,102,105,110,105,116,105,111,110,32,111,102,32,116,104,101,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,46,32,84,104,105,115,32,99,97,110,32,98,101,32,97,32,117,115,101,102,117,108,32,112,97,116,116,101,114,110,32,98,101,99,97,117,115,101,32,105,116,32,97,118,111,105,100,115,10,116,104,101,32,101,120,116,114,97,32,60,99,111,100,101,62,83,116,114,105,110,103,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,53,34,62,60,47,105,62,60,98,62,53,60,47,98,62,60,47,116,100,62,10,60,116,100,62,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,105,116,105,111,110,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,54,34,62,60,47,105,62,60,98,62,54,60,47,98,62,60,47,116,100,62,10,60,116,100,62,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,105,116,105,111,110,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,55,34,62,60,47,105,62,60,98,62,55,60,47,98,62,60,47,116,100,62,10,60,116,100,62,60,99,111,100,101,62,83,116,114,105,110,103,67,111,110,116,101,110,116,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,105,116,105,111,110,46,32,83,101,101,32,50,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,56,34,62,60,47,105,62,60,98,62,56,60,47,98,62,60,47,116,100,62,10,60,116,100,62,60,99,111,100,101,62,83,116,114,105,110,103,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,105,116,105,111,110,46,32,83,101,101,32,50,46,60,47,116,100,62,10,60,47,116,114,62,10,60,47,116,97,98,108,101,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,84,104,101,32,112,114,111,99,101,115,115,111,114,32,100,111,101,115,32,99,114,101,97,116,101,32,97,32,112,114,111,112,101,114,32,105,110,116,101,114,102,97,99,101,32,119,105,116,104,32,98,111,116,104,32,101,110,100,112,111,105,110,116,115,32,105,102,32,119,101,32,112,114,111,118,105,100,101,32,97,32,116,121,112,101,32,109,97,112,112,105,110,103,115,32,102,111,114,10,116,104,101,32,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,97,110,100,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,116,121,112,101,115,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,72,101,114,101,32,105,115,32,116,104,101,32,106,97,118,97,32,99,111,100,101,32,119,101,32,101,120,112,101,99,116,58,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,108,105,115,116,105,110,103,98,108,111,99,107,34,62,10,60,100,105,118,32,99,108,97,115,115,61,34,99,111,110,116,101,110,116,34,62,10,60,112,114,101,32,99,108,97,115,115,61,34,104,105,103,104,108,105,103,104,116,106,115,32,104,105,103,104,108,105,103,104,116,34,62,60,99,111,100,101,32,99,108,97,115,115,61,34,108,97,110,103,117,97,103,101,45,106,97,118,97,32,104,108,106,115,34,32,100,97,116,97,45,108,97,110,103,61,34,106,97,118,97,34,62,112,97,99,107,97,103,101,32,103,101,110,101,114,97,116,101,100,46,97,112,105,59,10,10,105,109,112,111,114,116,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,59,10,105,109,112,111,114,116,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,97,98,108,101,59,10,105,109,112,111,114,116,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,104,116,116,112,46,82,101,115,112,111,110,115,101,69,110,116,105,116,121,59,10,105,109,112,111,114,116,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,119,101,98,46,98,105,110,100,46,97,110,110,111,116,97,116,105,111,110,46,71,101,116,77,97,112,112,105,110,103,59,10,10,112,117,98,108,105,99,32,105,110,116,101,114,102,97,99,101,32,65,112,105,32,123,10,10,32,32,32,32,64,71,101,116,77,97,112,112,105,110,103,40,10,32,32,32,32,32,32,32,32,32,32,32,32,112,97,116,104,32,61,32,34,47,112,97,103,101,34,44,10,32,32,32,32,32,32,32,32,32,32,32,32,112,114,111,100,117,99,101,115,32,61,32,123,34,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110,34,125,41,10,32,32,32,32,82,101,115,112,111,110,115,101,69,110,116,105,116,121,38,108,116,59,80,97,103,101,38,108,116,59,83,116,114,105,110,103,38,103,116,59,38,103,116,59,32,103,101,116,80,97,103,101,40,80,97,103,101,97,98,108,101,32,112,97,103,101,97,98,108,101,41,59,10,10,32,32,32,32,64,71,101,116,77,97,112,112,105,110,103,40,10,32,32,32,32,32,32,32,32,32,32,32,32,112,97,116,104,32,61,32,34,47,112,97,103,101,45,105,110,108,105,110,101,34,44,10,32,32,32,32,32,32,32,32,32,32,32,32,112,114,111,100,117,99,101,115,32,61,32,123,34,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110,34,125,41,10,32,32,32,32,82,101,115,112,111,110,115,101,69,110,116,105,116,121,38,108,116,59,80,97,103,101,38,108,116,59,83,116,114,105,110,103,38,103,116,59,38,103,116,59,32,103,101,116,80,97,103,101,73,110,108,105,110,101,40,80,97,103,101,97,98,108,101,32,112,97,103,101,97,98,108,101,41,59,10,10,125,60,47,99,111,100,101,62,60,47,112,114,101,62,10,60,47,100,105,118,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,97,110,100,32,104,101,114,101,32,105,115,32,116,104,101,32,114,101,113,117,105,114,101,100,32,109,97,112,112,105,110,103,58,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,85,115,105,110,103,32,110,97,109,101,100,32,111,98,106,101,99,116,115,32,105,110,32,79,112,101,110,65,80,73,32,97,108,108,32,119,101,32,110,101,101,100,32,105,115,32,116,119,111,32,103,108,111,98,97,108,32,116,121,112,101,32,109,97,112,112,105,110,103,115,46,32,84,104,101,32,109,97,112,112,105,110,103,115,32,98,101,108,111,119,32,116,104,101,10,60,99,111,100,101,62,112,97,103,101,45,105,110,108,105,110,101,60,47,99,111,100,101,62,32,101,110,100,112,111,105,110,116,32,100,111,32,116,104,101,32,115,97,109,101,32,102,111,114,32,116,104,101,32,105,110,108,105,110,101,32,118,97,114,105,97,116,105,111,110,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,108,105,115,116,105,110,103,98,108,111,99,107,34,62,10,60,100,105,118,32,99,108,97,115,115,61,34,99,111,110,116,101,110,116,34,62,10,60,112,114,101,32,99,108,97,115,115,61,34,104,105,103,104,108,105,103,104,116,106,115,32,104,105,103,104,108,105,103,104,116,34,62,60,99,111,100,101,32,99,108,97,115,115,61,34,108,97,110,103,117,97,103,101,45,121,97,109,108,32,104,108,106,115,34,32,100,97,116,97,45,108,97,110,103,61,34,121,97,109,108,34,62,109,97,112,58,10,10,32,32,116,121,112,101,115,58,10,32,32,32,32,45,32,102,114,111,109,58,32,80,97,103,101,97,98,108,101,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,49,34,62,60,47,105,62,60,98,62,40,49,41,60,47,98,62,10,32,32,32,32,32,32,116,111,58,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,97,98,108,101,10,10,32,32,32,32,45,32,102,114,111,109,58,32,83,116,114,105,110,103,80,97,103,101,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,50,34,62,60,47,105,62,60,98,62,40,50,41,60,47,98,62,10,32,32,32,32,32,32,116,111,58,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,38,108,116,59,106,97,118,97,46,108,97,110,103,46,83,116,114,105,110,103,38,103,116,59,10,10,32,32,112,97,116,104,115,58,10,10,32,32,32,32,47,112,97,103,101,45,105,110,108,105,110,101,58,32,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,51,34,62,60,47,105,62,60,98,62,40,51,41,60,47,98,62,10,10,32,32,32,32,32,32,112,97,114,97,109,101,116,101,114,115,58,10,32,32,32,32,32,32,32,32,45,32,110,97,109,101,58,32,112,97,103,101,97,98,108,101,10,32,32,32,32,32,32,32,32,32,32,116,111,58,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,97,98,108,101,10,10,32,32,32,32,32,32,114,101,115,112,111,110,115,101,115,58,10,32,32,32,32,32,32,32,32,45,32,99,111,110,116,101,110,116,58,32,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110,10,32,32,32,32,32,32,32,32,32,32,116,111,58,32,111,114,103,46,115,112,114,105,110,103,102,114,97,109,101,119,111,114,107,46,100,97,116,97,46,100,111,109,97,105,110,46,80,97,103,101,38,108,116,59,106,97,118,97,46,108,97,110,103,46,83,116,114,105,110,103,38,103,116,59,60,47,99,111,100,101,62,60,47,112,114,101,62,10,60,47,100,105,118,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,99,111,108,105,115,116,32,97,114,97,98,105,99,34,62,10,60,116,97,98,108,101,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,49,34,62,60,47,105,62,60,98,62,49,60,47,98,62,60,47,116,100,62,10,60,116,100,62,116,104,105,115,32,109,97,112,115,32,116,104,101,32,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,101,100,32,105,110,32,116,104,101,32,79,112,101,110,65,80,73,32,116,111,32,83,112,114,105,110,103,115,32,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,32,116,121,112,101,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,50,34,62,60,47,105,62,60,98,62,50,60,47,98,62,60,47,116,100,62,10,60,116,100,62,116,104,105,115,32,109,97,112,115,32,116,104,101,32,60,99,111,100,101,62,83,116,114,105,110,103,80,97,103,101,60,47,99,111,100,101,62,32,111,98,106,101,99,116,32,100,101,102,105,110,101,100,32,105,110,32,116,104,101,32,79,112,101,110,65,80,73,32,116,111,32,83,112,114,105,110,103,115,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,32,116,121,112,101,32,105,110,99,108,117,100,105,110,103,32,116,104,101,10,103,101,110,101,114,105,99,32,116,121,112,101,32,111,102,32,116,104,101,32,112,97,103,101,32,60,99,111,100,101,62,99,111,110,116,101,110,116,60,47,99,111,100,101,62,46,60,47,116,100,62,10,60,47,116,114,62,10,60,116,114,62,10,60,116,100,62,60,105,32,99,108,97,115,115,61,34,99,111,110,117,109,34,32,100,97,116,97,45,118,97,108,117,101,61,34,51,34,62,60,47,105,62,60,98,62,51,60,47,98,62,60,47,116,100,62,10,60,116,100,62,109,97,112,112,105,110,103,32,102,111,114,32,116,104,101,32,105,110,108,105,110,101,32,118,101,114,115,105,111,110,46,60,47,116,100,62,10,60,47,116,114,62,10,60,47,116,97,98,108,101,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,85,115,117,97,108,108,121,32,121,111,117,32,119,111,117,108,100,32,117,115,101,32,116,104,101,32,102,105,114,115,116,32,118,97,114,105,97,116,105,111,110,32,117,115,105,110,103,32,110,97,109,101,100,32,111,98,106,101,99,116,115,44,32,115,111,32,116,104,101,121,32,99,97,110,32,98,101,32,114,101,45,117,115,101,100,32,111,110,32,111,116,104,101,114,10,101,110,100,112,111,105,110,116,115,46,60,47,112,62,10,60,47,100,105,118,62,10,60,100,105,118,32,99,108,97,115,115,61,34,112,97,114,97,103,114,97,112,104,34,62,10,60,112,62,87,111,114,116,104,32,109,101,110,116,105,111,110,105,110,103,32,105,115,32,116,104,97,116,32,116,104,101,32,112,114,111,99,101,115,115,111,114,32,119,105,108,108,32,110,111,116,32,103,101,110,101,114,97,116,101,32,109,111,100,101,108,32,99,108,97,115,115,101,115,32,102,111,114,32,116,104,101,32,111,112,101,110,97,112,105,32,116,121,112,101,115,10,60,99,111,100,101,62,80,97,103,101,97,98,108,101,60,47,99,111,100,101,62,44,32,60,99,111,100,101,62,80,97,103,101,60,47,99,111,100,101,62,44,32,60,99,111,100,101,62,83,116,114,105,110,103,67,111,110,116,101,110,116,60,47,99,111,100,101,62,32,111,114,32,60,99,111,100,101,62,83,116,114,105,110,103,80,97,103,101,60,47,99,111,100,101,62,46,60,47,112,62,10,60,47,100,105,118,62]},"layout":"oap","title":"using Spring Pageable &amp; Page","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","attributes":{"partial":"","component-name":"spring","version":"1.0.0.M14","component-version":"1.0.0.M14","component-display-version":"1.0.0.M14","component-title":"oap-spring","module":"ROOT","src-path":"howto/pageable-page-mapping.adoc","relative":"howto/pageable-page-mapping.adoc","origin-type":"git","origin-url":"https://github.com/openapi-processor/openapi-processor-spring","origin-start-path":"docs","origin-branch":"1.0.0.M14","origin-refname":"1.0.0.M14","origin-reftype":"branch","origin-refhash":"65a923c8421b738f8389c593902bd5a9d5673847"},"component":{"name":"spring","latest":{"displayVersion":"master","title":"oap-spring","version":"master","name":"spring","url":"/spring/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/links.html","urlType":"internal"}],"root":true,"order":0}]},"versions":[{"displayVersion":"master","title":"oap-spring","version":"master","name":"spring","url":"/spring/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.0.M14","title":"oap-spring","version":"1.0.0.M14","name":"spring","url":"/spring/1.0.0.M14/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.0.M14/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.0.M14/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.0.M14/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.0.M14/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.0.M14/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.0.M14/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.0.M14/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.0.M14/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.0.M14/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.0.M14/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.0.M14/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.0.M14/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.0.M14/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.0.M14/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.0.M14/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.0.M14/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.0.M14/mapping/result.html","urlType":"internal"},{"content":"Global Single Result Mapping","url":"/spring/1.0.0.M14/mapping/single.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.0.M14/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.0.M14/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.0.M14/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.x","title":"oap-spring","version":"1.0.x","name":"spring","url":"/spring/1.0.x/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.x/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.x/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.x/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.x/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.x/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.x/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.x/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.x/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.x/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.x/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.x/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.x/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.x/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.x/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.x/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.x/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.x/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/1.0.x/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.x/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.x/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.x/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.x/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.x/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.x/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.x/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.x/links.html","urlType":"internal"}],"root":true,"order":0}]}]},"version":"1.0.0.M14","displayVersion":"1.0.0.M14","componentVersion":{"displayVersion":"1.0.0.M14","title":"oap-spring","version":"1.0.0.M14","name":"spring","url":"/spring/1.0.0.M14/index.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.0.M14/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.0.M14/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.0.M14/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.0.M14/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.0.M14/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.0.M14/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.0.M14/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.0.M14/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.0.M14/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.0.M14/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.0.M14/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.0.M14/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.0.M14/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.0.M14/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.0.M14/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.0.M14/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.0.M14/mapping/result.html","urlType":"internal"},{"content":"Global Single Result Mapping","url":"/spring/1.0.0.M14/mapping/single.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.0.M14/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.0.M14/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.0.M14/links.html","urlType":"internal"}],"root":true,"order":0}]},"module":"ROOT","srcPath":"howto/pageable-page-mapping.adoc","origin":{"type":"git","startPath":"docs","url":"https://github.com/openapi-processor/openapi-processor-spring","branch":"1.0.0.M14","refhash":"65a923c8421b738f8389c593902bd5a9d5673847","editUrlPattern":"https://github.com/openapi-processor/openapi-processor-spring/edit/1.0.0.M14/docs/%s"},"versions":[{"latest":true,"displayVersion":"master","title":"oap-spring","version":"master","name":"spring","url":"/spring/howto/pageable-page-mapping.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.0.M14","title":"oap-spring","version":"1.0.0.M14","name":"spring","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.0.M14/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.0.M14/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.0.M14/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.0.M14/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.0.M14/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.0.M14/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.0.M14/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.0.M14/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.0.M14/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.0.M14/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.0.M14/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.0.M14/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.0.M14/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.0.M14/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.0.M14/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.0.M14/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.0.M14/mapping/result.html","urlType":"internal"},{"content":"Global Single Result Mapping","url":"/spring/1.0.0.M14/mapping/single.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.0.M14/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.0.M14/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.0.M14/links.html","urlType":"internal"}],"root":true,"order":0}]},{"displayVersion":"1.0.x","title":"oap-spring","version":"1.0.x","name":"spring","url":"/spring/1.0.x/howto/pageable-page-mapping.html","asciidoc":{"attributes":{"env":"site","env-site":"","site-gen":"antora","site-gen-antora":"","attribute-missing":"warn","data-uri":null,"icons":"font","sectanchors":"","source-highlighter":"highlight.js","site-title":"openapi-processor","site-url":"https://hauner.github.io/openapi-processor"}},"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.x/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.x/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.x/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.x/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.x/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.x/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.x/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.x/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.x/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.x/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.x/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.x/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.x/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.x/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.x/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.x/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.x/mapping/result.html","urlType":"internal"},{"content":"Global Single &amp; Multi Mapping","url":"/spring/1.0.x/mapping/single-multi.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.x/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.x/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.x/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.x/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.x/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.x/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.x/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.x/links.html","urlType":"internal"}],"root":true,"order":0}]}],"editUrl":"https://github.com/openapi-processor/openapi-processor-spring/edit/1.0.0.M14/docs/modules/ROOT/pages/howto/pageable-page-mapping.adoc","home":false,"navigation":[{"items":[{"content":"Introduction","url":"/spring/1.0.0.M14/index.html","urlType":"internal"},{"content":"The Processor","url":"/spring/1.0.0.M14/processor/index.html","urlType":"internal","items":[{"content":"Configuration","url":"/spring/1.0.0.M14/processor/configuration.html","urlType":"internal"},{"content":"Endpoint Grouping","url":"/spring/1.0.0.M14/processor/endpoint-interface.html","urlType":"internal"},{"content":"Endpoint Content Type","url":"/spring/1.0.0.M14/processor/endpoint-content.html","urlType":"internal"},{"content":"Models","url":"/spring/1.0.0.M14/processor/models.html","urlType":"internal"},{"content":"Parameter","url":"/spring/1.0.0.M14/processor/parameter.html","urlType":"internal"},{"content":"Request Body","url":"/spring/1.0.0.M14/processor/requestbody.html","urlType":"internal"},{"content":"Responses","url":"/spring/1.0.0.M14/processor/response.html","urlType":"internal"},{"content":"Identifier","url":"/spring/1.0.0.M14/processor/identifier.html","urlType":"internal"}]},{"content":"Type Mapping","url":"/spring/1.0.0.M14/mapping/index.html","urlType":"internal","items":[{"content":"Type Mapping Structure","url":"/spring/1.0.0.M14/mapping/structure.html","urlType":"internal"},{"content":"Default Type Mapping","url":"/spring/1.0.0.M14/mapping/basic.html","urlType":"internal"},{"content":"Global Type Mapping","url":"/spring/1.0.0.M14/mapping/global.html","urlType":"internal"},{"content":"Global Parameter Mapping","url":"/spring/1.0.0.M14/mapping/parameter.html","urlType":"internal"},{"content":"Global Response Mapping","url":"/spring/1.0.0.M14/mapping/response.html","urlType":"internal"},{"content":"Global Result Mapping","url":"/spring/1.0.0.M14/mapping/result.html","urlType":"internal"},{"content":"Global Single Result Mapping","url":"/spring/1.0.0.M14/mapping/single.html","urlType":"internal"},{"content":"Endpoint Mapping","url":"/spring/1.0.0.M14/mapping/endpoint.html","urlType":"internal"}]},{"content":"Gradle Integration","url":"/spring/1.0.0.M14/gradle.html","urlType":"internal"},{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Links","url":"/spring/1.0.0.M14/links.html","urlType":"internal"}],"root":true,"order":0}],"breadcrumbs":[{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}],"parent":{"content":"HowTo","url":"/spring/1.0.0.M14/howto/index.html","urlType":"internal","items":[{"content":"Mapping","items":[{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},{"content":"Pageable &amp; Page Mapping","url":"/spring/1.0.0.M14/howto/pageable-page-mapping.html","urlType":"internal"}]},{"content":"OpenAPI","items":[{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},{"content":"File Download","url":"/spring/1.0.0.M14/howto/file_download.html","urlType":"internal"}]}]},"previous":{"content":"Global Array Mapping","url":"/spring/1.0.0.M14/howto/global-array-mapping.html","urlType":"internal"},"next":{"content":"File Upload","url":"/spring/1.0.0.M14/howto/file_upload.html","urlType":"internal"},"canonicalUrl":"https://hauner.github.io/openapi-processor/spring/howto/pageable-page-mapping.html"}
+    -->
 
-  </div>
+    <!--
+      env: {"TERM_SESSION_ID":"w0t6p1:AC68DA37-0BC5-49C5-86EB-8BECF65F79D8","SSH_AUTH_SOCK":"/private/tmp/com.apple.launchd.M21ZisN6mz/Listeners","LC_TERMINAL_VERSION":"3.3.9","COLORFGBG":"0;15","ITERM_PROFILE":"Default","XPC_FLAGS":"0x0","PWD":"/Users/hauner/Development/openapi/openapi-processor-site","SHELL":"/bin/zsh","SECURITYSESSIONID":"186ad","LC_CTYPE":"UTF-8","TERM_PROGRAM_VERSION":"3.3.9","TERM_PROGRAM":"iTerm.app","PATH":"/Users/hauner/.sdkman/candidates/micronaut/current/bin:/Users/hauner/.sdkman/candidates/groovy/current/bin:/Users/hauner/.sdkman/candidates/grails/current/bin:/Users/hauner/.nvm/versions/node/v14.4.0/bin:/Users/hauner/.rbenv/shims:/Users/hauner/Development/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/ncbi/blast/bin:/Applications/VMware Fusion.app/Contents/Public:/opt/X11/bin:/Library/Apple/usr/bin:/usr/local/git/bin:/Users/hauner/.rvm/bin","DISPLAY":"/private/tmp/com.apple.launchd.5y8gW4BMtU/org.macosforge.xquartz:0","LC_TERMINAL":"iTerm2","COLORTERM":"truecolor","COMMAND_MODE":"unix2003","TERM":"xterm-color","HOME":"/Users/hauner","TMPDIR":"/var/folders/8w/jcbd06095qxb0379t1rs9rfr0000gn/T/","USER":"hauner","XPC_SERVICE_NAME":"0","LOGNAME":"hauner","LaunchInstanceID":"DCD54190-3173-4D78-8D91-9687FECBEAAE","__CF_USER_TEXT_ENCODING":"0x1F5:0x0:0x0","ITERM_SESSION_ID":"w0t6p1:AC68DA37-0BC5-49C5-86EB-8BECF65F79D8","SHLVL":"1","OLDPWD":"/Users/hauner/Development/openapi/openapi-processor-site/docs","AMO_JWT_ISSUER":"user:13296592:151","AMO_JWT_SECRET":"2dcb12e53b062080867676debe3e8c36a992f0e672e8685d0760430d49308661","RUBY_CONFIGURE_OPTS":"--with-openssl-dir=/usr/local/opt/openssl@1.1","RBENV_SHELL":"zsh","NVM_DIR":"/Users/hauner/.nvm","NVM_CD_FLAGS":"-q","NVM_BIN":"/Users/hauner/.nvm/versions/node/v14.4.0/bin","NVM_INC":"/Users/hauner/.nvm/versions/node/v14.4.0/include/node","SDKMAN_DIR":"/Users/hauner/.sdkman","SDKMAN_VERSION":"5.8.3+506","SDKMAN_CANDIDATES_API":"https://api.sdkman.io/2","SDKMAN_PLATFORM":"Darwin","SDKMAN_CANDIDATES_DIR":"/Users/hauner/.sdkman/candidates","GRAILS_HOME":"/Users/hauner/.sdkman/candidates/grails/current","GROOVY_HOME":"/Users/hauner/.sdkman/candidates/groovy/current","MICRONAUT_HOME":"/Users/hauner/.sdkman/candidates/micronaut/current","_":"/Users/hauner/.nvm/versions/node/v14.4.0/bin/antora"}
+    -->
 
-</footer>
-<script src="../../../_/js/site.js"></script>
-<script async src="../../../_/js/vendor/highlight.js"></script>
+    <!--
+      siteRootPath: "../../.."
+    -->
+
+    <!--
+      uiRootPath: "../../../_"
+    -->
+
+    <!--
+      antoraVersion "2.3.0-beta.2"
+    -->
+
   </body>
+
 </html>

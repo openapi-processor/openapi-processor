@@ -10,6 +10,9 @@
 <loc>https://hauner.github.io/openapi-processor/sitemap-json.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hauner.github.io/openapi-processor/sitemap-oap.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hauner.github.io/openapi-processor/sitemap-spring.xml</loc>
 </sitemap>
 <sitemap>
