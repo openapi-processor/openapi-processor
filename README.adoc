@@ -10,7 +10,7 @@
     antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
 
 
-== install antora to project
+== install antora
 
     npm i -g @antora/cli@2.3.0-beta.2 @antora/site-generator-default@2.3.0-beta.2
 
@@ -20,7 +20,7 @@
 
 == serve locally
 
-    node-srv docs
+    http-server docs -c-1
 
 == update antora
 
