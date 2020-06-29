@@ -12,8 +12,8 @@ content:
 #  - url: ../openapi-processor-spring
   - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
-    branches: [master, 1.0.x]
-    tags: [v1.0.0.M14]
+    branches: [master, 1.0.0.M14, 1.0.x]
+#    tags: [v1.0.0.M14]
 
 #  - url: ../openapi-processor-json
   - url: https://github.com/openapi-processor/openapi-processor-json
