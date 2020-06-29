@@ -1,6 +1,5 @@
 :author: Martin Hauner
-:page-title: openapi-processor
-:page-layout: default
+:page-title: Home
 :page-aliases: current@oap:ROOT:index.adoc, latest@oap:ROOT:index.adoc
 :badge-license: https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42
 :openapi: https://www.openapis.org/
@@ -8,6 +7,8 @@
 :springboot: https://spring.io/projects/spring-boot
 :micronaut: https://micronaut.io/
 :gradle: https://gradle.org/
+:oap-playground: https://openapi-processor-playground.appspot.com/
+:oap-playground-io: https://playground.openapi-processor.io
 
 //
 // content
@@ -17,28 +18,32 @@ image:openapi-processor$$@$$1280x200.png[openapi-processor]
 // badges
 link:{oapa-license}[image:{badge-license}[]]
 
-== introduction
+openapi-processor is a small framework that converts an link:{openapi}[OpenAPI] yaml description to an output format.
 
-openapi-processor is a small framework that converts link:{openapi}[OpenAPI] yaml files to an output format.
+openapi-processor (short: oap) does currently support the following formats:
 
-openapi-processor (short oap) does currently support the following formats:
+* xref:spring::index.adoc[oap-*spring*]: an interface & model java code generator for link:{springboot}[Spring Boot]
 
-* xref:spring::index.adoc[openapi-processor-*spring*]: an interface & model java code generator for link:{springboot}[Spring Boot]
-
-* xref:json::index.adoc[openapi-processor-*json*]: converts the OpenAPI yaml description to json format
+* xref:json::index.adoc[oap-*json*]: converts the OpenAPI yaml description to json format
 
 
-upcoming:
-
-* openapi-processor-*micronaut*: an interface & model java code generator for link:{micronaut}[Micronaut].
+//upcoming:
+//
+//* oap-*micronaut*: an interface & model java code generator for link:{micronaut}[Micronaut].
 
 
 == running a processor
 
 openapi-processor supports link:{gradle}[Gradle] to run any processor using the xref:gradle::index.adoc[openapi-processor-*gradle*] plugin.
 
-//Each openapi-processor package provides the processing through a simple xref:api::index.adoc[*api*]. The gradle plugin is calling it to run the processor as part of a gradle build. The plugin can run *any* processor that implements this api.
+== processor playground
+
+the link:{oap-playground}[Playground] offers the possibility to play around with the available processors: choose a processor & one of the editable OpenAPI yaml example descriptions and see what the processor generates.
+
+
 
 //== implementing a processor
+//
+//Each openapi-processor package provides the processing through a simple xref:api::index.adoc[*api*]. The gradle plugin is calling it to run the processor as part of a gradle build. The plugin can run *any* processor that implements this api.
 //
 //no docs yet...

@@ -1,5 +1,5 @@
 name: oap
-title: openapi-processor
+title: oap
 version: master
 nav:
 - modules/ROOT/nav.adoc
