@@ -10,30 +10,35 @@ content:
     branches: [master]
 
 #  - url: ../openapi-processor-spring
-  - url: https://github.com/hauner/openapi-processor-spring
+  - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
     branches: [master, 1.0.x]
     tags: [v1.0.0.M14]
+
 #  - url: ../openapi-processor-json
-  - url: https://github.com/hauner/openapi-processor-json
+  - url: https://github.com/openapi-processor/openapi-processor-json
     start_path: docs
     branches: master
-#  - url: ../openapi-processor-gradle
-  - url: https://github.com/hauner/openapi-processor-gradle
+
+  - url: ../openapi-processor-gradle
+#  - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
-    branches: master
+    branches: [master, 1.0.0.M8]
+
 #  - url: ../openapi-processor-spring-mvc-sample
-  - url: https://github.com/hauner/openapi-processor-spring-mvc-sample
+  - url: https://github.com/openapi-processor/openapi-processor-spring-mvc-sample
     start_path: docs
     branches: master
+
 #  - url: ../openapi-processor-spring-webflux-sample
-  - url: https://github.com/hauner/openapi-processor-spring-webflux-sample
+  - url: https://github.com/openapi-processor/openapi-processor-spring-webflux-sample
     start_path: docs
     branches: master
+
 #  - url: ../openapi-processor-api
-  - url: https://github.com/hauner/openapi-processor-api
+  - url: https://github.com/openapi-processor/openapi-processor-api
     start_path: docs
-    branches: master
+    branches: [1.1.x]
 
 ui:
   bundle:
