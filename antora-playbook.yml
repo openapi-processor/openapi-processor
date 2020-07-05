@@ -20,10 +20,20 @@ content:
     start_path: docs
     branches: master
 
-  - url: ../openapi-processor-gradle
-#  - url: https://github.com/openapi-processor/openapi-processor-gradle
+#  - url: ../openapi-processor-maven
+  - url: https://github.com/openapi-processor/openapi-processor-maven
+    start_path: docs
+    branches: [master]
+
+#  - url: ../openapi-processor-gradle
+  - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
     branches: [master, 1.0.0.M8]
+
+  #  - url: ../openapi-processor-samples
+  - url: https://github.com/openapi-processor/openapi-processor-samples
+    start_path: docs
+    branches: master
 
 #  - url: ../openapi-processor-spring-mvc-sample
   - url: https://github.com/openapi-processor/openapi-processor-spring-mvc-sample
