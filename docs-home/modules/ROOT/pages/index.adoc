@@ -9,6 +9,8 @@
 :gradle: https://gradle.org/
 :oap-playground: https://openapi-processor-playground.appspot.com/
 :oap-playground-io: https://playground.openapi-processor.io
+:oap-license: https://apache.org/licenses/LICENSE-2.0.txt
+
 
 //
 // content
@@ -16,7 +18,7 @@
 image:openapi-processor$$@$$1280x200.png[openapi-processor]
 
 // badges
-link:{oapa-license}[image:{badge-license}[]]
+link:{oap-license}[image:{badge-license}[]]
 
 openapi-processor is a small framework that converts an link:{openapi}[OpenAPI] yaml description to an output format.
 
