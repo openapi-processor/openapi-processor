@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>oap-spring :: openapi-processor</title>
+<title>oap-samples :: openapi-processor</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<link rel="icon" type="image/png" href="../../_/img/favicon.ico">
-<link rel="stylesheet" href="../../_/css/oap.css">
+<link rel="icon" type="image/png" href="../_/img/favicon.ico">
+<link rel="stylesheet" href="../_/css/oap.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
@@ -19,7 +19,7 @@
     <header class="bg-white w-full fixed top-0 z-30">
 
       <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
-        <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <img src="../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
         <div class="text-2xl ml-16">
           <a href="https://hauner.github.io/openapi-processor/index.html" class="ml-4 hover:text-gray-600">openapi-processor</a>
         </div>
@@ -44,7 +44,7 @@
 
             <div class="flex">
               <div class="mr-1">
-                  <a href="../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                  <a href="../oap/home/index.html" class="text-gray-500 hover:text-green-600">
                     <i class="fas fa-home"></i>
                   </a>
               </div>
@@ -52,69 +52,99 @@
               <div>
                 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul class="flex text-gray-500">
-    <li><a href="../index.html" class="hover:text-green-600">oap-spring</a></li>
-    <li><a href="index.html" class="hover:text-green-600">HowTo</a></li>
-    <li><span>OpenAPI</span></li>
-    <li><a href="file_upload.html" class="hover:text-green-600">File Upload</a></li>
+    <li><a href="index.html" class="hover:text-green-600">oap-samples</a></li>
+    <li><a href="index.html" class="hover:text-green-600">Samples</a></li>
+    <li><a href="spring-webflux.html" class="hover:text-green-600">Spring Boot WebFlux</a></li>
   </ul>
 </nav>
               </div>
             </div>
 
             <div class="ml-1 text-gray-500 hover:text-green-600">
-              <a href="https://github.com/openapi-processor/openapi-processor-spring/edit/master/docs/modules/ROOT/pages/howto/file_upload.adoc"><i class="fas fa-pen"></i></a>
+              <a href="https://github.com/openapi-processor/openapi-processor-samples/edit/master/docs/modules/ROOT/pages/spring-webflux.adoc"><i class="fas fa-pen"></i></a>
                           </div>
 
           </div>
 
           <article class="bg-white py-4 doc">
-            <h1 class="page">Describing and endpoint for uploading file(s)</h1>
-            <div class="sect1">
-<h2 id="_uploading_a_single_file"><a class="anchor" href="#_uploading_a_single_file"></a>uploading a single file</h2>
+            <h1 class="page">openapi-processor-spring (webflux) sample project</h1>
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a very simple Spring Boot (gradle &amp; maven) project that is using</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../spring/index.html" class="page">openapi-processor-spring</a> to generate java interfaces for the api defined in an openapi.yaml file</p>
+</li>
+<li>
+<p><a href="../json/index.html" class="page">openapi-processor-json</a> to convert the openapi yaml to json format</p>
+</li>
+<li>
+<p><a href="../gradle/index.html" class="page">openapi-processor-maven</a> plugin to run both processors</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The purpose of the sample is to show the setup of the gradle plugin, and the processors for an <strong>annotation</strong> based Spring WebFlux application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_with_gradle"><a class="anchor" href="#_running_with_gradle"></a>Running with gradle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clone the project from <a href="https://github.com/openapi-processor/openapi-processor-samples/samples/spring-webflux">GitHub</a>, navigate into the project root folder <code>samples/spring-webflux</code> and run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> ../../gradlew bootRun</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to start the sample application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_with_maven"><a class="anchor" href="#_running_with_maven"></a>Running with maven</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/attachments:
-  summary: upload an attachment
-  post:
-    requestBody:
-      content:
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              file:
-                type: string
-                format: binary
-    responses:
-      204:
-        description: succesfully created attachment</code></pre>
+<pre>../../mvnw spring-boot:run</pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_uploading_multiple_files"><a class="anchor" href="#_uploading_multiple_files"></a>uploading multiple files</h2>
+<h2 id="_sample_endpoints"><a class="anchor" href="#_sample_endpoints"></a>Sample Endpoints</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div class="paragraph">
+<p>the sample has a few simple endpoints described with OpenAPI in <code>src/api</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_get_all_books"><a class="anchor" href="#_get_all_books"></a>get all books</h3>
+<div class="literalblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/attachments:
-  summary: upload multiple attachments
-  post:
-    requestBody:
-      content:
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              files:
-                type: array
-                items:
-                  type: string
-                  format: binary
-    responses:
-      204:
-        description: succesfully created attachment</code></pre>
+<pre>curl http://localhost:8080/books</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_single_book"><a class="anchor" href="#_get_single_book"></a>get single book</h3>
+<div class="literalblock">
+<div class="content">
+<pre>curl http://localhost:8080/books/1</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_post_new_books"><a class="anchor" href="#_post_new_books"></a>post new books</h3>
+<div class="literalblock">
+<div class="content">
+<pre>curl --header "Content-Type: application/json" --data '[{"title":"Test Driven Development","authors":["Kent Beck"]}, {"title":"Growing Object-Oriented Software","authors":["Steve Freeman", "Nat Pryce"]}]' http://localhost:8080/books</pre>
+</div>
 </div>
 </div>
 </div>
@@ -227,12 +257,12 @@
 
                 <div class="flex flex-wrap justify-between items-center">
 
-                  <span class="">oap-samples</span>
+                  <span class="font-bold">oap-samples</span>
 
                   <div>
 
 
-                      <a href="/samples/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
+                      <a href="/samples/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
                       >master</a>
 
 
@@ -244,26 +274,26 @@
 
                 <div class="flex flex-wrap justify-between items-center">
 
-                  <span class="font-bold">oap-spring</span>
+                  <span class="">oap-spring</span>
 
                   <div>
 
 
-                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
+                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
                       >master</a>
 
 
 
 
 
-                      <a href="/spring/1.0.0.M14/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
+                      <a href="/spring/1.0.0.M14/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
                       >1.0.0.M14</a>
 
 
 
 
 
-                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
+                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
                       >1.0.x</a>
 
 
@@ -276,139 +306,22 @@
 
           <section class="lg:sticky pt-2" style="top: 3.95rem">
 
-            <div class="text-xl font-bold text-green-700">oap-spring</div>
+            <div class="text-xl font-bold text-green-700">oap-samples</div>
 
 
                 <div class="pl-0">
-                  <a href="../index.html" class="hover:text-green-600 ">Introduction</a>
-                </div>
-
-
-                <div class="pl-0">
-                  <a href="../processor/index.html" class="hover:text-green-600 ">The Processor</a>
+                  <a href="index.html" class="hover:text-green-600 ">Samples</a>
                 </div>
 
                   <div class="pl-4">
-                    <a href="../processor/configuration.html" class="hover:text-green-600 ">Configuration</a>
+                    <a href="spring-mvc.html" class="hover:text-green-600 ">Spring Boot MVC</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/endpoint-interface.html" class="hover:text-green-600 ">Endpoint Grouping</a>
+                    <a href="spring-webflux.html" class="hover:text-green-600 font-bold">Spring Boot WebFlux</a>
                   </div>
 
-
-                  <div class="pl-4">
-                    <a href="../processor/endpoint-content.html" class="hover:text-green-600 ">Endpoint Content Type</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../processor/models.html" class="hover:text-green-600 ">Models</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../processor/parameter.html" class="hover:text-green-600 ">Parameter</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../processor/requestbody.html" class="hover:text-green-600 ">Request Body</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../processor/response.html" class="hover:text-green-600 ">Responses</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../processor/identifier.html" class="hover:text-green-600 ">Identifier</a>
-                  </div>
-
-
-
-                <div class="pl-0">
-                  <a href="../mapping/index.html" class="hover:text-green-600 ">Type Mapping</a>
-                </div>
-
-                  <div class="pl-4">
-                    <a href="../mapping/structure.html" class="hover:text-green-600 ">Type Mapping Structure</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/basic.html" class="hover:text-green-600 ">Default Type Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/global.html" class="hover:text-green-600 ">Global Type Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/parameter.html" class="hover:text-green-600 ">Global Parameter Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/response.html" class="hover:text-green-600 ">Global Response Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/result.html" class="hover:text-green-600 ">Global Result Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/single-multi.html" class="hover:text-green-600 ">Global Single &amp; Multi Mapping</a>
-                  </div>
-
-
-                  <div class="pl-4">
-                    <a href="../mapping/endpoint.html" class="hover:text-green-600 ">Endpoint Mapping</a>
-                  </div>
-
-
-
-                <div class="pl-0">
-                  <a href="../gradle.html" class="hover:text-green-600 ">Gradle Integration</a>
-                </div>
-
-
-                <div class="pl-0">
-                  <a href="index.html" class="hover:text-green-600 ">HowTo</a>
-                </div>
-
-                  <div class="pl-4">
-                    <a href="#" class="hover:text-green-600 ">Mapping</a>
-                  </div>
-
-                    <div class="pl-8">
-                      <a href="global-array-mapping.html" class="hover:text-green-600 ">Global Array Mapping</a>
-                    </div>
-                    <div class="pl-8">
-                      <a href="pageable-page-mapping.html" class="hover:text-green-600 ">Pageable &amp; Page Mapping</a>
-                    </div>
-
-                  <div class="pl-4">
-                    <a href="#" class="hover:text-green-600 ">OpenAPI</a>
-                  </div>
-
-                    <div class="pl-8">
-                      <a href="file_upload.html" class="hover:text-green-600 font-bold">File Upload</a>
-                    </div>
-                    <div class="pl-8">
-                      <a href="file_download.html" class="hover:text-green-600 ">File Download</a>
-                    </div>
-
-
-                <div class="pl-0">
-                  <a href="../links.html" class="hover:text-green-600 ">Links</a>
-                </div>
 
 
 
@@ -424,7 +337,7 @@
         <div class="text-gray-700 text-sm flex justify-between">
 
           <div class="flex-none w-48 mr-12">
-            <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+            <img src="../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
 
             <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
           </div>
@@ -488,7 +401,7 @@
 
     </main>
 
-    <script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="../_/js/vendor/highlight.js"></script>
 
 
   </body>
