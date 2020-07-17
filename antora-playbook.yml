@@ -35,16 +35,6 @@ content:
     start_path: docs
     branches: master
 
-#  - url: ../openapi-processor-spring-mvc-sample
-  - url: https://github.com/openapi-processor/openapi-processor-spring-mvc-sample
-    start_path: docs
-    branches: master
-
-#  - url: ../openapi-processor-spring-webflux-sample
-  - url: https://github.com/openapi-processor/openapi-processor-spring-webflux-sample
-    start_path: docs
-    branches: master
-
 #  - url: ../openapi-processor-api
   - url: https://github.com/openapi-processor/openapi-processor-api
     start_path: docs
