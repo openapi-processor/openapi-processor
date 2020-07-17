@@ -7,6 +7,7 @@
 :springboot: https://spring.io/projects/spring-boot
 :micronaut: https://micronaut.io/
 :gradle: https://gradle.org/
+:maven: https://maven.apache.org/
 :oap-playground: https://openapi-processor-playground.appspot.com/
 :oap-playground-io: https://playground.openapi-processor.io
 :oap-license: https://apache.org/licenses/LICENSE-2.0.txt
@@ -36,7 +37,12 @@ openapi-processor (short: oap) does currently support the following formats:
 
 == running a processor
 
-openapi-processor supports link:{gradle}[Gradle] to run any processor using the xref:gradle::index.adoc[openapi-processor-*gradle*] plugin.
+openapi-processor supports
+
+* link:{maven}[Maven] using the xref:maven::index.adoc[openapi-processor-*maven*] plugin and
+* link:{gradle}[Gradle] using the xref:gradle::index.adoc[openapi-processor-*gradle*] plugin
+
+to run any processor.
 
 == processor playground
 
