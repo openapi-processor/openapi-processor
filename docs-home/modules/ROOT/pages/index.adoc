@@ -11,7 +11,16 @@
 :oap-playground: https://openapi-processor-playground.appspot.com/
 :oap-playground-io: https://playground.openapi-processor.io
 :oap-license: https://apache.org/licenses/LICENSE-2.0.txt
-
+:version-spring-: https://img.shields.io/github/v/release/openapi-processor/openapi-processor-spring?color=009051&include_prereleases&label=latest
+:version-spring: https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-spring?color=009051&label=latest
+:bintray-spring: https://bintray.com/openapi-processor/primary/openapi-processor-spring
+:version-json-: https://img.shields.io/github/v/release/openapi-processor/openapi-processor-json?color=009051&include_prereleases&label=latest
+:version-json: https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-json?color=009051&label=latest
+:bintray-json: https://bintray.com/openapi-processor/primary/openapi-processor-json
+:version-maven: https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-maven?color=009051&label=latest
+:bintray-maven: https://bintray.com/openapi-processor/primary/openapi-processor-maven
+:version-gradle: https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&include_prereleases&label=latest
+:gradle-gradle: https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor
 
 //
 // content
@@ -25,9 +34,9 @@ openapi-processor is a small framework that converts an link:{openapi}[OpenAPI] 
 
 openapi-processor (short: oap) does currently support the following formats:
 
-* xref:spring::index.adoc[oap-*spring*]: an interface & model java code generator for link:{springboot}[Spring Boot]
+* xref:spring::index.adoc[oap-*spring*]: link:{bintray-spring}[image:{version-spring}[]] an interface & model java code generator for link:{springboot}[Spring Boot]
 
-* xref:json::index.adoc[oap-*json*]: converts the OpenAPI yaml description to json format
+* xref:json::index.adoc[oap-*json*]: link:{bintray-json}[image:{version-json}[]] converts the OpenAPI yaml description to json format
 
 
 //upcoming:
@@ -39,8 +48,8 @@ openapi-processor (short: oap) does currently support the following formats:
 
 openapi-processor supports
 
-* link:{maven}[Maven] using the xref:maven::index.adoc[openapi-processor-*maven*] plugin and
-* link:{gradle}[Gradle] using the xref:gradle::index.adoc[openapi-processor-*gradle*] plugin
+* link:{maven}[Maven] using the xref:maven::index.adoc[openapi-processor-*maven*] plugin link:{bintray-maven}[image:{version-maven}[]] and
+* link:{gradle}[Gradle] using the xref:gradle::index.adoc[openapi-processor-*gradle*] plugin link:{gradle-gradle}[image:{version-gradle}[]]
 
 to run any processor.
 
@@ -48,6 +57,26 @@ to run any processor.
 
 the link:{oap-playground}[Playground] offers the possibility to play around with the available processors: choose a processor & one of the editable OpenAPI yaml example descriptions and see what the processor generates.
 
+
+== artifact coordinates
+
+[source,xml,title=maven]
+----
+<dependency>
+  <groupId>io.openapiprocessor</groupId>
+  <artifactId>openapi-processor-{project}</artifactId>
+  <version>{version}</version>
+</dependency>
+----
+
+[source,xml,title=gradle]
+----
+'io.openapiprocessor:openapi-processor-{project}:{version}'
+----
+
+Replace `{project}` & `{version}` with the required values.
+
+For example `spring`, `json` or `maven` for `{project}` and `{version}` with the version from the corresponding version badge.
 
 
 //== implementing a processor
