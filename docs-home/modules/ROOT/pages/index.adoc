@@ -74,9 +74,9 @@ the link:{oap-playground}[Playground] offers the possibility to play around with
 'io.openapiprocessor:openapi-processor-{project}:{version}'
 ----
 
-Replace `{project}` & `{version}` with the required values.
+Replace `\{project}` & `\{version}` with the required values.
 
-For example `spring`, `json` or `maven` for `{project}` and `{version}` with the version from the corresponding version badge.
+For example `spring`, `json` or `maven` for `\{project}` and `\{version}` with the version from the corresponding version badge.
 
 
 //== implementing a processor
