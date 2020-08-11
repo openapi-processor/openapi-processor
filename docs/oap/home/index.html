@@ -81,10 +81,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../../spring/index.html" class="page">oap-<strong>spring</strong></a>: an interface &amp; model java code generator for <a href="https://spring.io/projects/spring-boot">Spring Boot</a></p>
+<p><a href="../../spring/index.html" class="page">oap-<strong>spring</strong></a>: <a href="https://bintray.com/openapi-processor/primary/openapi-processor-spring"><span class="image"><img src="https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-spring?color=009051&amp;label=latest" alt="openapi processor spring?color=009051&amp;label=latest"></span></a> an interface &amp; model java code generator for <a href="https://spring.io/projects/spring-boot">Spring Boot</a></p>
 </li>
 <li>
-<p><a href="../../json/index.html" class="page">oap-<strong>json</strong></a>: converts the OpenAPI yaml description to json format</p>
+<p><a href="../../json/index.html" class="page">oap-<strong>json</strong></a>: <a href="https://bintray.com/openapi-processor/primary/openapi-processor-json"><span class="image"><img src="https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-json?color=009051&amp;label=latest" alt="openapi processor json?color=009051&amp;label=latest"></span></a> converts the OpenAPI yaml description to json format</p>
 </li>
 </ul>
 </div>
@@ -97,10 +97,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://maven.apache.org/">Maven</a> using the <a href="../../maven/index.html" class="page">openapi-processor-<strong>maven</strong></a> plugin and</p>
+<p><a href="https://maven.apache.org/">Maven</a> using the <a href="../../maven/index.html" class="page">openapi-processor-<strong>maven</strong></a> plugin <a href="https://bintray.com/openapi-processor/primary/openapi-processor-maven"><span class="image"><img src="https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-maven?color=009051&amp;label=latest" alt="openapi processor maven?color=009051&amp;label=latest"></span></a> and</p>
 </li>
 <li>
-<p><a href="https://gradle.org/">Gradle</a> using the <a href="../../gradle/index.html" class="page">openapi-processor-<strong>gradle</strong></a> plugin</p>
+<p><a href="https://gradle.org/">Gradle</a> using the <a href="../../gradle/index.html" class="page">openapi-processor-<strong>gradle</strong></a> plugin <a href="https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor"><span class="image"><img src="https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&amp;include_prereleases&amp;label=latest" alt="openapi processor gradle?color=009051&amp;include prereleases&amp;label=latest"></span></a></p>
 </li>
 </ul>
 </div>
@@ -114,6 +114,33 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>the <a href="https://openapi-processor-playground.appspot.com/">Playground</a> offers the possibility to play around with the available processors: choose a processor &amp; one of the editable OpenAPI yaml example descriptions and see what the processor generates.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_artifact_coordinates"><a class="anchor" href="#_artifact_coordinates"></a>artifact coordinates</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.openapiprocessor&lt;/groupId&gt;
+  &lt;artifactId&gt;openapi-processor-{project}&lt;/artifactId&gt;
+  &lt;version&gt;{version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">'io.openapiprocessor:openapi-processor-{project}:{version}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Replace <code>{project}</code> &amp; <code>{version}</code> with the required values.</p>
+</div>
+<div class="paragraph">
+<p>For example <code>spring</code>, <code>json</code> or <code>maven</code> for <code>{project}</code> and <code>{version}</code> with the version from the corresponding version badge.</p>
 </div>
 </div>
 </div>

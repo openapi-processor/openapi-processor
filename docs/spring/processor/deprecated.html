@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<link rel="icon" type="image/png" href="../../../_/img/favicon.ico">
-<link rel="stylesheet" href="../../../_/css/oap.css">
+<link rel="icon" type="image/png" href="../../_/img/favicon.ico">
+<link rel="stylesheet" href="../../_/css/oap.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
@@ -19,7 +19,7 @@
     <header class="bg-white w-full fixed top-0 z-30">
 
       <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
-        <img src="../../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
         <div class="text-2xl ml-16">
           <a href="https://hauner.github.io/openapi-processor/index.html" class="ml-4 hover:text-gray-600">openapi-processor</a>
         </div>
@@ -44,7 +44,7 @@
 
             <div class="flex">
               <div class="mr-1">
-                  <a href="../../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                  <a href="../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
                     <i class="fas fa-home"></i>
                   </a>
               </div>
@@ -53,144 +53,246 @@
                 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul class="flex text-gray-500">
     <li><a href="../index.html" class="hover:text-green-600">oap-spring</a></li>
-    <li><a href="index.html" class="hover:text-green-600">Type Mapping</a></li>
-    <li><a href="structure.html" class="hover:text-green-600">Type Mapping Structure</a></li>
+    <li><a href="index.html" class="hover:text-green-600">The Processor</a></li>
+    <li><a href="deprecated.html" class="hover:text-green-600">Deprecated</a></li>
   </ul>
 </nav>
               </div>
             </div>
 
             <div class="ml-1 text-gray-500 hover:text-green-600">
-              <a href="https://github.com/openapi-processor/openapi-processor-spring/edit/1.0.x/docs/modules/ROOT/pages/mapping/structure.adoc"><i class="fas fa-pen"></i></a>
+              <a href="https://github.com/openapi-processor/openapi-processor-spring/edit/master/docs/modules/ROOT/pages/processor/deprecated.adoc"><i class="fas fa-pen"></i></a>
                           </div>
 
           </div>
 
           <article class="bg-white py-4 doc">
-            <h1 class="page">type mapping structure</h1>
+            <h1 class="page">Deprecated items</h1>
             <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The type mapping is part of the mapping yaml (see <a href="../processor/configuration.html" class="page">Configuration</a>)
-and configured under the <code>map</code> key. The <code>map</code> key contains multiple sections to define the different
-kinds of type mappings.</p>
-</div>
-<div class="paragraph">
-<p>All sections are optional.</p>
+<p>OpenAPI allows adding <code>deprecated: true</code> at several places. openapi-processor-spring translates them to Java&#8217;s <code>@Deprecated</code> annotation.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_type_mapping_structure_v2"><a class="anchor" href="#_type_mapping_structure_v2"></a>type mapping structure (v2)</h2>
+<h2 id="_deprecated_endpoint"><a class="anchor" href="#_deprecated_endpoint"></a>deprecated endpoint</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><span class="badge  badge-since">since 1.0.0.M15</span></p>
+<table class="tableblock frame-none grid-row stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OpenAPI</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Java Code</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/foo:
+  get:
+    deprecated: true <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
-<div class="paragraph">
-<p>This is the preferred format for the mapping. It is simpler than the previous format and uses fewer
-keywords.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Deprecated <i class="conum" data-value="2"></i><b>(2)</b>
+@GetMapping("/foo")
+/*...*/ getFoo();</code></pre>
 </div>
-<div class="admonitionblock important">
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>To use the new format the mapping file needs the following key on the top-level. Best place is the
-first line of the <code>mapping.yaml</code> file.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openapi-processor-mapping: v2</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>a deprecated endpoint</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>the generated endpoint method with a <code>@Deprecated</code> annotation</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>To map a source type to a destination type it is using an <code>&#8658;</code> arrow as <strong>mapping operator</strong> instead
-of individual keywords:</p>
 </div>
-<div class="listingblock">
+</div>
+<div class="sect1">
+<h2 id="_deprecated_parameter"><a class="anchor" href="#_deprecated_parameter"></a>deprecated parameter</h2>
+<div class="sectionbody">
+<table class="tableblock frame-none grid-row stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OpenAPI</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Java Code</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">some-key: {source type} =&gt; {target type}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/foo:
+  get:
+    parameters:
+      - name: bar
+        deprecated: true <i class="conum" data-value="1"></i><b>(1)</b>
+        in: query
+        schema:
+          type: string</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The structure of the mapping looks like this:</p>
-</div>
-<div class="listingblock">
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">map:
-
-  # result wrapper
-  result: {target type}
-
-  # single wrapper
-  single: {target type}
-
-  # multi wrapper
-  multi: {target type}
-
-  # list of global mappings
-  types:
-    - type: {source type}  =&gt;  {target type}
-
-  # list of global parameter mappings, mapped by parameter name
-  parameters:
-    - name: {parameter name}  =&gt;  {target type}
-
-    # the list of parameter mappings can include additional parameters
-    - add: {parameter name}  =&gt;  {target type}
-
-  # list of global content mappings, mapped by content type
-  responses:
-    - content: {content type}  =&gt;  {target type}
-
-  # path mappings, only valid for the given path
-  paths:
-
-    # the path
-    /foo:
-
-      # path specific result wrapper
-      result: {target type}
-
-      # path specific single wrapper
-      single: {target type}
-
-      # path specific multi wrapper
-      multi: {target type}
-
-      # list of path specific mappings
-      types:
-        - from: {source type}  =&gt;  {target type}
-
-      # list of path specific parameter mappings, mapped by parameter name
-      parameters:
-        - name: {parameter name}  =&gt;  {target type}
-
-        # the list of parameter mappings can include additional parameters
-        - add: {parameter name}  =&gt;  {target type}
-
-      # list of path specific content mappings, mapped by content type
-      responses:
-        - content: {content type}  =&gt;  {target type}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GetMapping("/foo")
+/* ... */ getFoo(@Deprecated String bar); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>a deprecated parameter</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>the generated endpoint method with a <code>@Deprecated</code> annotation on the <code>bar</code> parameter.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_type_mapping_structure_v1"><a class="anchor" href="#_type_mapping_structure_v1"></a>type mapping structure (v1)</h2>
+<h2 id="_deprecated_schema"><a class="anchor" href="#_deprecated_schema"></a>deprecated schema</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>This format of the mapping ist still available but will go away with the 1.0.0 release.</p>
+<table class="tableblock frame-none grid-row stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OpenAPI</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Java Code</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Bar:
+  type: object
+  deprecated: true <i class="conum" data-value="1"></i><b>(1)</b>
+  properties:
+    foobar:
+      type: string</code></pre>
 </div>
-<div class="paragraph">
-<p>See <a href="../../1.0.0.M14/mapping/index.html" class="page">old type mapping</a>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Deprecated <i class="conum" data-value="2"></i><b>(2)</b>
+public class Bar {
+    /* ... */
+}</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>a deprecated schema</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>the generated model class with a <code>@Deprecated</code> annotation.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deprecated_schema_property"><a class="anchor" href="#_deprecated_schema_property"></a>deprecated schema property</h2>
+<div class="sectionbody">
+<table class="tableblock frame-none grid-row stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OpenAPI</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Java Code</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Bar:
+  type: object
+  properties:
+    foobar:
+      deprecated: true <i class="conum" data-value="1"></i><b>(1)</b>
+      type: string</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Bar {
+
+    @Deprecated  <i class="conum" data-value="2"></i><b>(2)</b>
+    @JsonProperty("foobar")
+    private String foobar;
+
+    @Deprecated <i class="conum" data-value="2"></i><b>(2)</b>
+    public String getFoobar() {
+        return foobar;
+    }
+
+    @Deprecated <i class="conum" data-value="2"></i><b>(2)</b>
+    public void setFoobar(String foobar) {
+        this.foobar = foobar;
+    }
+
+}</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>a deprecated schema property</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>the generated model class with <code>@Deprecated</code> annotations at the property, getter and setter. (hmm, the annotated property may be a bit too much&#8230;&#8203; )</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -324,7 +426,7 @@ of individual keywords:</p>
                   <div>
 
 
-                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
+                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
                       >master</a>
 
 
@@ -338,7 +440,7 @@ of individual keywords:</p>
 
 
 
-                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
+                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
                       >1.0.x</a>
 
 
@@ -360,96 +462,96 @@ of individual keywords:</p>
 
 
                 <div class="pl-0">
-                  <a href="../processor/index.html" class="hover:text-green-600 ">The Processor</a>
+                  <a href="index.html" class="hover:text-green-600 ">The Processor</a>
                 </div>
 
                   <div class="pl-4">
-                    <a href="../processor/configuration.html" class="hover:text-green-600 ">Configuration</a>
+                    <a href="configuration.html" class="hover:text-green-600 ">Configuration</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/endpoint-interface.html" class="hover:text-green-600 ">Endpoint Grouping</a>
+                    <a href="endpoint-interface.html" class="hover:text-green-600 ">Endpoint Grouping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/endpoint-content.html" class="hover:text-green-600 ">Endpoint Content Type</a>
+                    <a href="endpoint-content.html" class="hover:text-green-600 ">Endpoint Content Type</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/models.html" class="hover:text-green-600 ">Models</a>
+                    <a href="models.html" class="hover:text-green-600 ">Models</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/parameter.html" class="hover:text-green-600 ">Parameter</a>
+                    <a href="parameter.html" class="hover:text-green-600 ">Parameter</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/requestbody.html" class="hover:text-green-600 ">Request Body</a>
+                    <a href="requestbody.html" class="hover:text-green-600 ">Request Body</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/response.html" class="hover:text-green-600 ">Responses</a>
+                    <a href="response.html" class="hover:text-green-600 ">Responses</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/deprecated.html" class="hover:text-green-600 ">Deprecated</a>
+                    <a href="deprecated.html" class="hover:text-green-600 font-bold">Deprecated</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="../processor/identifier.html" class="hover:text-green-600 ">Identifier</a>
+                    <a href="identifier.html" class="hover:text-green-600 ">Identifier</a>
                   </div>
 
 
 
                 <div class="pl-0">
-                  <a href="index.html" class="hover:text-green-600 ">Type Mapping</a>
+                  <a href="../mapping/index.html" class="hover:text-green-600 ">Type Mapping</a>
                 </div>
 
                   <div class="pl-4">
-                    <a href="structure.html" class="hover:text-green-600 font-bold">Type Mapping Structure</a>
+                    <a href="../mapping/structure.html" class="hover:text-green-600 ">Type Mapping Structure</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="basic.html" class="hover:text-green-600 ">Default Type Mapping</a>
+                    <a href="../mapping/basic.html" class="hover:text-green-600 ">Default Type Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="global.html" class="hover:text-green-600 ">Global Type Mapping</a>
+                    <a href="../mapping/global.html" class="hover:text-green-600 ">Global Type Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="parameter.html" class="hover:text-green-600 ">Global Parameter Mapping</a>
+                    <a href="../mapping/parameter.html" class="hover:text-green-600 ">Global Parameter Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="response.html" class="hover:text-green-600 ">Global Response Mapping</a>
+                    <a href="../mapping/response.html" class="hover:text-green-600 ">Global Response Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="result.html" class="hover:text-green-600 ">Global Result Mapping</a>
+                    <a href="../mapping/result.html" class="hover:text-green-600 ">Global Result Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="single-multi.html" class="hover:text-green-600 ">Global Single &amp; Multi Mapping</a>
+                    <a href="../mapping/single-multi.html" class="hover:text-green-600 ">Global Single &amp; Multi Mapping</a>
                   </div>
 
 
                   <div class="pl-4">
-                    <a href="endpoint.html" class="hover:text-green-600 ">Endpoint Mapping</a>
+                    <a href="../mapping/endpoint.html" class="hover:text-green-600 ">Endpoint Mapping</a>
                   </div>
 
 
@@ -504,7 +606,7 @@ of individual keywords:</p>
         <div class="text-gray-700 text-sm flex justify-between">
 
           <div class="flex-none w-48 mr-12">
-            <img src="../../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+            <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
 
             <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
           </div>
@@ -568,7 +670,7 @@ of individual keywords:</p>
 
     </main>
 
-    <script async src="../../../_/js/vendor/highlight.js"></script>
+    <script async src="../../_/js/vendor/highlight.js"></script>
 
 
   </body>
