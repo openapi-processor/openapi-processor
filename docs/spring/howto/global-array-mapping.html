@@ -21,11 +21,11 @@
       <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
         <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
         <div class="text-2xl ml-16">
-          <a href="https://hauner.github.io/openapi-processor/index.html" class="ml-4 hover:text-gray-600">openapi-processor</a>
+          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">openapi-processor</a>
         </div>
 
         <div class="text-2xl">
-          <a href="https://openapi-processor-playground.appspot.com" target="_blank" class="hover:text-gray-600">
+          <a href="https://playground.openapiprocessor.io" target="_blank" class="hover:text-gray-600">
             <i class="far fa-play-circle mr-1"></i>playground
           </a>
         </div>
@@ -155,146 +155,99 @@ use the <code>array</code>'s <code>item</code> property type as the generic para
 
           <section class="mb-2">
 
+              <div class="flex flex-wrap justify-between items-center">
 
-                <div class="flex flex-wrap justify-between items-center">
 
-                  <span class="">oap</span>
-
+                  <span>oap</span>
                   <div>
-
-
-                      <a href="/oap/home/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >home</a>
-
-
-
+                    <oap-versions version="none"  visible="home">
+                        <div data-url="/oap/home/index.html" data-version="home"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
 
 
-                <div class="flex flex-wrap justify-between items-center">
-
-                  <span class="">oap-api</span>
-
+                  <span>oap-api</span>
                   <div>
-
-
-                      <a href="/api/1.1/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >1.1</a>
-
-
-
+                    <oap-versions version="none" >
+                        <div data-url="/api/index.html" data-version="master"></div>
+                        <div data-url="/api/2020.3/index.html" data-version="2020.3"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
 
 
-                <div class="flex flex-wrap justify-between items-center">
-
-                  <span class="">oap-gradle</span>
-
+                  <span>oap-gradle</span>
                   <div>
-
-
-                      <a href="/gradle/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >master</a>
-
-
-
-
-
-                      <a href="/gradle/1.0.0.M8/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >1.0.0.M8</a>
-
-
-
+                    <oap-versions version="none" >
+                        <div data-url="/gradle/1.0.0.M9/index.html" data-version="1.0.0.M9"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
 
 
-                <div class="flex flex-wrap justify-between items-center">
-
-                  <span class="">oap-json</span>
-
+                  <span>oap-json</span>
                   <div>
-
-
-                      <a href="/json/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >master</a>
-
-
-
+                    <oap-versions version="none" >
+                        <div data-url="/json/2021.1/index.html" data-version="2021.1"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
 
 
-                <div class="flex flex-wrap justify-between items-center">
-
-                  <span class="">oap-maven</span>
-
+                  <span>oap-maven</span>
                   <div>
-
-
-                      <a href="/maven/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >master</a>
-
-
-
+                    <oap-versions version="none" >
+                        <div data-url="/maven/1.0.0.M2/index.html" data-version="1.0.0.M2"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
 
 
-                <div class="flex flex-wrap justify-between items-center">
-
-                  <span class="">oap-samples</span>
-
+                  <span>oap-samples</span>
                   <div>
-
-
-                      <a href="/samples/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0"
-                      >master</a>
-
-
-
+                    <oap-versions version="none" >
+                        <div data-url="/samples/index.html" data-version="master"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
 
+              </div>
 
-                <div class="flex flex-wrap justify-between items-center">
+              <div class="flex flex-wrap justify-between items-center">
+
 
                   <span class="font-bold">oap-spring</span>
-
                   <div>
-
-
-                      <a href="/spring/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 bg-green-300"
-                      >master</a>
-
-
-
-
-
-                      <a href="/spring/1.0.0.M14/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
-                      >1.0.0.M14</a>
-
-
-
-
-
-                      <a href="/spring/1.0.x/index.html" class="px-1 text-xs text-gray-700 border border-gray-300 hover:bg-green-600 hover:text-white rounded mr-1 last:mr-0 "
-                      >1.0.x</a>
-
-
-
+                    <oap-versions version="master">
+                        <div data-url="/spring/index.html" data-version="master"></div>
+                        <div data-url="/spring/2020.1/index.html" data-version="2020.1"></div>
+                        <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
+                    </oap-versions>
                   </div>
 
-                </div>
 
+              </div>
           </section>
 
           <section class="lg:sticky pt-2" style="top: 3.95rem">
@@ -401,6 +354,11 @@ use the <code>array</code>'s <code>item</code> property type as the generic para
                   </div>
 
 
+                  <div class="pl-4">
+                    <a href="../mapping/package-name.html" class="hover:text-green-600 ">package-name Mapping</a>
+                  </div>
+
+
 
                 <div class="pl-0">
                   <a href="../gradle.html" class="hover:text-green-600 ">Gradle Integration</a>
@@ -470,7 +428,7 @@ use the <code>array</code>'s <code>item</code> property type as the generic para
             <div class="flex flex-col mb-4 mr-0 mr-12">
               <div class="font-bold">Samples - GitHub</div>
 
-              <a class="" href="https://github.com/hauner/openapi-processor-samples">
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-samples">
                 <i class="fab fa-github"></i> oap-samples
               </a>
             </div>
@@ -516,6 +474,8 @@ use the <code>array</code>'s <code>item</code> property type as the generic para
 
     </main>
 
+
+    <script type="module" src="../../_/versions/versions.esm.js"></script>
     <script async src="../../_/js/vendor/highlight.js"></script>
 
 

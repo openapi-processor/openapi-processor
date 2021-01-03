@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>oap-gradle :: openapi-processor</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="icon" type="image/png" href="../../_/img/favicon.ico">
+<link rel="stylesheet" href="../../_/css/oap.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
+  </head>
+
+  <body class="text-green-900">
+
+    <header class="bg-white w-full fixed top-0 z-30">
+
+      <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
+        <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <div class="text-2xl ml-16">
+          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">openapi-processor</a>
+        </div>
+
+        <div class="text-2xl">
+          <a href="https://playground.openapiprocessor.io" target="_blank" class="hover:text-gray-600">
+            <i class="far fa-play-circle mr-1"></i>playground
+          </a>
+        </div>
+      </div>
+
+    </header>
+
+
+    <main class="m-0 lg:px-5 mt-16 max-w-screen-xl mx-auto">
+
+      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh">
+
+        <section class="flex-col lg:flex-grow lg:w-main px-4">
+
+          <div class="hidden md:flex md:justify-between md:sticky md:top-sidebar md:ml-4 bg-white text-sm py-2 border-b z-20">
+
+            <div class="flex">
+              <div class="mr-1">
+                  <a href="../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                    <i class="fas fa-home"></i>
+                  </a>
+              </div>
+
+              <div>
+                <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul class="flex text-gray-500">
+    <li><a href="index.html" class="hover:text-green-600">oap-gradle</a></li>
+    <li><a href="index.html" class="hover:text-green-600">Documentation</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+
+            <div class="ml-1 text-gray-500 hover:text-green-600">
+              <a href="https://github.com/openapi-processor/openapi-processor-gradle/edit/1.0.x/docs/modules/ROOT/pages/index.adoc"><i class="fas fa-pen"></i></a>
+                          </div>
+
+          </div>
+
+          <article class="bg-white py-4 doc">
+            <div class="paragraph">
+<p><span class="image"><img src="_images/openapi-processor-gradle@1280x200.png" alt="openapi-processor-gradle"></span></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/openapi-processor/openapi-processor-gradle/actions?query=workflow%3Aci"><span class="image"><img src="https://github.com/openapi-processor/openapi-processor-gradle/workflows/ci/badge.svg" alt="badge"></span></a>
+<a href="https://github.com/openapi-processor/openapi-processor-gradle/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a></p>
+</div>
+<div class="paragraph">
+<p>a gradle plugin based on the <a href="https://github.com/openapi-processor/openapi-processor-api">openapi-processor-api</a> to handle any openapi-processor without an explicit dependency on the processor.</p>
+</div>
+<div class="sect1">
+<h2 id="_compatibility"><a class="anchor" href="#_compatibility"></a>compatibility</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">plugin version</th>
+<th class="tableblock halign-left valign-top">plugin id</th>
+<th class="tableblock halign-left valign-top">minimum gradle version</th>
+<th class="tableblock halign-left valign-top">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.M9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.openapiprocessor.openapi-processor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.5 (June 2019)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>only supports processors with new <code>io.openapiprocessor</code> group id</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.M8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.github.hauner.openapi-processor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.2 (February 2019)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>supports processors with new <code>io.openapiprocessor</code> and old <code>com.github.hauner.openapi</code> group id</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.M7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.github.hauner.openapi-processor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.2 (February 2019)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>only supports processors <code>com.github.hauner.openapi</code> group id</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle_dsl"><a class="anchor" href="#_gradle_dsl"></a>gradle dsl</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <a href="../../spring/index.html" class="page">openapi-processor-spring</a> spring specific description is available in <a href="../../spring/gradle.html" class="page">Gradle Integration</a>.</p>
+</div>
+<div class="paragraph">
+<p>The plugin adds a new configuration block <code>openapiProcessor</code> to the gradle project. Each processor is configurable by a nested configuration block.</p>
+</div>
+<div class="paragraph">
+<p>Apart from that there is only a single option that is recognized inside the configuration block:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>apiPath</code>, which defines the path to the openapi yaml file. This is usually the same for all
+processors and placing it directly into the <code>openapiProcessor</code> block sets it for all processors.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure a processor, for example the <a href="#spring::index.doc">openapi-processor-spring</a>, place a <code>spring</code> configuration into the <code>openapiProcessor</code> block. The name of the configuration gets used to create a gradle task <code>process&lt;Name&gt;</code> to run the corresponding processor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        ... options of openapi-processor-spring
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case another processor (e.g. json) is required place its configuration into the <code>openapiProcessor</code> block in the same way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        ... options of openapi-processor-spring
+    }
+
+    json {
+        ... options of openapi-processor-json
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The configuration of a single processor has a few pre-defined properties, and it can have any number of  additional parameters defined by the processor (all options will be passed in a map to the processor with the option name as the key).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>processor</code> (mandatory): the <code>processor</code> dependency. Uses the same dependency notations allowed in the gradle <code>dependencies</code> block.</p>
+<div class="paragraph">
+<p>The processor library is configured here to avoid any side effect on the build dependencies of the project.</p>
+</div>
+<div class="paragraph">
+<p>Example using the preferred shortcut nation:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spring {
+    processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or like this to use an un-published processor:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spring {
+    processor files('... path to generatr jar')
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>apiPath</code> (optional): the path to the open api yaml file. If set inside a processor configuration it overrides the parent <code>apiPath</code>.</p>
+</li>
+<li>
+<p><code>targetDir</code> (mandatory): the target folder for the processor. The processor will write its output to this directory.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle_tasks"><a class="anchor" href="#_gradle_tasks"></a>gradle tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin creates a single gradle task for each processor configuration that will run the corresponding processor. The name gets derived from the name of the processor: <code>generate&lt;Name&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The plugin does not add the <code>process&lt;Name&gt;</code> task to the build lifecycle. To automatically run it, add a task dependency in the <code>build.gradle</code> file. For example to run openapi-processor-spring before compiling use:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// generate api before compiling
+compileJava.dependsOn ('processSpring')</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to run openapi-processor-json when processing the resources:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>processResources.dependsOn ('processJson')</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_processor_output"><a class="anchor" href="#_using_the_processor_output"></a>using the processor output</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In case the processor creates java sources it is necessary to compile them as part of the build process.</p>
+</div>
+<div class="paragraph">
+<p>For example to compile the java source files created by openapi-processor-spring add the <code>targetDir`of the  processor to the java `sourceSets</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// add the targetDir of the processor as additional source folder to java.
+sourceSets {
+    main {
+        java {
+            // add generated files
+            srcDir 'build/openapi'
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add the json file created by the openapi-processor-json to the final artifact jar as resource add the <code>targetDir</code> of the processor to the java <code>resources</code> source set:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// add the targetDir of the processor as additional resource folder.
+sourceSets {
+    main {
+        resources {
+            srcDir "$buildDir/json"
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_example"><a class="anchor" href="#_configuration_example"></a>configuration example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is a full example that configures <a href="../../spring/index.html" class="page">openapi-processor-spring</a> and <a href="../../json/2021.1/index.html" class="page">openapi-processor-json</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">openapiProcessor {
+
+    // the path to the open api yaml file. Usually the same for all processors.
+    //
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    // based on the name of a processor configuration the plugin creates a gradle task with name
+    // "process${name of processor}"  (in this case "processSpring") to run the processor.
+    //
+    spring {
+        // the openapi-processor-spring dependency (mandatory)
+        //
+        processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+
+        // setting api path inside a processor configuration overrides the one at the top.
+        //
+        // apiPath "${projectDir}/src/api/openapi.yaml"
+
+        // the destination folder for generating interfaces &amp; models. This is the parent of the
+        // {package-name} folder tree configured in the mapping file. (mandatory)
+        //
+        targetDir "${projectDir}/build/openapi"
+
+        //// openapi-processor-spring specific options
+
+        // file name of the mapping yaml configuration file. Note that the yaml file name must end
+        // with either {@code .yaml} or {@code .yml}.
+        //
+        mapping "${projectDir}/src/api/mapping.yaml"
+
+        // show warnings from the open api parser.
+        showWarnings true
+    }
+
+    // applying the rule described above the task to run this one is "processJson".
+    //
+    json {
+        // the openapi-processor-json dependency (mandatory)
+        //
+        processor 'io.openapiprocessor:openapi-processor-json:&lt;version&gt;'
+
+        // the destination folder for the json file. (mandatory)
+        targetDir "${buildDir}/json"
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>without the comments it is not that long:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">openapiProcessor {
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+        targetDir "${projectDir}/build/openapi"
+        mapping "${projectDir}/src/api/mapping.yaml"
+        showWarnings true
+    }
+
+    json {
+        processor 'io.openapiprocessor:openapi-processor-json:&lt;version&gt;'
+        targetDir "${buildDir}/json"
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_samples"><a class="anchor" href="#_samples"></a>Samples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See <a href="../../samples/spring-mvc.html" class="page">spring mvc sample</a> or <a href="../../samples/spring-webflux.html" class="page">spring webflux sample</a> for working spring boot samples.</p>
+</div>
+</div>
+</div>
+          </article>
+
+          <div class="bg-white text-gray-500 text-sm hidden sm:block">
+
+
+          </div>
+
+        </section>
+
+        <aside class="lg:w-sidebar x-bg-gray-100 px-4 py-3 divide-y">
+
+          <section class="mb-2">
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap</span>
+                  <div>
+                    <oap-versions version="none"  visible="home">
+                        <div data-url="/oap/home/index.html" data-version="home"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-api</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/api/index.html" data-version="master"></div>
+                        <div data-url="/api/2020.3/index.html" data-version="2020.3"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span class="font-bold">oap-gradle</span>
+                  <div>
+                    <oap-versions version="1.0.0.M9">
+                        <div data-url="/gradle/1.0.0.M9/index.html" data-version="1.0.0.M9"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-json</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/json/2021.1/index.html" data-version="2021.1"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-maven</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/maven/1.0.0.M2/index.html" data-version="1.0.0.M2"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-samples</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/samples/index.html" data-version="master"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-spring</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/spring/index.html" data-version="master"></div>
+                        <div data-url="/spring/2020.1/index.html" data-version="2020.1"></div>
+                        <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+          </section>
+
+          <section class="lg:sticky pt-2" style="top: 3.95rem">
+
+            <div class="text-xl font-bold text-green-700">oap-gradle</div>
+
+
+                <div class="pl-0">
+                  <a href="index.html" class="hover:text-green-600 font-bold">Documentation</a>
+                </div>
+
+
+
+
+          </section>
+
+        </aside>
+
+      </div>
+
+      <footer class="p-6 mt-4 border footer sticky" style="bottom: -20rem">
+
+        <div class="text-gray-700 text-sm flex justify-between">
+
+          <div class="flex-none w-48 mr-12">
+            <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+
+            <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
+          </div>
+
+          <div class="flex justify-between flex-col lg:flex-row">
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Twitter</div>
+
+              <a class="" href="https://twitter.com/OpenApiProcess">
+                <i class="fab fa-twitter"></i> @OpenApiProcess
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Samples - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-samples">
+                <i class="fab fa-github"></i> oap-samples
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Plugins - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-maven">
+                <i class="fab fa-github"></i> oap-maven
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-gradle">
+                <i class="fab fa-github"></i> oap-gradle
+              </a>
+            </div>
+
+            <div class="flex flex-col mr-12">
+              <div class="font-bold">Processors - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-spring">
+                <i class="fab fa-github"></i> oap-spring
+              </a>
+
+<!--              <a class="" href="https://github.com/openapi-processor/openapi-processor-micronaut">-->
+<!--                <i class="fab fa-github"></i> openapi-processor-micronaut-->
+<!--              </a>-->
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-json">
+                <i class="fab fa-github"></i> oap-json
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-core">
+                <i class="fab fa-github"></i> oap-core
+              </a>
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </footer>
+
+    </main>
+
+
+    <script type="module" src="../../_/versions/versions.esm.js"></script>
+    <script async src="../../_/js/vendor/highlight.js"></script>
+
+
+  </body>
+
+</html>

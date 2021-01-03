@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>oap-maven :: openapi-processor</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="icon" type="image/png" href="../../_/img/favicon.ico">
+<link rel="stylesheet" href="../../_/css/oap.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
+  </head>
+
+  <body class="text-green-900">
+
+    <header class="bg-white w-full fixed top-0 z-30">
+
+      <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
+        <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <div class="text-2xl ml-16">
+          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">openapi-processor</a>
+        </div>
+
+        <div class="text-2xl">
+          <a href="https://playground.openapiprocessor.io" target="_blank" class="hover:text-gray-600">
+            <i class="far fa-play-circle mr-1"></i>playground
+          </a>
+        </div>
+      </div>
+
+    </header>
+
+
+    <main class="m-0 lg:px-5 mt-16 max-w-screen-xl mx-auto">
+
+      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh">
+
+        <section class="flex-col lg:flex-grow lg:w-main px-4">
+
+          <div class="hidden md:flex md:justify-between md:sticky md:top-sidebar md:ml-4 bg-white text-sm py-2 border-b z-20">
+
+            <div class="flex">
+              <div class="mr-1">
+                  <a href="../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                    <i class="fas fa-home"></i>
+                  </a>
+              </div>
+
+              <div>
+                <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul class="flex text-gray-500">
+    <li><a href="index.html" class="hover:text-green-600">oap-maven</a></li>
+    <li><a href="index.html" class="hover:text-green-600">Documentation</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+
+            <div class="ml-1 text-gray-500 hover:text-green-600">
+              <a href="https://github.com/openapi-processor/openapi-processor-maven/edit/1.0.x/docs/modules/ROOT/pages/index.adoc"><i class="fas fa-pen"></i></a>
+                          </div>
+
+          </div>
+
+          <article class="bg-white py-4 doc">
+            <div class="paragraph">
+<p><span class="image"><img src="_images/openapi-processor-maven@1280x200.png" alt="openapi-processor-maven"></span></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/openapi-processor/openapi-processor-maven/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a></p>
+</div>
+<div class="paragraph">
+<p>a maven plugin based on the <a href="https://github.com/openapi-processor/openapi-processor-api">openapi-processor-api</a> to handle any openapi-processor without an explicit dependency on the processor.</p>
+</div>
+<div class="sect1">
+<h2 id="_compatibility"><a class="anchor" href="#_compatibility"></a>compatibility</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">plugin version</th>
+<th class="tableblock halign-left valign-top">minimum maven version</th>
+<th class="tableblock halign-left valign-top">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.M1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.6</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>supports processors with new <code>io.openapiprocessor</code> and old <code>com.github.hauner.openapi</code> group id</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugin_configuration"><a class="anchor" href="#_plugin_configuration"></a>plugin configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first step of the configuration is to add the plugin, and the processor(s) to an existing project <code>pom.xml</code> into the <code>&lt;plugins/&gt;</code> block.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" ... &gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;io.openapiprocessor&lt;/groupId&gt;
+                &lt;artifactId&gt;openapi-processor-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.0.0.M1-SNAPSHOT&lt;/version&gt;
+
+                &lt;!-- ... next step ... --&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The processors are dependencies of the plugin, and they are expected in the <code>&lt;plugin/&gt;</code> block added in the first step.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.openapiprocessor&lt;/groupId&gt;
+            &lt;artifactId&gt;openapi-processor-spring&lt;/artifactId&gt;
+            &lt;version&gt;1.0.0.M15&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.github.hauner.openapi&lt;/groupId&gt;
+            &lt;artifactId&gt;openapi-processor-json&lt;/artifactId&gt;
+            &lt;version&gt;1.0.0.M4&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;!-- ... next step ... --&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then it should know where the processors will find the input OpenAPI yaml files using the <code>&lt;apiPath/&gt;</code> element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+    &lt;configuration&gt;
+        &lt;apiPath&gt;${project.basedir}/src/api/openapi.yaml&lt;/apiPath&gt;
+    &lt;/configuration&gt;
+
+    &lt;!-- ... next step ... --&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><strong>&lt;apiPath/&gt;</strong></code>, defines the path to the openapi yaml file. This is usually the same for all processors and adding it directly into the plugin <code>&lt;configuration/&gt;</code> block sets it for all processors.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Next step is to configure the goals for processing. The plugin has only a single goal <code>process</code> that can run any processor. It is configured by an <code>&lt;execution/&gt;</code> element to run a specific processor.</p>
+</div>
+<div class="paragraph">
+<p>If maven should run multiple processors, multiple <code>&lt;execution/&gt;</code> s are needed.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example to run <code>openapi-processor-spring</code> that explains the configuration details:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;id&gt;spring&lt;/id&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;phase&gt;generate-sources&lt;/phase&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+
+            &lt;configuration&gt;
+                &lt;id&gt;spring&lt;/id&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+
+                &lt;!--
+                &lt;apiPath&gt;${project.basedir}/src/api/openapi.yaml&lt;/apiPath&gt;
+                --&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+
+                &lt;options&gt; <i class="conum" data-value="5"></i><b>(5)</b>
+                    &lt;values&gt;
+                        &lt;targetDir&gt;${project.basedir}/target/generated-sources/openapi&lt;/targetDir&gt; <i class="conum" data-value="6"></i><b>(6)</b>
+                        &lt;mapping&gt;${project.basedir}/src/api/mapping.yaml&lt;/mapping&gt; <i class="conum" data-value="7"></i><b>(7)</b>
+                        &lt;parser&gt;OPENAPI4J&lt;/parser&gt;
+                        &lt;showWarnings&gt;true&lt;/showWarnings&gt;
+                    &lt;/values&gt;
+
+                    &lt;nested&gt;
+                        &lt;name&gt;foo&lt;/name&gt;
+                        &lt;values&gt;
+                            &lt;bar&gt;foo-bar&lt;/foobar&gt;
+                        &lt;/values&gt;
+                    &lt;/nested&gt;
+
+                &lt;/options&gt;
+            &lt;/configuration&gt;
+
+            &lt;goals&gt;
+                &lt;goal&gt;process&lt;/goal&gt; <i class="conum" data-value="8"></i><b>(8)</b>
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code><strong>&lt;id/&gt;</strong></code>: <strong>execution id</strong> of the goal (choose your id). It is necessary to configure multiple executions.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code><strong>&lt;phase/&gt;</strong></code> <strong>phase</strong> (mandatory): openapi-processor-spring generates java code, so the <code>&lt;phase/&gt;</code> should be <code>generate-source</code>. This tells maven to run the goal before compiling anything.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code><strong>&lt;id/&gt;</strong></code> <strong>processor id</strong> (mandatory): this configures the openapi-processor the goal should run. The processor id must match exactly with the name of the processor. The convention is, that the last part of the processors artifact name is the processor id.
+<div class="paragraph">
+<p>If the artifact of a processor is called <code>openapi-processor-x</code>, the last part <code>x</code> is the id of the processor. For example for <code>openapi-processor-spring</code> the id is <code>spring</code>, for <code>openapi-processor-json</code> the id is <code>json</code>.</p>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code><strong>&lt;apiPath/&gt;</strong></code> (optional): the path to the open api yaml file. If set inside an <code>&lt;execution&gt;</code> <code>&lt;configuration/&gt;</code> it overrides the parent <code>apiPath</code> set in the <code>&lt;plugin&gt;</code> <code>&lt;configuration/&gt;</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><code><strong>&lt;options/&gt;</strong></code> (mandatory): <strong>processor specific options</strong>, the configuration of a single processor can have any number of additional parameters defined by the processor (all options will be passed as a map to the processor with the option name as the key). The nested <code><strong>&lt;values/&gt;</strong></code> element defines that map.
+<div class="paragraph">
+<p>To allow any level of nesting it is possible to create <code><strong>&lt;nested/&gt;</strong></code> option maps, i.e. <code><strong>&lt;nested/&gt;</strong></code> can contain another <code><strong>&lt;nested/&gt;</strong></code> element and so on. In the configuration above the plugin would pass the following map to the processor:</p>
+</div>
+<div class="listingblock">
+<div class="title">json notation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "targetDir": "&lt;basedir path&gt;/target/generated-sources/openapi",
+  "mapping": "&lt;basedir path&gt;/src/api/mapping.yaml",
+  "parser": "OPENAPI4J",
+  "showWarnings":true,
+  "foo": {
+    "bar": "foo-bar"
+  }
+}</code></pre>
+</div>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td><code><strong>&lt;targetDir/&gt;</strong></code> <strong>target directory</strong> (mandatory): the directory the processor should use for its output. By convention a processor should use this key to as the output directory.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>the rest of the options are processor specific. See <a href="#spring::index.doc">openapi-processor-spring</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td><code><strong>&lt;goal/&gt;</strong></code> <strong>goal</strong> (mandatory): this is the goal maven should run. Since the plugin does only have a single goal the value is always <code>process</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To run a second processor add another <code>&lt;execution&gt;</code> element. Here is an example that configures <a href="../../spring/index.html" class="page">openapi-processor-spring</a> and <a href="../../json/2021.1/index.html" class="page">openapi-processor-json</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;id&gt;spring&lt;/id&gt;
+            &lt;phase&gt;generate-sources&lt;/phase&gt;
+
+            &lt;configuration&gt;
+                &lt;id&gt;spring&lt;/id&gt;
+                &lt;!-- ... --&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+
+        &lt;execution&gt;
+            &lt;id&gt;json&lt;/id&gt;
+            &lt;phase&gt;generate-resources&lt;/phase&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+
+            &lt;configuration&gt;
+                &lt;id&gt;json&lt;/id&gt;
+                &lt;!-- ... --&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>uses <code>generate-resources</code> phase for the json output, to consider it as a resource.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_processor_output"><a class="anchor" href="#_using_the_processor_output"></a>using the processor output</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far the plugin processes the given openapi yaml and writes the output to the given target directory but maven ignores the output.</p>
+</div>
+<div class="paragraph">
+<p>It is necessary to tell maven to use the generated files. In case of generated java source files maven should compile them. The <strong>build-helper-maven-plugin</strong> is used to for this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;build-helper-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;oap-sources&lt;/id&gt;
+                        &lt;phase&gt;generate-sources&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;add-source&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sources&gt;
+                                &lt;source&gt;${project.build.directory}/generated-sources/openapi&lt;/source&gt;
+                            &lt;/sources&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+
+
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This tells the <strong>build-helper-maven-plugin</strong> to add the processors <code>targetDir</code> as an additional source folder to the project.</p>
+</div>
+<div class="paragraph">
+<p>Maven will now include the generated files when it compiles the project.</p>
+</div>
+<div class="paragraph">
+<p>If the output of the processor (e.g. generated by openapi-processor-json) should be used as resource the <strong>build-helper-maven-plugin</strong> has a goal for this too. Just add another <code>&lt;excecution/&gt;</code> using the <code>add-resource</code> goal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;execution&gt;
+    &lt;id&gt;oap-resources&lt;/id&gt;
+    &lt;phase&gt;generate-resources&lt;/phase&gt;
+    &lt;goals&gt;
+        &lt;goal&gt;add-resource&lt;/goal&gt;
+    &lt;/goals&gt;
+    &lt;configuration&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;${project.build.directory}/generated-resources/json&lt;/directory&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+    &lt;/configuration&gt;
+&lt;/execution&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_samples"><a class="anchor" href="#_samples"></a>Samples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the maven sample in the <a href="../../samples/index.html" class="page">samples</a> for a working spring boot example.</p>
+</div>
+</div>
+</div>
+          </article>
+
+          <div class="bg-white text-gray-500 text-sm hidden sm:block">
+
+
+          </div>
+
+        </section>
+
+        <aside class="lg:w-sidebar x-bg-gray-100 px-4 py-3 divide-y">
+
+          <section class="mb-2">
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap</span>
+                  <div>
+                    <oap-versions version="none"  visible="home">
+                        <div data-url="/oap/home/index.html" data-version="home"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-api</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/api/index.html" data-version="master"></div>
+                        <div data-url="/api/2020.3/index.html" data-version="2020.3"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-gradle</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/gradle/1.0.0.M9/index.html" data-version="1.0.0.M9"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-json</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/json/2021.1/index.html" data-version="2021.1"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span class="font-bold">oap-maven</span>
+                  <div>
+                    <oap-versions version="1.0.0.M2">
+                        <div data-url="/maven/1.0.0.M2/index.html" data-version="1.0.0.M2"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-samples</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/samples/index.html" data-version="master"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-spring</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/spring/index.html" data-version="master"></div>
+                        <div data-url="/spring/2020.1/index.html" data-version="2020.1"></div>
+                        <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+          </section>
+
+          <section class="lg:sticky pt-2" style="top: 3.95rem">
+
+            <div class="text-xl font-bold text-green-700">oap-maven</div>
+
+
+                <div class="pl-0">
+                  <a href="index.html" class="hover:text-green-600 font-bold">Documentation</a>
+                </div>
+
+
+
+
+          </section>
+
+        </aside>
+
+      </div>
+
+      <footer class="p-6 mt-4 border footer sticky" style="bottom: -20rem">
+
+        <div class="text-gray-700 text-sm flex justify-between">
+
+          <div class="flex-none w-48 mr-12">
+            <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+
+            <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
+          </div>
+
+          <div class="flex justify-between flex-col lg:flex-row">
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Twitter</div>
+
+              <a class="" href="https://twitter.com/OpenApiProcess">
+                <i class="fab fa-twitter"></i> @OpenApiProcess
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Samples - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-samples">
+                <i class="fab fa-github"></i> oap-samples
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Plugins - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-maven">
+                <i class="fab fa-github"></i> oap-maven
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-gradle">
+                <i class="fab fa-github"></i> oap-gradle
+              </a>
+            </div>
+
+            <div class="flex flex-col mr-12">
+              <div class="font-bold">Processors - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-spring">
+                <i class="fab fa-github"></i> oap-spring
+              </a>
+
+<!--              <a class="" href="https://github.com/openapi-processor/openapi-processor-micronaut">-->
+<!--                <i class="fab fa-github"></i> openapi-processor-micronaut-->
+<!--              </a>-->
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-json">
+                <i class="fab fa-github"></i> oap-json
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-core">
+                <i class="fab fa-github"></i> oap-core
+              </a>
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </footer>
+
+    </main>
+
+
+    <script type="module" src="../../_/versions/versions.esm.js"></script>
+    <script async src="../../_/js/vendor/highlight.js"></script>
+
+
+  </body>
+
+</html>
