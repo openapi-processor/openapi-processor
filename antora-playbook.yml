@@ -12,7 +12,7 @@ content:
 #  - url: ../openapi-processor-spring
   - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
-    branches: [master, 2020.1.x, 1.0.0.M14]
+    branches: [2021.2.x, 2020.1.x, 1.0.0.M14]
 
 #  - url: ../openapi-processor-json
   - url: https://github.com/openapi-processor/openapi-processor-json
@@ -22,12 +22,12 @@ content:
 #  - url: ../openapi-processor-maven
   - url: https://github.com/openapi-processor/openapi-processor-maven
     start_path: docs
-    branches: [1.0.x]
+    branches: [2021.1.x, 1.0.x]
 
 #  - url: ../openapi-processor-gradle
   - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
-    branches: [1.0.x]
+    branches: [2021.1.x, 1.0.x]
 
   #  - url: ../openapi-processor-samples
   - url: https://github.com/openapi-processor/openapi-processor-samples
@@ -37,7 +37,7 @@ content:
 #  - url: ../openapi-processor-api
   - url: https://github.com/openapi-processor/openapi-processor-api
     start_path: docs
-    branches: [master, 2020.3.x]
+    branches: [2021.1.x]
 
 ui:
   bundle:
