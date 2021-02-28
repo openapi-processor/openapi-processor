@@ -71,7 +71,8 @@
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/hauner/openapi-processor-json/actions?query=workflow%3Aci"><span class="image"><img src="https://github.com/hauner/openapi-processor-json/workflows/ci/badge.svg" alt="badge"></span></a>
-<a href="https://github.com/hauner/openapi-processor-json/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a></p>
+<a href="https://github.com/hauner/openapi-processor-json/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a>
+<a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-json?label=Maven%20Central" alt="openapi processor json?label=Maven%20Central"></span></a></p>
 </div>
 <div class="paragraph">
 <p>a simple <a href="https://www.openapis.org/">OpenAPI</a> yaml to json converter. May be useful to feed the OpenAPI to an api viewer like
@@ -81,7 +82,7 @@
 <h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a>Getting Started</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="../../gradle/1.0.0.M9/index.html" class="page">openapi-processor-gradle</a> gradle is the easiest way to use the yaml to json processor.</p>
+<p>The <a href="../../gradle/2021.1/index.html" class="page">openapi-processor-gradle</a> gradle is the easiest way to use the yaml to json processor.</p>
 </div>
 </div>
 </div>
@@ -98,7 +99,7 @@ configuration block name.</p>
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">openapiProcessor {
 
     json {
-        processor 'com.github.hauner.openapi:openapi-processor-json:1.0.0.M4'
+        processor 'com.github.hauner.openapi:openapi-processor-json:2021.2'
 
         apiPath = "$projectDir/src/api/openapi.yaml"
         targetDir = "$projectDir/build/openapi"
@@ -161,8 +162,7 @@ minimal openapi.yaml.</p>
                   <span>oap-api</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/api/index.html" data-version="master"></div>
-                        <div data-url="/api/2020.3/index.html" data-version="2020.3"></div>
+                        <div data-url="/api/2021.1/index.html" data-version="2021.1"></div>
                     </oap-versions>
                   </div>
 
@@ -175,6 +175,7 @@ minimal openapi.yaml.</p>
                   <span>oap-gradle</span>
                   <div>
                     <oap-versions version="none" >
+                        <div data-url="/gradle/2021.1/index.html" data-version="2021.1"></div>
                         <div data-url="/gradle/1.0.0.M9/index.html" data-version="1.0.0.M9"></div>
                     </oap-versions>
                   </div>
@@ -201,6 +202,7 @@ minimal openapi.yaml.</p>
                   <span>oap-maven</span>
                   <div>
                     <oap-versions version="none" >
+                        <div data-url="/maven/2021.1/index.html" data-version="2021.1"></div>
                         <div data-url="/maven/1.0.0.M2/index.html" data-version="1.0.0.M2"></div>
                     </oap-versions>
                   </div>
@@ -227,7 +229,7 @@ minimal openapi.yaml.</p>
                   <span>oap-spring</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/spring/index.html" data-version="master"></div>
+                        <div data-url="/spring/2021.2/index.html" data-version="2021.2"></div>
                         <div data-url="/spring/2020.1/index.html" data-version="2020.1"></div>
                         <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
                     </oap-versions>
@@ -262,7 +264,7 @@ minimal openapi.yaml.</p>
           <div class="flex-none w-48 mr-12">
             <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
 
-            <div class="text-xs text-center">&#169; 2019-2020 Martin Hauner</div>
+            <div class="text-xs text-center">&#169; 2019-2021 Martin Hauner</div>
           </div>
 
           <div class="flex justify-between flex-col lg:flex-row">
