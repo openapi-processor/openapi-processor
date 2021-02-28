@@ -23,7 +23,7 @@
 :central-json: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-json?color=009051&label=latest
 :central-spring: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-spring?color=009051&label=latest
 :central-micronaut: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-micronaut?color=009051&label=latest
-:central-maven: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-maven-plugin??color=009051&label=latest
+:central-maven: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-maven-plugin?color=009051&label=latest
 
 //
 // content
