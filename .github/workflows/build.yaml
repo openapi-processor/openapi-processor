@@ -24,8 +24,8 @@ jobs:
       with:
         node-version: '14'
 
-    - install: antora
-      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+    - name: install antora
+      run: npm i @antora/cli@2.3 @antora/site-generator-default@2.3
 
     - name: run antora
       run: ./node_modules/@antora/cli/bin/antora antora-playbook.yml
