@@ -11,7 +11,7 @@ on:
 jobs:
 
   build:
-    name: build site documentation
+    name: build
 
     runs-on: ubuntu-latest
 
@@ -25,10 +25,13 @@ jobs:
         node-version: '14'
 
     - name: install antora
-      run: npm i @antora/cli@2.3 @antora/site-generator-default@2.3
+      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+
+    - name: clear docs
+      run: ./clear-docs.sh
 
     - name: run antora
-      run: ./node_modules/@antora/cli/bin/antora antora-playbook.yml
+      run: antora antora-playbook.yml
 
     - name: check changes
       run: git status
