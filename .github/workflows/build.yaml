@@ -34,8 +34,13 @@ jobs:
       run: antora antora-playbook.yml
 
     - name: check changes
-      run: |
-        git status
-        git ls-files --deleted
-        git ls-files --modified
-        git ls-files --other
+      run: git status
+
+    - name: check deleted
+      run: git ls-files --deleted
+
+    - name: check modified
+      run: git ls-files --modified
+
+    - name: check other
+      run: git ls-files --other
