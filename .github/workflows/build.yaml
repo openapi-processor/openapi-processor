@@ -29,3 +29,7 @@ jobs:
 
     - name: run antora
       run: ./node_modules/@antora/cli/bin/antora antora-playbook.yml
+
+    - name: check changes
+      run: git status
+
