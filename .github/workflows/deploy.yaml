@@ -32,7 +32,7 @@ jobs:
       run: git status
 
     - name: add changes
-      run: git add --all docs
+      run: git add -v --all docs
 
     - name: status
       run: git status
