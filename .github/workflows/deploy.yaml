@@ -1,0 +1,45 @@
+name: deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: deploy
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: install antora
+      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+
+    - name: clear docs
+      run: ./clear-docs.sh
+
+    - name: run antora
+      run: antora antora-playbook.yml
+
+    - name: check changes
+      run: git status
+
+    - name: add changes
+      run: git add --all docs
+
+    - name: status
+      run: git status
+
+#    - name: commit & push changes
+#      run: |
+#        git config user.name openapiprocessor
+#        git config user.email info@openapiprocessor.io
+#        git commit -m "regenerated docs"
+#        git push
