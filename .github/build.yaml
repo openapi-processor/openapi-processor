@@ -24,4 +24,4 @@ jobs:
 
     - run: npm install
     - name: run antora
-      run: antora antora-playbook.yml
+      run: ./node_modules/@antora/cli/bin/antora antora-playbook.yml
