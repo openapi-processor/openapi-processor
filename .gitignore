@@ -2,3 +2,4 @@
 .antora-cache
 node_modules
 package-lock.json
+twitter.template
