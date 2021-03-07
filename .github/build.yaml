@@ -1,0 +1,27 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: build site documentation
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: node
+    - uses: actions/setup-node@v2
+    with:
+      node-version: '14'
+
+    - run: npm install
+    - name: run antora
+      run: antora antora-playbook.yml
