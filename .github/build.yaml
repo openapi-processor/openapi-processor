@@ -19,9 +19,11 @@ jobs:
 
     - name: node
     - uses: actions/setup-node@v2
-    with:
-      node-version: '14'
+      with:
+        node-version: '14'
 
-    - run: npm install
+    - install: antora
+      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+
     - name: run antora
       run: ./node_modules/@antora/cli/bin/antora antora-playbook.yml
