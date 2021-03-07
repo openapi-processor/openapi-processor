@@ -43,4 +43,4 @@ jobs:
       run: git ls-files --modified
 
     - name: check other
-      run: git ls-files --other
+      run: git ls-files --other --exclude=.antora-cache
