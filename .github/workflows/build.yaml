@@ -33,7 +33,13 @@ jobs:
     - name: run antora
       run: antora antora-playbook.yml
 
-    - name: check changes
+    - name: status
+      run: git status
+
+    - name: add changes
+      run: git add --all docs
+
+    - name: status
       run: git status
 
     - name: check deleted

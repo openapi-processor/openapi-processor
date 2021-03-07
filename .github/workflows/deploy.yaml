@@ -28,11 +28,11 @@ jobs:
     - name: run antora
       run: antora antora-playbook.yml
 
-    - name: check changes
+    - name: status
       run: git status
 
     - name: add changes
-      run: git add -v --all docs
+      run: git add --all docs
 
     - name: status
       run: git status
@@ -42,4 +42,4 @@ jobs:
         git config user.name openapiprocessor
         git config user.email info@openapiprocessor.io
         git commit -m "regenerated docs"
-#        git push
+        git push
