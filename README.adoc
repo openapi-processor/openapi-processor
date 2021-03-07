@@ -36,6 +36,18 @@
 antora antora-playbook.yml
 ----
 . fix warnings
-. add un-versioned files in `docs`
+. sync working tree to index (updates modified files, adds un-tracked files, removes missing files)
++
+----
+git add --all docs
+----
 . commit
++
+----
+git commit -m "regenerated docs"
+----
 . push
++
+----
+git push
+----
