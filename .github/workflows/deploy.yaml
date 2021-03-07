@@ -37,9 +37,9 @@ jobs:
     - name: status
       run: git status
 
-#    - name: commit & push changes
-#      run: |
-#        git config user.name openapiprocessor
-#        git config user.email info@openapiprocessor.io
-#        git commit -m "regenerated docs"
+    - name: commit & push changes
+      run: |
+        git config user.name openapiprocessor
+        git config user.email info@openapiprocessor.io
+        git commit -m "regenerated docs"
 #        git push
