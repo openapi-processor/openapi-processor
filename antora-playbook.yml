@@ -14,6 +14,11 @@ content:
     start_path: docs
     branches: [2021.2.x, 2020.1.x, 1.0.0.M14]
 
+#  - url: ../openapi-processor-micronaut
+    - url: https://github.com/openapi-processor/openapi-processor-micronaut
+      start_path: docs
+      branches: [2021.1.x]
+
 #  - url: ../openapi-processor-json
   - url: https://github.com/openapi-processor/openapi-processor-json
     start_path: docs
