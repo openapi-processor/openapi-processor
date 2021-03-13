@@ -39,12 +39,9 @@ openapi-processor (short: oap) does currently support the following formats:
 
 * xref:spring::index.adoc[oap-*spring*]: link:{oap-central}[image:{central-spring}[]] an interface & model java code generator for link:{springboot}[Spring Boot]
 
+* xref:spring::index.adoc[oap-*micronaut*]: link:{oap-central}[image:{central-micronaut}[]] an interface & model java code generator for link:{micronaut}[Micronaut]
+
 * xref:json::index.adoc[oap-*json*]: link:{oap-central}[image:{central-json}[]] converts the OpenAPI yaml description to json format
-
-
-//upcoming:
-//
-//* oap-*micronaut*: an interface & model java code generator for link:{micronaut}[Micronaut].
 
 
 == running a processor
