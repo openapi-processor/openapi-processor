@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-api.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-api.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-gradle.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-gradle.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-json.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-json.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-maven.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-maven.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-oap.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-micronaut.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-samples.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-oap.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hauner.github.io/openapi-processor/sitemap-spring.xml</loc>
+<loc>https://docs.openapiprocessor.io/sitemap-samples.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://docs.openapiprocessor.io/sitemap-spring.xml</loc>
 </sitemap>
 </sitemapindex>

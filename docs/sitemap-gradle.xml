@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://hauner.github.io/openapi-processor/gradle/2021.2/index.html</loc>
-<lastmod>2021-03-07T17:58:20.736Z</lastmod>
+<loc>https://docs.openapiprocessor.io/gradle/2021.2/index.html</loc>
+<lastmod>2021-03-14T15:20:59.340Z</lastmod>
 </url>
 <url>
-<loc>https://hauner.github.io/openapi-processor/gradle/2021.1/index.html</loc>
-<lastmod>2021-03-07T17:58:20.736Z</lastmod>
+<loc>https://docs.openapiprocessor.io/gradle/2021.1/index.html</loc>
+<lastmod>2021-03-14T15:20:59.340Z</lastmod>
 </url>
 <url>
-<loc>https://hauner.github.io/openapi-processor/gradle/1.0.0.M9/index.html</loc>
-<lastmod>2021-03-07T17:58:20.736Z</lastmod>
+<loc>https://docs.openapiprocessor.io/gradle/1.0.0.M9/index.html</loc>
+<lastmod>2021-03-14T15:20:59.340Z</lastmod>
 </url>
 </urlset>

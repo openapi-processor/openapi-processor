@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://hauner.github.io/openapi-processor/maven/2021.1/index.html</loc>
-<lastmod>2021-03-07T17:58:20.736Z</lastmod>
+<loc>https://docs.openapiprocessor.io/maven/2021.1/index.html</loc>
+<lastmod>2021-03-14T15:20:59.340Z</lastmod>
 </url>
 <url>
-<loc>https://hauner.github.io/openapi-processor/maven/1.0.0.M2/index.html</loc>
-<lastmod>2021-03-07T17:58:20.736Z</lastmod>
+<loc>https://docs.openapiprocessor.io/maven/1.0.0.M2/index.html</loc>
+<lastmod>2021-03-14T15:20:59.340Z</lastmod>
 </url>
 </urlset>
