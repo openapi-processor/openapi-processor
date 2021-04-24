@@ -10,3 +10,12 @@ rm -rf ./docs/spring-mvc-sample
 rm -rf ./docs/spring-webflux-sample
 rm ./docs/*.html
 rm ./docs/*.xml
+
+# restore hand-crafted redirect pages
+git restore docs/api/index.html
+git restore docs/gradle/index.html
+git restore docs/json/index.html
+git restore docs/maven/index.html
+git restore docs/micronaut/index.html
+git restore docs/spring/index.html
+
