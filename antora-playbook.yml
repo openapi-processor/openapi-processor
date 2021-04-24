@@ -32,7 +32,7 @@ content:
 #  - url: ../openapi-processor-gradle
   - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
-    branches: [2021.2.x, 2021.1.x, 1.0.x]
+    branches: [2021.3.x, 2021.2.x]
 
   #  - url: ../openapi-processor-samples
   - url: https://github.com/openapi-processor/openapi-processor-samples
