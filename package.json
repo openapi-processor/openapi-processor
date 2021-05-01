@@ -1,0 +1,17 @@
+{
+  "name": "openapi-processor-site",
+  "version": "1.0.0",
+  "description": "openapi-processor site",
+  "private": true,
+  "scripts": {
+    "serve": "http-server docs -c-1",
+    "build": "antora --clean --fetch antora-playbook.yml"
+  },
+  "dependencies": {
+    "@antora/cli": "^2.3.4",
+    "@antora/site-generator-default": "^2.3.4"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}
