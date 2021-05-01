@@ -1,0 +1,40 @@
+<script async src="{{{uiRootPath}}}/js/vendor/tab-blocks.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch ({
+  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
+  indexName: 'openapiprocessor',
+  inputSelector: '#search',
+  transformData: function(hits) {
+    const modified = hits.map(h => {
+        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+
+        if (!h._highlightResult.hierarchy) {
+            h._highlightResult.hierarchy = {};
+        }
+        h._highlightResult.hierarchy.lvl0 = headline;
+
+        if (!h.hierarchy) {
+            h.hierarchy = {};
+        }
+        h.hierarchy.lvl0 = headline;
+
+        return h;
+    });
+    // console.log('hits', modified);
+    return modified;
+  },
+  algoliaOptions: {
+      // facetFilters: ['component:spring', 'component:gradle']
+  },
+  attributesToHighlight: [
+    'component',
+    'version'
+  ],
+  attributesToSnippet: [
+    'component',
+    'version'
+  ],
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+

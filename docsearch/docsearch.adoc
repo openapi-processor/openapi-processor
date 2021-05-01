@@ -1,0 +1,11 @@
+= docsearch
+
+== config
+
+https://github.com/algolia/docsearch-configs/blob/master/configs/openapiprocessor.json
+
+== create test index with docker
+
+run from docsearch folder
+
+ docker run -it --env-file=./env -e "CONFIG=$(cat ./openapiprocessor.json | jq -r tostring)" algolia/docsearch-scraper
