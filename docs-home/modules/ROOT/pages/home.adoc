@@ -1,0 +1,158 @@
+:author: Martin Hauner
+:page-title: openapiprocessor.io
+:page-aliases: start@oap:ROOT:home.adoc
+:page-layout: home
+
+
+image:openapi-processor$$@$$1280x200.png[openapi-processor]
+
+
+[.py-6]
+**openapi-processor**
+is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format. Usually Java code. The target programming language is Java, which makes the generated code usable from most JVM languages.
+
+**starting with an API** +
+openapi-processor is useful if you explicitly define and document your Service API using OpenAPI with the interface to the outside and its usage in mind before you implement it. You do not derive the API later from the implementation and its implicit design. Of course, this is not a one time step but an iterative process.
+
+The advantages are:
+
+* you have a single place to maintain the api which makes it easier to create a consistent api and keep the overview.
+* it is easy to document in plain text. You can use markdown in the OpenAPI `description` properties.
+* it helps to keep the implementation in sync with the OpenAPI description. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
+
+[.py-6]
+**code generation** +
+A processor generates java interfaces based on the endpoint descriptions of the API and simple POJO classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface and all that is left to *you* is the implementation of the generated interfaces in any way you like.
+
+[.py-6]
+image::process-flow.png[process,700,align="center"]
+
+[.pt-6]
+**supported target formats**
+
+++++
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+++++
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+a|xref:spring::index.adoc[openapi-processor-*spring*]
+|link:{oap-central}[image:{central-spring}[]]
+
+2+a|creates link:{springboot}[Spring Boot] java interfaces & models (pojos) from the OpenAPI description using spring annotations.
+|===
+====
+
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+a|xref:micronaut::index.adoc[openapi-processor-*micronaut*]
+|link:{oap-central}[image:{central-micronaut}[]]
+
+2+a|creates link:{micronaut}[Micronaut] java interfaces & models (pojos) from the OpenAPI description using micronaut annotations.
+|===
+====
+
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+a|xref:json::index.adoc[openapi-processor-*json*]
+|link:{oap-central}[image:{central-json}[]]
+
+2+a|converts the OpenAPI yaml description to json format.
+|===
+====
+++++
+</div>
+++++
+
+[.pt-6]
+**supported build tools**
+
+++++
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+++++
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+a|xref:gradle::index.adoc[openapi-processor-*gradle*]
+|link:{gradle-gradle}[image:{version-gradle}[]]
+
+2+a|gradle plugin to run any processor from link:{gradle}[Gradle].
+|===
+====
+
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+a|xref:maven::index.adoc[openapi-processor-*maven*]
+|link:{oap-central}[image:{central-maven}[]]
+
+2+a|maven plugin to run any processor from link:{maven}[Maven].
+|===
+====
+++++
+</div>
+++++
+
+
+[.pt-6]
+**.. a few things it can do**
+
+++++
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+++++
+
+[.card]
+====
+it generates **java interfaces and java model (pojo) classes only** for all defined endpoints and schemas to allow full control of the endpoint implementation. It does not generate any other file.
+====
+
+[.card]
+====
+it has a **powerful type mapping configuration** (one level generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or http method (of an endpoint).
+====
+
+[.card]
+====
+it can add **additional parameters** to an endpoint which are not defined in the OpenAPI description. For example to pass an `HttpServletRequest` to the endpoint implementation which is nothing you want to describe in the API.
+====
+
+[.card]
+====
+it generates **human-readable code**.
+====
+
+[.card]
+====
+it supports **bean validations**. The constraints of the openapi description map to java bean validation annotations.
+====
+
+[.card]
+====
+it supports **json merge patch** apis by generating pojos with jackson-databind-nullable where requested.
+====
+
+[.card]
+====
+it allows to **exclude endpoints** from generation. This is useful if the processor does not create the correct code for an endpoint. That way the processor can still be used for all the other endpoints.
+====
+
+[.card]
+====
+it handles **multiple responses** by generating one endpoint method for each response content type.
+====
+
+[.card]
+====
+it handles **relative `$ref` 's** between multiple yaml files.
+====
+
+++++
+</div>
+++++

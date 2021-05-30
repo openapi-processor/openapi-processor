@@ -1,5 +1,28 @@
 name: oap
 title: oap
 version: home
+
+asciidoc:
+  attributes:
+    openapi: https://www.openapis.org/
+    openapi-spec: https://github.com/OAI/OpenAPI-Specification
+    central-spring: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-spring?color=009051&label=latest
+    snapshot-spring: https://img.shields.io/nexus/s/io.openapiprocessor/openapi-processor-spring?color=009051&label=https%3A%2F%2Foss.sonatype.org&server=https%3A%2F%2Foss.sonatype.org
+    central-json: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-json?color=009051&label=latest
+    central-micronaut: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-micronaut?color=009051&label=latest
+    central-maven: https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-maven-plugin?color=009051&label=latest
+    gradle-gradle: https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor
+    version-gradle: https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&include_prereleases&label=latest
+
+    oap-license: https://apache.org/licenses/LICENSE-2.0.txt
+    badge-license: https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42
+    oap-playground: https://playground.openapi-processor.io
+    oap-central: https://search.maven.org/search?q=io.openapiprocessor
+
+    gradle: https://gradle.org/
+    maven: https://maven.apache.org/
+    springboot: https://spring.io/projects/spring-boot
+    micronaut: https://micronaut.io/
+
 nav:
 - modules/ROOT/nav.adoc
