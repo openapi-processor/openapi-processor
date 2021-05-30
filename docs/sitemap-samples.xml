@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://docs.openapiprocessor.io/samples/index.html</loc>
-<lastmod>2021-05-30T17:16:47.467Z</lastmod>
+<lastmod>2021-05-30T17:23:49.476Z</lastmod>
 </url>
 <url>
 <loc>https://docs.openapiprocessor.io/samples/micronaut.html</loc>
-<lastmod>2021-05-30T17:16:47.467Z</lastmod>
+<lastmod>2021-05-30T17:23:49.476Z</lastmod>
 </url>
 <url>
 <loc>https://docs.openapiprocessor.io/samples/spring-mvc.html</loc>
-<lastmod>2021-05-30T17:16:47.467Z</lastmod>
+<lastmod>2021-05-30T17:23:49.476Z</lastmod>
 </url>
 <url>
 <loc>https://docs.openapiprocessor.io/samples/spring-webflux.html</loc>
-<lastmod>2021-05-30T17:16:47.467Z</lastmod>
+<lastmod>2021-05-30T17:23:49.476Z</lastmod>
 </url>
 </urlset>
