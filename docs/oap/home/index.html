@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
   </head>
 
   <body class="text-green-900">
@@ -21,10 +22,19 @@
       <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
         <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
         <div class="text-2xl ml-16">
-          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">openapi-processor</a>
+          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">docs.openapiprocessor.io</a>
         </div>
 
-        <div class="text-2xl">
+        <div class="relative hidden lg:block">
+  <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
+  <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+</div>
+<!--        <div class="relative">-->
+<!--          <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">-->
+<!--          <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>-->
+<!--        </div>-->
+
+        <div class="text-2xl hidden md:block">
           <a href="https://playground.openapiprocessor.io" target="_blank" class="hover:text-gray-600">
             <i class="far fa-play-circle mr-1"></i>playground
           </a>
@@ -36,7 +46,7 @@
 
     <main class="m-0 lg:px-5 mt-16 max-w-screen-xl mx-auto">
 
-      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh">
+      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh;">
 
         <section class="flex-col lg:flex-grow lg:w-main px-4">
 
@@ -81,13 +91,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../../spring/2021.3/index.html" class="page">oap-<strong>spring</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-spring?color=009051&amp;label=latest" alt="openapi processor spring?color=009051&amp;label=latest"></span></a> an interface &amp; model java code generator for <a href="https://spring.io/projects/spring-boot">Spring Boot</a></p>
+<p><a href="../../spring/2021.3/index.html" class="page">oap-<strong>spring</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-spring?color=009051&label=latest" alt="openapi processor spring?color=009051&label=latest"></span></a> an interface &amp; model java code generator for <a href="https://spring.io/projects/spring-boot">Spring Boot</a></p>
 </li>
 <li>
-<p><a href="../../micronaut/2021.1/index.html" class="page">oap-<strong>micronaut</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-micronaut?color=009051&amp;label=latest" alt="openapi processor micronaut?color=009051&amp;label=latest"></span></a> an interface &amp; model java code generator for <a href="https://micronaut.io/">Micronaut</a></p>
+<p><a href="../../micronaut/2021.1/index.html" class="page">oap-<strong>micronaut</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-micronaut?color=009051&label=latest" alt="openapi processor micronaut?color=009051&label=latest"></span></a> an interface &amp; model java code generator for <a href="https://micronaut.io/">Micronaut</a></p>
 </li>
 <li>
-<p><a href="../../json/2021.1/index.html" class="page">oap-<strong>json</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-json?color=009051&amp;label=latest" alt="openapi processor json?color=009051&amp;label=latest"></span></a> converts the OpenAPI yaml description to json format</p>
+<p><a href="../../json/2021.1/index.html" class="page">oap-<strong>json</strong></a>: <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-json?color=009051&label=latest" alt="openapi processor json?color=009051&label=latest"></span></a> converts the OpenAPI yaml description to json format</p>
 </li>
 </ul>
 </div>
@@ -100,10 +110,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://maven.apache.org/">Maven</a> using the <a href="../../maven/2021.1/index.html" class="page">openapi-processor-<strong>maven</strong></a> plugin <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-maven-plugin?color=009051&amp;label=latest" alt="openapi processor maven plugin?color=009051&amp;label=latest"></span></a> and</p>
+<p><a href="https://maven.apache.org/">Maven</a> using the <a href="../../maven/2021.1/index.html" class="page">openapi-processor-<strong>maven</strong></a> plugin <a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-maven-plugin?color=009051&label=latest" alt="openapi processor maven plugin?color=009051&label=latest"></span></a> and</p>
 </li>
 <li>
-<p><a href="https://gradle.org/">Gradle</a> using the <a href="../../gradle/2021.3/index.html" class="page">openapi-processor-<strong>gradle</strong></a> plugin <a href="https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor"><span class="image"><img src="https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&amp;include_prereleases&amp;label=latest" alt="openapi processor gradle?color=009051&amp;include prereleases&amp;label=latest"></span></a></p>
+<p><a href="https://gradle.org/">Gradle</a> using the <a href="../../gradle/2021.3/index.html" class="page">openapi-processor-<strong>gradle</strong></a> plugin <a href="https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor"><span class="image"><img src="https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&include_prereleases&label=latest" alt="openapi processor gradle?color=009051&include prereleases&label=latest"></span></a></p>
 </li>
 </ul>
 </div>
@@ -359,8 +369,48 @@
 
 
     <script type="module" src="../../_/versions/versions.esm.js"></script>
-    <script async src="../../_/js/vendor/tab-blocks.js"></script>
+<!--    <script async src="../../_/js/vendor/tab-blocks.js"></script>-->
     <script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="../../_/js/vendor/tab-blocks.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch ({
+  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
+  indexName: 'openapiprocessor',
+  inputSelector: '#search',
+  transformData: function(hits) {
+    const modified = hits.map(h => {
+        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+
+        if (!h._highlightResult.hierarchy) {
+            h._highlightResult.hierarchy = {};
+        }
+        h._highlightResult.hierarchy.lvl0 = headline;
+
+        if (!h.hierarchy) {
+            h.hierarchy = {};
+        }
+        h.hierarchy.lvl0 = headline;
+
+        return h;
+    });
+    // console.log('hits', modified);
+    return modified;
+  },
+  algoliaOptions: {
+      // facetFilters: ['component:spring', 'component:gradle']
+  },
+  attributesToHighlight: [
+    'component',
+    'version'
+  ],
+  attributesToSnippet: [
+    'component',
+    'version'
+  ],
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
 
 
   </body>
