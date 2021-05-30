@@ -1,1 +1,2 @@
+* xref:home.adoc[Start Page]
 * xref:index.adoc[Introduction]
