@@ -462,6 +462,32 @@ compileJava.dependsOn ('processSpring')</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_dependon_a_processing_task"><a class="anchor" href="#_dependon_a_processing_task"></a><code>dependOn</code> a processing task</h3>
+<div class="paragraph">
+<p>If a task needs to run before a processing task, e.g. <code>processSpring</code>, it is necessary to create the dependency inside an <code>afterEvaluate</code> block.</p>
+</div>
+<div class="paragraph">
+<p>The gradle plugin creates the processing tasks inside an <code>afterEvaluate</code> block and therefore they are not visible outside <code>afterEvaluate</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is a simple example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// groovy
+tasks.register('prepareProcessing') {
+    doLast {
+        println 'preparing processing...'
+    }
+}
+
+afterEvaluate {
+    tasks.processSpring.dependsOn('foo')
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
