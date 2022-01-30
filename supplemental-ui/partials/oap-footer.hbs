@@ -1,40 +1,57 @@
 <script async src="{{{uiRootPath}}}/js/vendor/tab-blocks.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch ({
-  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
-  indexName: 'openapiprocessor',
-  inputSelector: '#search',
-  transformData: function(hits) {
-    const modified = hits.map(h => {
-        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js"></script>
+<script type="text/javascript">
+    docsearch ({
+        appId: 'AR7OPRRQKE',
+        apiKey: 'd29f179ac9b93aa1ef36e4156dbb6c13',
+        indexName: 'openapiprocessor',
+        container: '#search',
+        searchParameters: {
+            attributesToRetrieve: [
+                '*',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-hierarchy_radio_camel',
+                '-hierarchy_camel',
+                '-hierarchy_radio',
+                '-weight',
+                '-no_variables',
+                '-lang',
+                '-language',
+                '-content_camel',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-tags'
+                // 'component',
+                // 'version'
+            ],
+            // attributesToHighlight: [
+            //   'component',
+            //   'version'
+            // ],
+            // attributesToSnippet: [
+            //   'component',
+            //   'version'
+            // ]
+        },
+        transformItems: function (hits) {
+            //console.log ('transform', hits);
 
-        if (!h._highlightResult.hierarchy) {
-            h._highlightResult.hierarchy = {};
+            const modified = hits.map (h => {
+                console.log('type:', h.type);
+
+                const headline = '<span style="margin-left: 2em; font-size: x-small; color: var(--docsearch-muted-color)">(' + h.component + ' - ' + h.version + ')</span>';
+
+                if (!h._snippetResult.hierarchy) {
+                    h._snippetResult.hierarchy = {};
+                }
+                h._snippetResult.hierarchy[h.type].value += headline;
+                return h;
+            });
+
+            //console.log('hits', modified);
+            return modified;
         }
-        h._highlightResult.hierarchy.lvl0 = headline;
-
-        if (!h.hierarchy) {
-            h.hierarchy = {};
-        }
-        h.hierarchy.lvl0 = headline;
-
-        return h;
-    });
-    // console.log('hits', modified);
-    return modified;
-  },
-  algoliaOptions: {
-      // facetFilters: ['component:spring', 'component:gradle']
-  },
-  attributesToHighlight: [
-    'component',
-    'version'
-  ],
-  attributesToSnippet: [
-    'component',
-    'version'
-  ],
-  debug: false // Set debug to true if you want to inspect the dropdown
 });
 </script>
 
