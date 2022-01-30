@@ -60,6 +60,8 @@ the link:{oap-playground}[Playground] offers the possibility to play around with
 
 == artifact coordinates
 
+The artifacts are available from link:{oap-central}[maven central] with the following coordinates:
+
 [source,xml,title=maven]
 ----
 <dependency>
