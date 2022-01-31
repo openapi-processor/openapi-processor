@@ -1,0 +1,51 @@
+:page-title: JDK 16+
+:code-formatter: https://github.com/google/google-java-format
+:code-formatter-1-10: https://github.com/google/google-java-format/releases/tag/v1.10.0
+:jep396: https://openjdk.java.net/jeps/396
+:maven-331: https://maven.apache.org/docs/3.3.1/release-notes.html
+
+Running the processor with JDK 16 or newer requires a bit of extra configuration.
+
+openapi-processor runs a link:{code-formatter}[java code formatter] on the generated source code by default. Unfortunately it depends on internal jdk packages that are link:{jep396}[strongly encapsulated] since JDK 16. It is necessary to export a few packages.
+
+Running `java` from a cli it would look like this (from link:{code-formatter-1-10}[google-java-format]):
+
+----
+java \
+  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
+  -jar ...
+----
+
+== gradle configuration for JDK 16+
+
+With gradle we can hide this in `gradle.properties` (sibling to `build.gradle`) by adding the following snippet:
+
+----
+org.gradle.jvmargs= \
+  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+----
+
+== maven configuration for JDK 16+
+
+With maven we can hide this in `.mvn/jvm.config` by adding the snippet:
+
+----
+--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+--add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+--add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+----
+
+== disabling the code formatter
+
+Alternatively it is possible to skip the formatting step by disabling it in the xref:spring::processor/configuration.adoc[options] section of the `mapping.yaml`. The generated code will probably look a bit ugly...
+

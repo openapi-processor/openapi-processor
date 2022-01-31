@@ -1,2 +1,3 @@
 * xref:home.adoc[Start Page]
 * xref:index.adoc[Introduction]
+* xref:jdk.adoc[JDK 16+]
