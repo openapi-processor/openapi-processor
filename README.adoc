@@ -3,7 +3,8 @@
 
 == running antora
 
-    antora antora-playbook.yml
+    antora --fetch antora-playbook.yml
+    npx antora --fetch antora-playbook.yml
 
 === with explicit theme
 
@@ -13,10 +14,12 @@
 == install antora
 
     npm i -g @antora/cli@2.3.0-beta.2 @antora/site-generator-default@2.3.0-beta.2
+    npm i -D -E @antora/cli@3.0.1 @antora/site-generator@3.0.1
 
 == run antora from project install
 
     ./node_modules/@antora/cli/bin/antora antora-playbook.yml
+    npx antora --fetch antora-playbook.yml
 
 == serve locally
 
