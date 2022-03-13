@@ -22,16 +22,16 @@ jobs:
     - name: node
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
-    - name: install antora
-      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
+#    - name: install antora
+#      run: npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
 
     - name: clear docs
       run: ./clear-docs.sh
 
     - name: run antora
-      run: antora antora-playbook.yml
+      run: npx antora antora-playbook.yml
 
     - name: status
       run: git status
