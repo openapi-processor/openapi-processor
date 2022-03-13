@@ -3,9 +3,7 @@
 :page-aliases: start@oap:ROOT:home.adoc
 :page-layout: home
 
-
-image:openapi-processor$$@$$1280x200.png[openapi-processor]
-
+image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**

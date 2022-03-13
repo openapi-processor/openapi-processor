@@ -28,7 +28,7 @@
 //
 // content
 //
-image:openapi-processor$$@$$1280x200.png[openapi-processor]
+image:openapi-processor-at-1280x200.png[openapi-processor]
 
 // badges
 link:{oap-license}[image:{badge-license}[]]
