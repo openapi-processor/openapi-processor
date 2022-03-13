@@ -12,12 +12,12 @@ content:
 #  - url: ../openapi-processor-spring
   - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
-    branches: [2022.2, 2021.5.x, 1.0.0.M14]
+    branches: [2022.2.x, 2021.6.x]
 
 #  - url: ../openapi-processor-micronaut
   - url: https://github.com/openapi-processor/openapi-processor-micronaut
     start_path: docs
-    branches: [2022.2, 2021.3.x]
+    branches: [2022.2.x, 2021.4.x]
 
 #  - url: ../openapi-processor-json
   - url: https://github.com/openapi-processor/openapi-processor-json
@@ -32,7 +32,7 @@ content:
 #  - url: ../openapi-processor-gradle
   - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
-    branches: [2022.1, 2021.3.x]
+    branches: [2022.1.x, 2021.3.x]
 
   #  - url: ../openapi-processor-samples
   - url: https://github.com/openapi-processor/openapi-processor-samples
@@ -46,7 +46,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2021.6/ui-bundle.zip
+    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2022.1/ui-bundle.zip
 #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   default_layout: oap
