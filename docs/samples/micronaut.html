@@ -12,7 +12,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css" />
+<style>
+    :root {
+        --docsearch-primary-color: #2f855a
+    }
+</style>
   </head>
 
   <body class="text-green-900">
@@ -26,8 +31,10 @@
         </div>
 
         <div class="relative hidden lg:block">
-  <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
-  <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+    <div id="search">
+        <input placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
+        <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+    </div>
 </div>
 <!--        <div class="relative">-->
 <!--          <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">-->
@@ -86,13 +93,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../micronaut/2021.3/index.html" class="page">openapi-processor-micronaut</a> to generate java interfaces for the api defined in an openapi.yaml file</p>
+<p><a href="../micronaut/2022.2/index.html" class="page">openapi-processor-micronaut</a> to generate java interfaces for the api defined in an openapi.yaml file</p>
 </li>
 <li>
 <p><a href="../json/2021.1/index.html" class="page">openapi-processor-json</a> to convert the openapi yaml to json format</p>
 </li>
 <li>
-<p><a href="../gradle/2021.3/index.html" class="page">openapi-processor-maven</a> plugin to run both processors</p>
+<p><a href="../gradle/2022.1/index.html" class="page">openapi-processor-maven</a> plugin to run both processors</p>
 </li>
 </ul>
 </div>
@@ -186,8 +193,8 @@
                   <span>oap-gradle</span>
                   <div>
                     <oap-versions version="none" >
+                        <div data-url="/gradle/2022.1/index.html" data-version="2022.1"></div>
                         <div data-url="/gradle/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/gradle/2021.2/index.html" data-version="2021.2"></div>
                     </oap-versions>
                   </div>
 
@@ -227,8 +234,8 @@
                   <span>oap-micronaut</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/micronaut/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/micronaut/2021.2/index.html" data-version="2021.2"></div>
+                        <div data-url="/micronaut/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/micronaut/2021.4/index.html" data-version="2021.4"></div>
                     </oap-versions>
                   </div>
 
@@ -254,10 +261,8 @@
                   <span>oap-spring</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/spring/2021.5/index.html" data-version="2021.5"></div>
-                        <div data-url="/spring/2021.4/index.html" data-version="2021.4"></div>
-                        <div data-url="/spring/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
+                        <div data-url="/spring/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/spring/2021.6/index.html" data-version="2021.6"></div>
                     </oap-versions>
                   </div>
 
@@ -305,7 +310,7 @@
           <div class="flex-none w-48 mr-12">
             <img src="../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
 
-            <div class="text-xs text-center">&#169; 2019-2021 Martin Hauner</div>
+            <div class="text-xs text-center">&#169; 2019-2022 Martin Hauner</div>
           </div>
 
           <div class="flex justify-between flex-col lg:flex-row">
@@ -372,42 +377,59 @@
 <!--    <script async src="../_/js/vendor/tab-blocks.js"></script>-->
     <script async src="../_/js/vendor/highlight.js"></script>
     <script async src="../_/js/vendor/tab-blocks.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch ({
-  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
-  indexName: 'openapiprocessor',
-  inputSelector: '#search',
-  transformData: function(hits) {
-    const modified = hits.map(h => {
-        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js"></script>
+<script type="text/javascript">
+    docsearch ({
+        appId: 'AR7OPRRQKE',
+        apiKey: 'd29f179ac9b93aa1ef36e4156dbb6c13',
+        indexName: 'openapiprocessor',
+        container: '#search',
+        searchParameters: {
+            attributesToRetrieve: [
+                '*',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-hierarchy_radio_camel',
+                '-hierarchy_camel',
+                '-hierarchy_radio',
+                '-weight',
+                '-no_variables',
+                '-lang',
+                '-language',
+                '-content_camel',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-tags'
+                // 'component',
+                // 'version'
+            ],
+            // attributesToHighlight: [
+            //   'component',
+            //   'version'
+            // ],
+            // attributesToSnippet: [
+            //   'component',
+            //   'version'
+            // ]
+        },
+        transformItems: function (hits) {
+            //console.log ('transform', hits);
 
-        if (!h._highlightResult.hierarchy) {
-            h._highlightResult.hierarchy = {};
+            const modified = hits.map (h => {
+                console.log('type:', h.type);
+
+                const headline = '<span style="margin-left: 2em; font-size: x-small; color: var(--docsearch-muted-color)">(' + h.component + ' - ' + h.version + ')</span>';
+
+                if (!h._snippetResult.hierarchy) {
+                    h._snippetResult.hierarchy = {};
+                }
+                h._snippetResult.hierarchy[h.type].value += headline;
+                return h;
+            });
+
+            //console.log('hits', modified);
+            return modified;
         }
-        h._highlightResult.hierarchy.lvl0 = headline;
-
-        if (!h.hierarchy) {
-            h.hierarchy = {};
-        }
-        h.hierarchy.lvl0 = headline;
-
-        return h;
-    });
-    // console.log('hits', modified);
-    return modified;
-  },
-  algoliaOptions: {
-      // facetFilters: ['component:spring', 'component:gradle']
-  },
-  attributesToHighlight: [
-    'component',
-    'version'
-  ],
-  attributesToSnippet: [
-    'component',
-    'version'
-  ],
-  debug: false // Set debug to true if you want to inspect the dropdown
 });
 </script>
 

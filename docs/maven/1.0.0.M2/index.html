@@ -12,7 +12,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css" />
+<style>
+    :root {
+        --docsearch-primary-color: #2f855a
+    }
+</style>
   </head>
 
   <body class="text-green-900">
@@ -26,8 +31,10 @@
         </div>
 
         <div class="relative hidden lg:block">
-  <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
-  <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+    <div id="search">
+        <input placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
+        <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+    </div>
 </div>
 <!--        <div class="relative">-->
 <!--          <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">-->
@@ -77,7 +84,7 @@
 
           <article class="bg-white py-4 doc">
             <div class="paragraph">
-<p><span class="image"><img src="_images/openapi-processor-maven@1280x200.png" alt="openapi-processor-maven"></span></p>
+<p><span class="image"><img src="_images/openapi-processor-maven-at-1280x200.png" alt="openapi-processor-maven"></span></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/openapi-processor/openapi-processor-maven/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a></p>
@@ -279,7 +286,7 @@
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>the rest of the options are processor specific. See <a href="#spring::index.doc">openapi-processor-spring</a>.</td>
+<td>the rest of the options are processor specific. See <a href="../../spring/2022.2/index.html" class="page">openapi-processor-spring</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
@@ -288,7 +295,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>To run a second processor add another <code>&lt;execution&gt;</code> element. Here is an example that configures <a href="../../spring/2021.5/index.html" class="page">openapi-processor-spring</a> and <a href="../../json/2021.1/index.html" class="page">openapi-processor-json</a>:</p>
+<p>To run a second processor add another <code>&lt;execution&gt;</code> element. Here is an example that configures <a href="../../spring/2022.2/index.html" class="page">openapi-processor-spring</a> and <a href="../../json/2021.1/index.html" class="page">openapi-processor-json</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -450,8 +457,8 @@
                   <span>oap-gradle</span>
                   <div>
                     <oap-versions version="none" >
+                        <div data-url="/gradle/2022.1/index.html" data-version="2022.1"></div>
                         <div data-url="/gradle/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/gradle/2021.2/index.html" data-version="2021.2"></div>
                     </oap-versions>
                   </div>
 
@@ -491,8 +498,8 @@
                   <span>oap-micronaut</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/micronaut/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/micronaut/2021.2/index.html" data-version="2021.2"></div>
+                        <div data-url="/micronaut/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/micronaut/2021.4/index.html" data-version="2021.4"></div>
                     </oap-versions>
                   </div>
 
@@ -518,10 +525,8 @@
                   <span>oap-spring</span>
                   <div>
                     <oap-versions version="none" >
-                        <div data-url="/spring/2021.5/index.html" data-version="2021.5"></div>
-                        <div data-url="/spring/2021.4/index.html" data-version="2021.4"></div>
-                        <div data-url="/spring/2021.3/index.html" data-version="2021.3"></div>
-                        <div data-url="/spring/1.0.0.M14/index.html" data-version="1.0.0.M14"></div>
+                        <div data-url="/spring/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/spring/2021.6/index.html" data-version="2021.6"></div>
                     </oap-versions>
                   </div>
 
@@ -554,7 +559,7 @@
           <div class="flex-none w-48 mr-12">
             <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
 
-            <div class="text-xs text-center">&#169; 2019-2021 Martin Hauner</div>
+            <div class="text-xs text-center">&#169; 2019-2022 Martin Hauner</div>
           </div>
 
           <div class="flex justify-between flex-col lg:flex-row">
@@ -621,42 +626,59 @@
 <!--    <script async src="../../_/js/vendor/tab-blocks.js"></script>-->
     <script async src="../../_/js/vendor/highlight.js"></script>
     <script async src="../../_/js/vendor/tab-blocks.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch ({
-  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
-  indexName: 'openapiprocessor',
-  inputSelector: '#search',
-  transformData: function(hits) {
-    const modified = hits.map(h => {
-        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js"></script>
+<script type="text/javascript">
+    docsearch ({
+        appId: 'AR7OPRRQKE',
+        apiKey: 'd29f179ac9b93aa1ef36e4156dbb6c13',
+        indexName: 'openapiprocessor',
+        container: '#search',
+        searchParameters: {
+            attributesToRetrieve: [
+                '*',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-hierarchy_radio_camel',
+                '-hierarchy_camel',
+                '-hierarchy_radio',
+                '-weight',
+                '-no_variables',
+                '-lang',
+                '-language',
+                '-content_camel',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-tags'
+                // 'component',
+                // 'version'
+            ],
+            // attributesToHighlight: [
+            //   'component',
+            //   'version'
+            // ],
+            // attributesToSnippet: [
+            //   'component',
+            //   'version'
+            // ]
+        },
+        transformItems: function (hits) {
+            //console.log ('transform', hits);
 
-        if (!h._highlightResult.hierarchy) {
-            h._highlightResult.hierarchy = {};
+            const modified = hits.map (h => {
+                console.log('type:', h.type);
+
+                const headline = '<span style="margin-left: 2em; font-size: x-small; color: var(--docsearch-muted-color)">(' + h.component + ' - ' + h.version + ')</span>';
+
+                if (!h._snippetResult.hierarchy) {
+                    h._snippetResult.hierarchy = {};
+                }
+                h._snippetResult.hierarchy[h.type].value += headline;
+                return h;
+            });
+
+            //console.log('hits', modified);
+            return modified;
         }
-        h._highlightResult.hierarchy.lvl0 = headline;
-
-        if (!h.hierarchy) {
-            h.hierarchy = {};
-        }
-        h.hierarchy.lvl0 = headline;
-
-        return h;
-    });
-    // console.log('hits', modified);
-    return modified;
-  },
-  algoliaOptions: {
-      // facetFilters: ['component:spring', 'component:gradle']
-  },
-  attributesToHighlight: [
-    'component',
-    'version'
-  ],
-  attributesToSnippet: [
-    'component',
-    'version'
-  ],
-  debug: false // Set debug to true if you want to inspect the dropdown
 });
 </script>
 

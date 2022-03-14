@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>oap-gradle :: openapi-processor</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="icon" type="image/png" href="../../_/img/favicon.ico">
+<link rel="stylesheet" href="../../_/css/oap.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css" />
+<style>
+    :root {
+        --docsearch-primary-color: #2f855a
+    }
+</style>
+  </head>
+
+  <body class="text-green-900">
+
+    <header class="bg-white w-full fixed top-0 z-30">
+
+      <div class="relative h-16 border-b m-0 px-4 max-w-screen-xl mx-auto flex items-center justify-between">
+        <img src="../../_/img/openapi-processor-p.svg" alt="logo" class="oap-logo">
+        <div class="text-2xl ml-16">
+          <a href="https://docs.openapiprocessor.io" class="ml-4 hover:text-gray-600">docs.openapiprocessor.io</a>
+        </div>
+
+        <div class="relative hidden lg:block">
+    <div id="search">
+        <input placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">
+        <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>
+    </div>
+</div>
+<!--        <div class="relative">-->
+<!--          <input id="search" placeholder="search" class="border-gray-300 border-2 pl-8 pr-2 rounded hover:border-green-700 focus:border-green-900 focus:outline-none">-->
+<!--          <i class="absolute left-0 pl-2 fas fa-search text-green-900" style="margin-top: 0.4rem"></i>-->
+<!--        </div>-->
+
+        <div class="text-2xl hidden md:block">
+          <a href="https://playground.openapiprocessor.io" target="_blank" class="hover:text-gray-600">
+            <i class="far fa-play-circle mr-1"></i>playground
+          </a>
+        </div>
+      </div>
+
+    </header>
+
+
+    <main class="m-0 lg:px-5 mt-16 max-w-screen-xl mx-auto">
+
+      <div class="lg:flex lg:flex-row-reverse" style="min-height: 100vh;">
+
+        <section class="flex-col lg:flex-grow lg:w-main px-4">
+
+          <div class="hidden md:flex md:justify-between md:sticky md:top-sidebar md:ml-4 bg-white text-sm py-2 border-b z-20">
+
+            <div class="flex">
+              <div class="mr-1">
+                  <a href="../../oap/home/index.html" class="text-gray-500 hover:text-green-600">
+                    <i class="fas fa-home"></i>
+                  </a>
+              </div>
+
+              <div>
+                <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul class="flex text-gray-500">
+    <li><a href="index.html" class="hover:text-green-600">oap-gradle</a></li>
+    <li><a href="index.html" class="hover:text-green-600">Documentation</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+
+            <div class="ml-1 text-gray-500 hover:text-green-600">
+              <a href="https://github.com/openapi-processor/openapi-processor-gradle/edit/2022.1.x/docs/modules/ROOT/pages/index.adoc"><i class="fas fa-pen"></i></a>
+                          </div>
+
+          </div>
+
+          <article class="bg-white py-4 doc">
+            <div class="paragraph">
+<p><span class="image"><img src="_images/openapi-processor-gradle-at-1280x200.png" alt="openapi-processor-gradle"></span></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/openapi-processor/openapi-processor-gradle/actions?query=workflow%3Abuild"><span class="image"><img src="https://github.com/openapi-processor/openapi-processor-gradle/workflows/build/badge.svg" alt="badge"></span></a>
+<a href="https://github.com/openapi-processor/openapi-processor-gradle/blob/master/LICENSE"><span class="image"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?labelColor=313A42" alt="License Apache%202.0 blue"></span></a></p>
+</div>
+<div class="paragraph">
+<p>a gradle plugin based on the <a href="https://github.com/openapi-processor/openapi-processor-api">openapi-processor-api</a> to handle any openapi-processor without an explicit dependency on the processor.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">plugin version</th>
+<th class="tableblock halign-left valign-top">required gradle version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.0+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.5+ with groovy dsl, 6.5 with kotlin dsl</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+unfortunately it is necessary to configure a few <a href="../../oap/home/jdk.html" class="page">additional jvm parameter</a> to run the processor with JDK 16+
+</td>
+</tr>
+</table>
+</div>
+<div class="sect1">
+<h2 id="_gradle_dsl"><a class="anchor" href="#_gradle_dsl"></a>gradle dsl</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <a href="../../spring/2022.2/index.html" class="page">openapi-processor-spring</a> spring specific description is available in <a href="../../spring/2022.2/gradle.html" class="page">Gradle Integration</a>.</p>
+</div>
+<div class="paragraph">
+<p>The plugin adds a new configuration block <code>openapiProcessor</code> to the gradle project. Each processor is configurable by a nested configuration block.</p>
+</div>
+<div class="paragraph">
+<p>Apart from that there is only a single option that is recognized inside the configuration block:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>apiPath</code>, which defines the path to the openapi yaml file. This is usually the same for all
+processors and placing it directly into the <code>openapiProcessor</code> block sets it for all processors.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure a processor, for example <a href="../../spring/2022.2/index.html" class="page">openapi-processor-spring</a>, place a <code>spring</code> configuration into the <code>openapiProcessor</code> block. The name of the configuration gets used to create a gradle task <code>process&lt;Name&gt;</code> to run the corresponding processor.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset1_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+
+openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        ... options of openapi-processor-spring
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// build.gradle.kts
+
+openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath("${projectDir}/src/api/openapi.yaml")
+
+    process("spring") {
+        ... options of openapi-processor-spring
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In case another processor (e.g. json) is required place its configuration into the <code>openapiProcessor</code> block in the same way:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset2_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+
+openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        ... options of openapi-processor-spring
+    }
+
+    json {
+        ... options of openapi-processor-json
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// build.gradle.kts
+
+openapiProcessor {
+
+    // the path to the open api yaml file.
+    apiPath("${projectDir}/src/api/openapi.yaml")
+
+    process("spring") {
+        ... options of openapi-processor-spring
+    }
+
+    process("json") {
+        ... options of openapi-processor-json
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The configuration of a single processor has a few pre-defined properties, and it can have any number of  additional parameters defined by the processor (all options will be passed in a map to the processor with the option name as the key).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>processor</code> (mandatory): the <code>processor</code> dependency. Uses the same dependency notations allowed in the gradle <code>dependencies</code> block.</p>
+<div class="paragraph">
+<p>The processor library is configured here to avoid any side effect on the build dependencies of the project.</p>
+</div>
+<div class="paragraph">
+<p>Example using the preferred shortcut nation:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset3_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">spring {
+    processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">process("spring") {
+    processor("io.openapiprocessor:openapi-processor-spring:&lt;version&gt;")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>or like this to use an un-published processor:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset4_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">spring {
+    processor files('... path to processor jar')
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">process("spring") {
+    processor(files("... path to processor jar"))
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="badge  badge-since">since 2021.2</span></p>
+</div>
+<div class="paragraph">
+<p>It is possible to use multiple <code>processor</code> entries to control the dependencies of an openapi-processor.</p>
+</div>
+<div class="paragraph">
+<p>For example, the java generating processors depend on <code>openapi-processor-core</code>. The <code>core</code> library provides most of the logic of a processor and it is usually enough to update the <code>core</code> library to get bugfixes or new features.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset5_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">spring {
+   processor 'io.openapiprocessor:openapi-processor-core:2021.3-SNAPSHOT'
+   processor 'io.openapiprocessor:openapi-processor-spring:2021.1'
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">process("spring") {
+   processor("io.openapiprocessor:openapi-processor-core:2021.3-SNAPSHOT")
+   processor("io.openapiprocessor:openapi-processor-spring:2021.1")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><code>apiPath</code> (optional): the path to the open api yaml file. If set inside a processor configuration it overrides the parent <code>apiPath</code>.</p>
+</li>
+<li>
+<p><code>targetDir</code> (mandatory): the target folder for the processor. The processor will write its output to this directory.</p>
+</li>
+<li>
+<p><code>prop(key, value)</code> or <code>prop(Map&lt;String, ?&gt;)</code> (optional): used to configure processor specific options. It just fills a map that is passed to the processor. It is not needed in a groovy dsl which automatically adds any unknown property to the processor options map.</p>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset6_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">spring {
+  mapping "..path.."
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">process("spring") {
+   prop("mapping", "..path..")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle_tasks"><a class="anchor" href="#_gradle_tasks"></a>gradle tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin creates a single gradle task for each processor configuration that will run the corresponding processor. The name gets derived from the name of the processor: <code>process&lt;Name&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The plugin does not add the <code>process&lt;Name&gt;</code> task to the build lifecycle. To automatically run it, add a task dependency in the <code>build.gradle</code> file. For example to run openapi-processor-spring before compiling use:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset7_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// generate api before compiling
+compileJava.dependsOn ('processSpring')</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">tasks.compileJava {
+  dependsOn("processSpring")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>to run openapi-processor-json when processing the resources:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset8_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset8_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">processResources.dependsOn ('processJson')</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">tasks.processResources {
+    dependsOn("processJson")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependon_a_processing_task"><a class="anchor" href="#_dependon_a_processing_task"></a><code>dependOn</code> a processing task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If a task needs to run before a processing task, e.g. <code>processSpring</code>, it is necessary to create the dependency inside an <code>afterEvaluate</code> block.</p>
+</div>
+<div class="paragraph">
+<p>The gradle plugin creates the processing tasks inside an <code>afterEvaluate</code> block and therefore they are not visible outside <code>afterEvaluate</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is a simple example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// groovy
+tasks.register('prepareProcessing') {
+    doLast {
+        println 'preparing processing...'
+    }
+}
+
+afterEvaluate {
+    tasks.processSpring.dependsOn('foo')
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_the_processor_output"><a class="anchor" href="#_using_the_processor_output"></a>using the processor output</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In case the processor creates java sources it is necessary to compile them as part of the build process.</p>
+</div>
+<div class="paragraph">
+<p>For example to compile the java source files created by openapi-processor-spring add the <code>targetDir`of the  processor to the java `sourceSets</code>:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset9_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// add the targetDir of the processor as additional source folder to java.
+sourceSets {
+    main {
+        java {
+            // add generated files
+            srcDir 'build/openapi'
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset9_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// add the targetDir of the processor as additional source folder to java.
+sourceSets {
+    main {
+        java {
+            // add generated files
+            srcDir("build/openapi")
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To add the json file created by the openapi-processor-json to the final artifact jar as resource add the <code>targetDir</code> of the processor to the java <code>resources</code> source set:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset10_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset10_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset10_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// add the targetDir of the processor as additional resource folder.
+sourceSets {
+    main {
+        resources {
+            srcDir "$buildDir/json"
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset10_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// add the targetDir of the processor as additional resource folder.
+sourceSets {
+    main {
+        resources {
+            srcDir("$buildDir/json")
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_processing_multiple_openapi_files"><a class="anchor" href="#_processing_multiple_openapi_files"></a>processing multiple openapi files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="badge  badge-since">since 2022.1</span></p>
+</div>
+<div class="paragraph">
+<p>By default, the name of a <code>processor</code> configuration block is used to select the processor library. Each processor library has a name and the plugin tries to load the processor library with that name.</p>
+</div>
+<div class="paragraph">
+<p>This way it is not possible to process multiple distinct openapi descriptions with the same processor.</p>
+</div>
+<div class="paragraph">
+<p>To achieve this it is possible to use user selected names for the <code>processor</code> blocks and explicitly configure the processor name using <code>processorName()</code>:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset11_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset11_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset11_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+
+openapiProcessor {
+    apiOne { <i class="conum" data-value="1"></i><b>(1)</b>
+      processorName "spring" <i class="conum" data-value="2"></i><b>(2)</b>
+
+      apiPath "${projectDir}/src/api-one/openapi.yaml"
+        ... options of openapi-processor-spring
+    }
+
+    apiTwo { <i class="conum" data-value="1"></i><b>(1)</b>
+      processorName "spring" <i class="conum" data-value="2"></i><b>(2)</b>
+
+      apiPath "${projectDir}/src/api-two/openapi.yaml"
+        ... options of openapi-processor-spring
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset11_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// build.gradle.kts
+
+openapiProcessor {
+    process("apiOne") { <i class="conum" data-value="1"></i><b>(1)</b>
+      processorName("spring") <i class="conum" data-value="2"></i><b>(2)</b>
+
+      apiPath("${projectDir}/src/api-one/openapi.yaml")
+        ... options of openapi-processor-spring
+    }
+
+    process("apiTwo") { <i class="conum" data-value="1"></i><b>(1)</b>
+      processorName("spring") <i class="conum" data-value="2"></i><b>(2)</b>
+
+      apiPath("${projectDir}/src/api-two/openapi.yaml")
+        ... options of openapi-processor-json
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>user selected name for the configuration. It is used to create the task name (in this case <code>processApiOne</code> &amp; <code>processApiTwo</code>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>explicit name of the processor to use.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The plugin configures the parent directory of the openapi file (i.e. <code>apiPath</code>) and the <code>targetDir</code> for the up-to-date check of each <code>processXX</code> gradle task. If the inputs and outputs are unchanged gradle will not re-run the task.</p>
+</div>
+<div class="paragraph">
+<p>To keep this working and to avoid unnecessary re-runs of the processor tasks it is recommended to use distinct folders for each api file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_example"><a class="anchor" href="#_configuration_example"></a>configuration example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is a full example that configures <a href="../../spring/2022.2/index.html" class="page">openapi-processor-spring</a> and <a href="../../json/2021.1/index.html" class="page">openapi-processor-json</a>:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset12_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset12_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset12_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+
+openapiProcessor {
+
+    // the path to the open api yaml file. Usually the same for all processors.
+    //
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    // based on the name of a processor configuration the plugin creates a gradle task with name
+    // "process${name of processor}"  (in this case "processSpring") to run the processor.
+    //
+    spring {
+        // the openapi-processor-spring dependency (mandatory)
+        //
+        processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+
+        // setting api path inside a processor configuration overrides the one at the top.
+        //
+        // apiPath "${projectDir}/src/api/openapi.yaml"
+
+        // the destination folder for generating interfaces &amp; models. This is the parent of the
+        // {package-name} folder tree configured in the mapping file. (mandatory)
+        //
+        targetDir "${projectDir}/build/openapi"
+
+        //// openapi-processor-spring specific options
+
+        // file name of the mapping yaml configuration file. Note that the yaml file name must end
+        // with either {@code .yaml} or {@code .yml}.
+        //
+        mapping "${projectDir}/src/api/mapping.yaml"
+    }
+
+    // applying the rule described above the task to run this one is "processJson".
+    //
+    json {
+        // the openapi-processor-json dependency (mandatory)
+        //
+        processor 'io.openapiprocessor:openapi-processor-json:&lt;version&gt;'
+
+        // the destination folder for the json file. (mandatory)
+        targetDir "${buildDir}/json"
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// build.gradle.kts
+
+openapiProcessor {
+
+    // the path to the open api yaml file. Usually the same for all processors.
+    //
+    apiPath("${projectDir}/src/api/openapi.yaml")
+
+    // based on the name of a processor configuration the plugin creates a gradle task with name
+    // "process${name of processor}"  (in this case "processSpring") to run the processor.
+    //
+    process("spring") {
+        // the openapi-processor-spring dependency (mandatory)
+        //
+        processor("io.openapiprocessor:openapi-processor-spring:&lt;version&gt;")
+
+        // setting api path inside a processor configuration overrides the one at the top.
+        //
+        // apiPath("${projectDir}/src/api/openapi.yaml")
+
+        // the destination folder for generating interfaces &amp; models. This is the parent of the
+        // {package-name} folder tree configured in the mapping file. (mandatory)
+        //
+        targetDir("${projectDir}/build/openapi")
+
+        //// openapi-processor-spring specific options
+        //// in a kotlin build script it is necessary to use the prop(key, value) or prop(map)
+        //// method to set processor specific options.
+
+        // file name of the mapping yaml configuration file. Note that the yaml file name must end
+        // with either {@code .yaml} or {@code .yml}.
+        //
+        prop("mapping", "${projectDir}/src/api/mapping.yaml")
+    }
+
+    // applying the rule described above the task to run this one is "processJson".
+    //
+    process("json") {
+        // the openapi-processor-json dependency (mandatory)
+        //
+        processor("'io.openapiprocessor:openapi-processor-json:&lt;version&gt;")
+
+        // the destination folder for the json file. (mandatory)
+        targetDir("${buildDir}/json")
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>without the comments it is not that long:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset13_groovy"></a>Groovy</p>
+</li>
+<li>
+<p><a id="tabset13_kotlin"></a>Kotlin</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset13_groovy">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+
+openapiProcessor {
+    apiPath "${projectDir}/src/api/openapi.yaml"
+
+    spring {
+        processor 'io.openapiprocessor:openapi-processor-spring:&lt;version&gt;'
+        targetDir "${projectDir}/build/openapi"
+        mapping "${projectDir}/src/api/mapping.yaml"
+    }
+
+    json {
+        processor 'io.openapiprocessor:openapi-processor-json:&lt;version&gt;'
+        targetDir "${buildDir}/json"
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset13_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">// build.gradle.kts
+
+openapiProcessor {
+    apiPath("${projectDir}/src/api/openapi.yaml")
+
+    process("spring") {
+        processor("io.openapiprocessor:openapi-processor-spring:&lt;version&gt;")
+        targetDir("${projectDir}/build/openapi")
+        prop("mapping", "${projectDir}/src/api/mapping.yaml")
+    }
+
+    process("json") {
+        processor("io.openapiprocessor:openapi-processor-json:&lt;version&gt;")
+        targetDir("${buildDir}/json")
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_samples"><a class="anchor" href="#_samples"></a>samples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See <a href="../../samples/spring-mvc.html" class="page">spring mvc sample</a> or <a href="../../samples/spring-webflux.html" class="page">spring webflux sample</a> for working spring boot samples using the groovy dsl.</p>
+</div>
+</div>
+</div>
+          </article>
+
+          <div class="bg-white text-gray-500 text-sm hidden sm:block">
+
+
+          </div>
+
+        </section>
+
+        <aside class="lg:w-sidebar x-bg-gray-100 px-4 py-3 divide-y">
+
+          <section class="mb-2">
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap</span>
+                  <div>
+                    <oap-versions version="none"  visible="home">
+                        <div data-url="/oap/home/index.html" data-version="home"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-api</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/api/2021.1/index.html" data-version="2021.1"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span class="font-bold">oap-gradle</span>
+                  <div>
+                    <oap-versions version="2022.1">
+                        <div data-url="/gradle/2022.1/index.html" data-version="2022.1"></div>
+                        <div data-url="/gradle/2021.3/index.html" data-version="2021.3"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-json</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/json/2021.1/index.html" data-version="2021.1"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-maven</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/maven/2021.1/index.html" data-version="2021.1"></div>
+                        <div data-url="/maven/1.0.0.M2/index.html" data-version="1.0.0.M2"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-micronaut</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/micronaut/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/micronaut/2021.4/index.html" data-version="2021.4"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-samples</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/samples/index.html" data-version="master"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center">
+
+
+                  <span>oap-spring</span>
+                  <div>
+                    <oap-versions version="none" >
+                        <div data-url="/spring/2022.2/index.html" data-version="2022.2"></div>
+                        <div data-url="/spring/2021.6/index.html" data-version="2021.6"></div>
+                    </oap-versions>
+                  </div>
+
+
+              </div>
+          </section>
+
+          <section class="lg:sticky pt-2" style="top: 3.95rem">
+
+            <div class="text-xl font-bold text-green-700">oap-gradle</div>
+
+
+                <div class="pl-0">
+                  <a href="index.html" class="hover:text-green-600 font-bold">Documentation</a>
+                </div>
+
+
+
+
+          </section>
+
+        </aside>
+
+      </div>
+
+      <footer class="p-6 mt-4 border footer sticky" style="bottom: -20rem">
+
+        <div class="text-gray-700 text-sm flex justify-between">
+
+          <div class="flex-none w-48 mr-12">
+            <img src="../../_/img/openapi-processor-large.png" alt="logo" class="h-24 w-48">
+
+            <div class="text-xs text-center">&#169; 2019-2022 Martin Hauner</div>
+          </div>
+
+          <div class="flex justify-between flex-col lg:flex-row">
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Twitter</div>
+
+              <a class="" href="https://twitter.com/OpenApiProcess">
+                <i class="fab fa-twitter"></i> @OpenApiProcess
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Samples - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-samples">
+                <i class="fab fa-github"></i> oap-samples
+              </a>
+            </div>
+
+            <div class="flex flex-col mb-4 mr-0 mr-12">
+              <div class="font-bold">Plugins - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-maven">
+                <i class="fab fa-github"></i> oap-maven
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-gradle">
+                <i class="fab fa-github"></i> oap-gradle
+              </a>
+            </div>
+
+            <div class="flex flex-col mr-12">
+              <div class="font-bold">Processors - GitHub</div>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-spring">
+                <i class="fab fa-github"></i> oap-spring
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-micronaut">
+                <i class="fab fa-github"></i> oap-micronaut
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-json">
+                <i class="fab fa-github"></i> oap-json
+              </a>
+
+              <a class="" href="https://github.com/openapi-processor/openapi-processor-core">
+                <i class="fab fa-github"></i> oap-core
+              </a>
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </footer>
+
+    </main>
+
+
+    <script type="module" src="../../_/versions/versions.esm.js"></script>
+<!--    <script async src="../../_/js/vendor/tab-blocks.js"></script>-->
+    <script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="../../_/js/vendor/tab-blocks.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js"></script>
+<script type="text/javascript">
+    docsearch ({
+        appId: 'AR7OPRRQKE',
+        apiKey: 'd29f179ac9b93aa1ef36e4156dbb6c13',
+        indexName: 'openapiprocessor',
+        container: '#search',
+        searchParameters: {
+            attributesToRetrieve: [
+                '*',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-hierarchy_radio_camel',
+                '-hierarchy_camel',
+                '-hierarchy_radio',
+                '-weight',
+                '-no_variables',
+                '-lang',
+                '-language',
+                '-content_camel',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-tags'
+                // 'component',
+                // 'version'
+            ],
+            // attributesToHighlight: [
+            //   'component',
+            //   'version'
+            // ],
+            // attributesToSnippet: [
+            //   'component',
+            //   'version'
+            // ]
+        },
+        transformItems: function (hits) {
+            //console.log ('transform', hits);
+
+            const modified = hits.map (h => {
+                console.log('type:', h.type);
+
+                const headline = '<span style="margin-left: 2em; font-size: x-small; color: var(--docsearch-muted-color)">(' + h.component + ' - ' + h.version + ')</span>';
+
+                if (!h._snippetResult.hierarchy) {
+                    h._snippetResult.hierarchy = {};
+                }
+                h._snippetResult.hierarchy[h.type].value += headline;
+                return h;
+            });
+
+            //console.log('hits', modified);
+            return modified;
+        }
+});
+</script>
+
+
+
+  </body>
+
+</html>

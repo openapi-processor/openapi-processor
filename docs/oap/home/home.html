@@ -12,7 +12,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/regular.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/brands.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css" />
+<style>
+    :root {
+        --docsearch-primary-color: #2f855a
+    }
+</style>
   </head>
 
   <body class="text-green-900">
@@ -52,7 +57,7 @@
 
           <article class="bg-white py-4 doc">
             <div class="paragraph">
-<p><span class="image"><img src="_images/openapi-processor@1280x200.png" alt="openapi-processor"></span></p>
+<p><span class="image"><img src="_images/openapi-processor-at-1280x200.png" alt="openapi-processor"></span></p>
 </div>
 <div class="paragraph py-6">
 <p><strong>openapi-processor</strong>
@@ -101,7 +106,7 @@ A processor generates java interfaces based on the endpoint descriptions of the 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="../../spring/2021.5/index.html" class="page">openapi-processor-<strong>spring</strong></a></p>
+<p><a href="../../spring/2022.2/index.html" class="page">openapi-processor-<strong>spring</strong></a></p>
 </div></div></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-spring?color=009051&label=latest" alt="openapi processor spring?color=009051&label=latest"></span></a></p></td>
 </tr>
@@ -124,7 +129,7 @@ A processor generates java interfaces based on the endpoint descriptions of the 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="../../micronaut/2021.3/index.html" class="page">openapi-processor-<strong>micronaut</strong></a></p>
+<p><a href="../../micronaut/2022.2/index.html" class="page">openapi-processor-<strong>micronaut</strong></a></p>
 </div></div></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><a href="https://search.maven.org/search?q=io.openapiprocessor"><span class="image"><img src="https://img.shields.io/maven-central/v/io.openapiprocessor/openapi-processor-micronaut?color=009051&label=latest" alt="openapi processor micronaut?color=009051&label=latest"></span></a></p></td>
 </tr>
@@ -175,7 +180,7 @@ A processor generates java interfaces based on the endpoint descriptions of the 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="../../gradle/2021.3/index.html" class="page">openapi-processor-<strong>gradle</strong></a></p>
+<p><a href="../../gradle/2022.1/index.html" class="page">openapi-processor-<strong>gradle</strong></a></p>
 </div></div></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><a href="https://plugins.gradle.org/plugin/io.openapiprocessor.openapi-processor"><span class="image"><img src="https://img.shields.io/github/v/release/openapi-processor/openapi-processor-gradle?color=009051&include_prereleases&label=latest" alt="openapi processor gradle?color=009051&include prereleases&label=latest"></span></a></p></td>
 </tr>
@@ -357,42 +362,59 @@ A processor generates java interfaces based on the endpoint descriptions of the 
     <script type="module" src="../../_/versions/versions.esm.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script async src="../../_/js/vendor/tab-blocks.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch ({
-  apiKey: '3afe5db3b7216bb32e12eb42997a544e',
-  indexName: 'openapiprocessor',
-  inputSelector: '#search',
-  transformData: function(hits) {
-    const modified = hits.map(h => {
-        const headline = '<b style="text-transform: capitalize">' + h.component + ' ' + h.version + '</b>';
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js"></script>
+<script type="text/javascript">
+    docsearch ({
+        appId: 'AR7OPRRQKE',
+        apiKey: 'd29f179ac9b93aa1ef36e4156dbb6c13',
+        indexName: 'openapiprocessor',
+        container: '#search',
+        searchParameters: {
+            attributesToRetrieve: [
+                '*',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-hierarchy_radio_camel',
+                '-hierarchy_camel',
+                '-hierarchy_radio',
+                '-weight',
+                '-no_variables',
+                '-lang',
+                '-language',
+                '-content_camel',
+                '-url_without_variables',
+                '-url_without_anchor',
+                '-tags'
+                // 'component',
+                // 'version'
+            ],
+            // attributesToHighlight: [
+            //   'component',
+            //   'version'
+            // ],
+            // attributesToSnippet: [
+            //   'component',
+            //   'version'
+            // ]
+        },
+        transformItems: function (hits) {
+            //console.log ('transform', hits);
 
-        if (!h._highlightResult.hierarchy) {
-            h._highlightResult.hierarchy = {};
+            const modified = hits.map (h => {
+                console.log('type:', h.type);
+
+                const headline = '<span style="margin-left: 2em; font-size: x-small; color: var(--docsearch-muted-color)">(' + h.component + ' - ' + h.version + ')</span>';
+
+                if (!h._snippetResult.hierarchy) {
+                    h._snippetResult.hierarchy = {};
+                }
+                h._snippetResult.hierarchy[h.type].value += headline;
+                return h;
+            });
+
+            //console.log('hits', modified);
+            return modified;
         }
-        h._highlightResult.hierarchy.lvl0 = headline;
-
-        if (!h.hierarchy) {
-            h.hierarchy = {};
-        }
-        h.hierarchy.lvl0 = headline;
-
-        return h;
-    });
-    // console.log('hits', modified);
-    return modified;
-  },
-  algoliaOptions: {
-      // facetFilters: ['component:spring', 'component:gradle']
-  },
-  attributesToHighlight: [
-    'component',
-    'version'
-  ],
-  attributesToSnippet: [
-    'component',
-    'version'
-  ],
-  debug: false // Set debug to true if you want to inspect the dropdown
 });
 </script>
 
