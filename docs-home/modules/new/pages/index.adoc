@@ -1,0 +1,9 @@
+= What's New
+
+include::spring-2022.5.adoc[]
+
+include::micronaut-2022.5.adoc[]
+
+include::spring-2022.4.adoc[]
+
+include::micronaut-2022.4.adoc[]

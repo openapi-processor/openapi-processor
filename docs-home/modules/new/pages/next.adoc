@@ -1,0 +1,25 @@
+:jacoco: https://github.com/jacoco/jacoco
+
+= What's Next
+
+This just lists a few things that are planned for the future. I'm working on this as times permits... &#x1f600;
+
+== @Generated
+
+link:https://github.com/openapi-processor/openapi-processor-spring/issues/144[@Generated] github issue, started.
+
+This will replace the text header from the generated files with a (generated) `@Generated` annotation. Other tools may be able to detect the generated files and ignore them.
+
+For example link:{jacoco}[jacoco] automatically ignores `@Generated` classes. It is no longer necessary to exclude the generated files from code coverage.
+
+== annotation processor
+
+link:https://github.com/openapi-processor/openapi-processor-spring/pull/145[spring annotation processor prototype], link:https://github.com/openapi-processor/openapi-processor-core/pull/100[core annotation processor prototype]
+
+Run openapi-processor as an annotation processor. This should make it easier to integrate openapi-processor into a build without the need of a plugin for the build tool.
+
+I will probably try to support both for a while, i.e. make it run as annotation processor or via the plugins.
+
+== record support
+
+Support generation of java records instead of java standard classes with getter & setters.

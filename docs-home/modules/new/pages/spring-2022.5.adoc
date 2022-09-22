@@ -1,0 +1,11 @@
+== openapi-processor-spring 2022.5
+
+2022, unreleased
+
+== annotation mapping
+
+nearly finished...
+
+this allows to place additional annotation on generated model classes. It is possible to place the annotation at the class itself or on parameters of that type.
+
+See xref:spring::mapping/annotation.adoc[annotation mapping] in the docs.

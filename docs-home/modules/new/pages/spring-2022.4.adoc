@@ -1,0 +1,142 @@
+== openapi-processor-spring 2022.4
+
+May 2022
+
+openapi-processor offers a new alternative OpenAPI 3.0 & 3.1 parser and fixes missing bean validation imports
+
+* OpenAPI 3.0 support includes JSON schema validation with detailed reporting.
+* OpenAPI 3.1 support is experimental and does not yet support schema validation.
+
+=== OpenAPI 3.0 parser & JSON schema validation
+
+openapi-processor provides an alternative internal OpenAPI 3.0 parser. It includes JSON schema validation with detailed reporting.
+
+To enable it, set the parser configuration to `INTERNAL`.
+
+[source,groovy]
+----
+// build.gradle processor configuration
+
+openapiProcessor {
+    spring {
+        processor 'io.openapiprocessor:openapi-processor-spring:2022.4'
+
+        apiPath "${projectDir}/src/api/openapi.yaml"
+        targetDir "$projectDir/build/openapi"
+        mapping "${projectDir}/src/api/mapping.yaml"
+
+        // use internal OpenAPI parser
+        parser 'INTERNAL'
+    }
+}
+----
+
+=== OpenAPI 3.1 (experimental)
+
+The internal OpenAPI parser supports OpenAPI 3.1 but does not yet have schema validation.
+
+To enable it, set the parser configuration to `INTERNAL`.  It will automatically detect OpenAPI 3.0 & 3.1.
+
+The processor does handle the renamed/changed OpenAPI 3.1 properties as needed for code generation:
+
+**`type`** keyword
+
+The `type` keyword allows a list of types. Defining a `nullable` type is done by adding `"null"` to the list of types.
+
+[source,yaml]
+----
+# OpenAPI v3.0
+type: string
+nullable: true
+
+# OpenAPI v3.1
+type:
+- "string"
+- "null"
+----
+
+The processor does support the new `nullable` definition. Apart from that it will use the **first** non-null type as the type for code generation.
+
+**`exclusiveMinimum`** and **`exclusiveMaximum`** keywords
+
+[source,yaml]
+----
+# OpenAPI v3.0
+maximum: 42
+exclusiveMaximum: true
+
+# OpenAPI v3.1
+exclusiveMaximum: 42
+----
+
+which is used for adding bean validations.
+
+
+=== missing import for javax.validation.constraints.Pattern
+
+https://github.com/openapi-processor/openapi-processor-spring/issues/141[openapi-processor/openapi-processor-spring#141]
+
+the `import`s for bean validation annotations were missing for item constraints of a mapped array. Having an api description like this
+
+[source,yaml]
+----
+paths:
+  /test:
+    get:
+      parameters:
+        - in: query
+          name: patternParam
+          required: false
+          description: query parameter with @Pattern annotation
+          schema:
+            $ref: '#/components/schemas/PatternParam'
+      responses:
+        '200':
+          description: ok
+  schemas:
+    PatternParam:
+      type: array
+      items:
+        type: string
+        pattern: '.*'
+----
+
+and a mapping
+
+[source,yaml]
+----
+openapi-processor-spring: v2
+
+options:
+  package-name: generated
+  bean-validation: true
+
+map:
+  types:
+  - type: array => java.util.List
+----
+
+did not generate the `javax.validation.constraints.Pattern` import.
+
+[source,java]
+----
+package generated.api;
+
+import annotation.Mapping;
+import annotation.Parameter;
+import java.util.List;
+import javax.validation.constraints.Pattern;
+
+public interface Api {
+
+    @Mapping("/test")
+    void getTest(@Parameter List<@Pattern(regexp = ".*") String> patternParam);
+
+}
+----
+
+(ignore the `@Mapping`/`@Parameter` annotations, this is pseudo-code used by the integration tests)
+
+=== dependency updates
+
+- updated openapi-processor-core to 2022.5 (was 2022.4)
