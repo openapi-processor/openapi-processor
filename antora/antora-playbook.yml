@@ -1,52 +1,45 @@
 site:
   title: openapi-processor
-  url: https://docs.openapiprocessor.io
-  start_page: home@oap::index.adoc
+  url: https://openapiprocessor.io
+  start_page: home@oap::home.adoc
 
 content:
   sources:
-  - url: ./
-    start_path: docs-home
+  - url: ../
+    start_path: docs
     branches: [master]
 
-#  - url: ../openapi-processor-spring
   - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
-    branches: [2022.4.x, 2022.3.x, 2021.6.x]
+    branches: [master, 2022.4.x, 2022.3.x]
 
-#  - url: ../openapi-processor-micronaut
   - url: https://github.com/openapi-processor/openapi-processor-micronaut
     start_path: docs
     branches: [2022.4.x, 2022.3.x, 2021.4.x]
 
-#  - url: ../openapi-processor-json
   - url: https://github.com/openapi-processor/openapi-processor-json
     start_path: docs
     branches: [master]
 
-#  - url: ../openapi-processor-maven
   - url: https://github.com/openapi-processor/openapi-processor-maven
     start_path: docs
     branches: [2021.1.x, 1.0.x]
 
-#  - url: ../openapi-processor-gradle
   - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
     branches: [2022.2.x, 2022.1.x, 2021.3.x]
 
-  #  - url: ../openapi-processor-samples
   - url: https://github.com/openapi-processor/openapi-processor-samples
     start_path: docs
     branches: master
 
-#  - url: ../openapi-processor-api
   - url: https://github.com/openapi-processor/openapi-processor-api
     start_path: docs
     branches: [2021.1.x]
 
 ui:
   bundle:
-    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2022.2/ui-bundle.zip
+    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2022.3.1/ui-bundle.zip
 #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   default_layout: oap
@@ -58,10 +51,15 @@ runtime:
 
 output:
   clean: false
-  dir: ./docs
+  dir: ../public
 #  destinations:
 #  - provider: archive
 
+antora:
+  extensions:
+  - require: '@antora/lunr-extension'
+
 asciidoc:
+  sourcemap: true
   extensions:
     - ./lib/tabs-block.js

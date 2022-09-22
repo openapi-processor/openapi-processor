@@ -1,56 +1,12 @@
-= openapi-processor website
+= openapi-processor site
 
-
-== running antora
-
-    antora --fetch antora-playbook.yml
-    npx antora --fetch antora-playbook.yml
-
-=== with explicit theme
-
-    antora antora-playbook.yml --ui-bundle-url ../openapi-processor-site-ui/build/ui-bundle.zip
-
-
-== install antora
-
-    npm i -g @antora/cli@2.3.0-beta.2 @antora/site-generator-default@2.3.0-beta.2
-    npm i -D -E @antora/cli@3.0.1 @antora/site-generator@3.0.1
-
-== run antora from project install
-
-    ./node_modules/@antora/cli/bin/antora antora-playbook.yml
-    npx antora --fetch antora-playbook.yml
-
-== serve locally
-
-    http-server docs -c-1
-
-== update antora
-
-    npm i -g @antora/cli @antora/site-generator-default
+antora based openapi-processor site
 
 == publishing
 
-. update playbook if necessary
-. clear `docs` folder by running `. ./clear-docs.sh`
-. run
-+
-----
-antora antora-playbook.yml
-----
-. fix warnings
-. sync working tree to index (updates modified files, adds un-tracked files, removes missing files)
-+
-----
-git add --all docs
-----
-. commit
-+
-----
-git commit -m "regenerated docs"
-----
-. push
-+
-----
-git push
-----
+see `.github/wokflows/publish.yml`
+
+
+== build & run locally
+
+see `antora/README.adoc`
