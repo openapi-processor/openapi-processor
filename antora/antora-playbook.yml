@@ -1,6 +1,6 @@
 site:
   title: openapi-processor
-  url: https://openapiprocessor.io
+  url: https://docs.openapiprocessor.io
   start_page: home@oap::home.adoc
 
 content:
