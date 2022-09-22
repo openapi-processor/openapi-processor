@@ -1,0 +1,57 @@
+name: publish
+
+on:
+  # triggered by push on the default branch
+  push:
+    branches: [$default-branch]
+
+  # allow to run this workflow manually
+  workflow_dispatch:
+
+# permissions of the GITHUB_TOKEN: allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Antora
+        working-directory: antora
+        run: npm i
+
+      - name: Generate Site
+        working-directory: antora
+        run: npx antora antora-playbook.yml
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
