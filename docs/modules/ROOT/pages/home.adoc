@@ -7,9 +7,7 @@ image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**
-is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format.
-
-The primary target is Java code. It generates interfaces and pojos based on the API and you implement the interfaces in your controllers.
+is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format. The primary target is Java code. It generates interfaces and pojos based on the API and you implement the interfaces in your controllers.
 
 The target programming language is Java, which makes the generated code usable from most JVM languages.
 
