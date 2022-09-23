@@ -7,14 +7,25 @@ image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**
-is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format. Usually Java code. The target programming language is Java, which makes the generated code usable from most JVM languages.
+is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format.
+
+The primary target is Java code. It generates interfaces and pojos based on the API and you implement the interfaces in your controllers.
+
+The target programming language is Java, which makes the generated code usable from most JVM languages.
 
 **starting with an API** +
-openapi-processor is useful if you explicitly define and document your Service API using OpenAPI with the interface to the outside and its usage in mind before you implement it. You do not derive the API later from the implementation and its implicit design. Of course, this is not a one time step but an iterative process.
+openapi-processor is useful if you explicitly define and document your service API using OpenAPI with the interface to the outside and its usage in mind before you implement it. You do not derive the API later from the implementation and its implicit design. Of course, this is not a one time step but an iterative process.
 
-The advantages are:
+The *disadvantages* are:
+
+* you have to learn OpenAPI & write the OpenAPI description.
+* the code generation has its limits and does not support all use cases.
+
+The *advantages* are:
 
 * you have a single place to maintain the api which makes it easier to create a consistent api and keep the overview.
+* you don't need to manually write the controller annotations and remember all the annotation details.
+* you can easily skip generation of endpoints that have special (unsupported) requirements and write them manually.
 * it is easy to document in plain text. You can use markdown in the OpenAPI `description` properties.
 * it helps to keep the implementation in sync with the OpenAPI description. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
 
