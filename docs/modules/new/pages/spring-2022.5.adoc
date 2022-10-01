@@ -1,11 +1,93 @@
 == openapi-processor-spring 2022.5
 
-2022, unreleased
+unreleased
 
 == annotation mapping
 
-nearly finished...
+this is a new feature.
 
-this allows to place additional annotation on generated model classes. It is possible to place the annotation at the class itself or on parameters of that type.
+It allows to place additional annotations on generated model classes. It is possible to place the annotation at the class itself or on parameters of that type.
 
-See xref:spring::mapping/annotation.adoc[annotation mapping] in the docs.
+[source, yaml]
+----
+openapi-processor-mapping: v2.1 # <1>
+
+options:
+  package-name: io.openapiprocessor.openapi
+  bean-validation: true
+
+map:
+  types:
+    - type: Bar @ io.openapiprocessor.samples.validations.Sum(24) # <2>
+
+  parameters:
+    - type: Foo @ io.openapiprocessor.samples.validations.Sum(value = 42) # <3>
+----
+
+The `Sum` annotation in the example is a custom bean validation but the feature itself is not limited to bean validation.
+
+<1> use `v2.1` as the mapping version to avoid validation warnings in the mapping file.
+<2> the `Bar` mapping is using a global type annotation mapping, so the annotation is added to the generated `Bar` class.
+<3> the `Foo` mapping adds the annotation to the parameter of the endpoint methods that use `Foo`.
+
+
+See xref:spring::mapping/annotation.adoc[annotation mapping] for the details.
+
+== @Generated
+
+This will replace the text header from the generated files with a (generated) `@Generated` annotation.
+
+Other tools may be able to detect the generated files and ignore them.
+
+For example link:{jacoco}[jacoco] automatically ignores `@Generated` classes. It is no longer necessary to exclude the generated files from code coverage.
+
+A generated interface/class will now look like this:
+
+[source,java]
+----
+package io.openapiprocessor.release;
+
+import io.openapiprocessor.release.support.Generated;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Generated(value = "openapi-processor-spring", version = "2022.6", date = "2022-09-28T18:37:33.250622+02:00")
+public interface ReleaseApi {
+// ...
+}
+----
+
+Because of the longish date the code formatter will probably add a few line breaks.
+
+Generation of the data parameter can be disabled by setting the `generated-date` option to `false`:
+
+[source,yaml]
+----
+openapi-processor-mapping: v2.1 # <1>
+
+options:
+  package-name: io.openapiprocessor.openapi
+  generated-date: false
+----
+
+<1> use `v2.1` as the mapping version to avoid validation warnings in the mapping file.
+
+== additional parameter configuration did not working in global context
+
+using an additional parameter in the global context was not implemented.
+
+[source,yaml]
+----
+map:
+  parameters:
+    - add: request => javax.servlet.http.HttpServletRequest
+----
+
+== @HeadMapping/@TraceMapping/@OptionsMapping do not exist
+
+a few http methods do not have an explicit mapping annotation: `@HeadMapping`, `@TraceMapping`, `@OptionsMapping`.
+
+The processor now generates `@RequestMapping(method =  RequestMethod.` {http method} `))` .
+
+== windows path handling
+
+was broken since 2022.4
