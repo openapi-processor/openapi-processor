@@ -1,0 +1,31 @@
+openapi: 3.1.0
+info:
+  title: annotation mapping example
+  version: 1.0.0
+
+paths:
+  /foo:
+    post:
+      summary: annotation mapping example endpoint.
+      description: a simple endpoint where an annotation mapping is used on the request body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Foo'
+        required: true
+      responses:
+        '201':
+          description: empty response
+
+components:
+  schemas:
+    Foo:
+      type: object
+      properties:
+        foo1:
+          type: integer
+          minimum: 0
+        foo2:
+          type: integer
+          minimum: -10

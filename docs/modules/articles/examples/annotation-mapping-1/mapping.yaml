@@ -1,0 +1,10 @@
+openapi-processor-mapping: v2.1 # <1>
+
+options:
+  package-name: io.openapiprocessor.openapi
+  bean-validation: true
+
+map:
+  types:
+    # <2>
+    - type: Foo @ io.openapiprocessor.samples.validations.Sum(24)

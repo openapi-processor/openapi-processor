@@ -1,0 +1,93 @@
+= annotation mapping & bean-validation
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+
+
+The xref:new:spring-2022.5.adoc[openapi-processor-spring/micronaut release 2022.5] adds a new _annotation type mapping_ feature. It provides the possibility to add additional annotations to generated interfaces & classes.
+
+== annotation mapping
+
+_annotation type mapping_ allows to add annotations to a generated model class or to an endpoint method parameters of that class.
+
+Let's look at a contrived example to add a custom bean validation to the pojo model class of a schema.
+
+See the xref:spring::mapping/annotation.adoc[annotation mapping] documentation for more.
+
+== the example api
+
+here is a simple api that takes a `Foo` schema as request body. The schema has some (useless ;-) number constraints on its properties.
+
+.openapi.yaml
+[source,yaml]
+----
+include::example$annotation-mapping-1/openapi.yaml[]
+----
+
+== bean validation annotations
+
+Enabling bean validation in the `mapping.yaml` (the processor configuration) will generate a `Foo` class with bean validation annotations for the property constraints.
+
+.generated file
+[source,java]
+----
+include::example$annotation-mapping-1/FooSimple.java[]
+----
+
+<1> the bean validation annotations created from the OpenAPI constraints.
+
+== custom bean validation annotation
+
+Now we like to add a validation that checks the sum of the two `Integer` properties by writing `@Sum(24)`.
+
+Let's create the annotation
+
+.manually created custom bean validation annotation
+[source,java]
+----
+include::example$annotation-mapping-1/Sum.java[]
+----
+
+and the validation code.
+
+.manually created validation
+[source,java]
+----
+include::example$annotation-mapping-1/FooSumValidator.java[]
+----
+
+== mapping for the custom annotation
+
+Now comes the interesting part, the _annotation type mapping_ that tells the processor to add our custom annotation to the generated `Foo` pojo model class.
+
+.processor configuration mapping.yaml
+[source,yaml]
+----
+include::example$annotation-mapping-1/mapping.yaml[]
+----
+
+<1> the new mapping version. Using another version will produce a warning that the mapping is invalid.
+
+<2> the annotation mapping that tells the processor to @nnotate the `Foo` schema (`Foo` is the name of the OpenAPI schema) with the given annotation to the pojo model class generated for the `Foo` schema. The annotation is given with the fully qualified name (required to create the import) and (optionally) with fixed parameters.
+
+== model class with custom annotation
+
+Now, with the annotation mapping in the configuration the processor will generate `Foo` like this:
+
+.generated file with custom annotation
+[source,java]
+----
+include::example$annotation-mapping-1/FooCustom.java[]
+----
+
+<1> our custom bean validation annotation.
+
+
+== summary
+
+This little article described how to add a custom annotation to a generated class by adding an annotation type mapping to the processor mapping configuration.
+
+To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
+
+
+

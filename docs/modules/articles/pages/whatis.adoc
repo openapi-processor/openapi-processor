@@ -1,0 +1,9 @@
+:oap: https://openapiprocessor.io
+
+==  what is openapi-processor?
+
+{oap}[openapi-processor] is a small framework to process OpenAPI yaml files. Currently, openapi-processor provides java code generation for Spring Boot & Micronaut.
+
+It does support gradle and maven with plugins to convert OpenAPI yaml files to java (controller) interfaces & (payload) pojo classes as part of the build process.
+
+It generates Java because the controller interface and pojo classes are easily usable from other jvm languages. Usually you will just use them without looking at the generated code.
