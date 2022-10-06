@@ -15,7 +15,7 @@ content:
 
   - url: https://github.com/openapi-processor/openapi-processor-micronaut
     start_path: docs
-    branches: [2022.4.x, 2022.4.x, 2022.3.x]
+    branches: [2022.5.x, 2022.4.x, 2022.3.x]
 
   - url: https://github.com/openapi-processor/openapi-processor-json
     start_path: docs
