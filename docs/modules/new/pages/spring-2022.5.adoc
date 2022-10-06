@@ -1,6 +1,6 @@
 == openapi-processor-spring 2022.5
 
-unreleased
+October 2022
 
 == annotation mapping
 
