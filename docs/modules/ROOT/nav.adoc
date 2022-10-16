@@ -6,6 +6,6 @@
 ** xref:new:spring-2022.4.adoc[spring 2022.4]
 ** xref:new:micronaut-2022.4.adoc[micronaut 2022.4]
 * xref:new:next.adoc[What's Next]
-//* xref:articles:index.adoc[Articles]
-//** xref:articles:article1.adoc[an article]
+* xref:articles:index.adoc[Articles]
+** xref:articles:annotation-mapping-1.adoc[annotation mapping & bean validation]
 * xref:jdk.adoc[JDK 16+]

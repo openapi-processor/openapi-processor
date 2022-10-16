@@ -2,7 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
-
+:date: 16. October 2022
 
 The xref:new:spring-2022.5.adoc[openapi-processor-spring/micronaut release 2022.5] adds a new _annotation type mapping_ feature. It provides the possibility to add additional annotations to generated interfaces & classes.
 
@@ -88,6 +88,8 @@ include::example$annotation-mapping-1/FooCustom.java[]
 This little article described how to add a custom annotation to a generated class by adding an annotation type mapping to the processor mapping configuration.
 
 To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
+
+[small]#{date}#
 
 
 
