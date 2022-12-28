@@ -4,7 +4,7 @@ Martin Hauner
 :oap: https://openapiprocessor.io
 :date: 16. October 2022
 
-The xref:new:spring-2022.5.adoc[openapi-processor-spring/micronaut release 2022.5] adds a new _annotation type mapping_ feature. It provides the possibility to add additional annotations to generated interfaces & classes.
+The xref:new:2022-10.adoc[openapi-processor-spring/micronaut release 2022.5] adds a new _annotation type mapping_ feature. It provides the possibility to add additional annotations to generated interfaces & classes.
 
 == annotation mapping
 
