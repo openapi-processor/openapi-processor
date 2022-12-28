@@ -1,9 +1,7 @@
 = What's New
 
-include::spring-2022.5.adoc[]
+include::2023-01.adoc[]
 
-include::micronaut-2022.5.adoc[]
+include::2022-10.adoc[]
 
-include::spring-2022.4.adoc[]
-
-include::micronaut-2022.4.adoc[]
+include::2022-05.adoc[]

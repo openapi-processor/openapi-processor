@@ -1,3 +1,0 @@
-== openapi-processor-micronaut 2022.4
-
-see xref:spring-2022.4.adoc[spring 2022.4]

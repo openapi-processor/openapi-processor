@@ -1,6 +1,7 @@
-== openapi-processor-spring 2022.4
+== May 2022
 
-May 2022
+* openapi-processor-spring/micronaut 2022.4
+
 
 openapi-processor offers a new alternative OpenAPI 3.0 & 3.1 parser and fixes missing bean validation imports
 

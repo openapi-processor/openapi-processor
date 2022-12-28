@@ -1,8 +1,9 @@
 :jacoco: https://github.com/jacoco/jacoco
 
-== openapi-processor-spring 2022.5
+== October 2022
 
-October 2022
+* openapi-processor-spring/micronaut 2022.5
+
 
 == annotation mapping
 
