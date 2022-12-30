@@ -38,6 +38,8 @@ components:
                 type: string
 ----
 
+<1> `$ref` is direct child of `requestBody`.
+
 == annotation mapping support for simple data types
 
 it is now possible to add an annotation mapping for simple data types (format works too):
