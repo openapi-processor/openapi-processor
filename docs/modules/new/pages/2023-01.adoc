@@ -1,3 +1,230 @@
 == January 2023
 
-tbd
+* openapi-processor-spring/micronaut 2023.1
+
+== support `requestBody` `$ref`
+
+the processor is now able to resolve `$ref` s of `requestBody` (This works with all 3 OpenAPI parsers).
+
+[source, yaml]
+----
+openapi: 3.1.0
+info:
+  title: components requestBodies
+  version: '1.0'
+
+paths:
+  /foo:
+    post:
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Foo'  # <1>
+
+components:
+  requestBodies:
+    Foo:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              foo:
+                type: string
+----
+
+== annotation mapping support for simple data types
+
+it is now possible to add an annotation mapping for simple data types (format works too):
+
+[source, yaml]
+----
+openapi-processor-mapping: v3
+
+map:
+  types:
+    - type: string:uuid => java.util.UUID
+    - type: string:uuid @ annotation.Bar
+----
+
+openapi-processor will add it on any `string:uuid` property used in the generated model classes:
+
+[source, java]
+----
+@Generated
+public class Foo {
+
+    @Bar
+    @JsonProperty("foo")
+    private UUID foo;
+
+     // ....
+}
+----
+
+== annotation mapping support for mapped types
+
+in the previous version an annotation mapping was lost if the type was mapped at the same time to an existing class. It will now add the annotation to the existing class if possible.
+
+Assume the following mapping:
+
+[source, yaml]
+----
+openapi-processor-mapping: v3
+
+options:
+
+map:
+  types:
+    - type: Foo => openapiprocessor.MappedFoo
+    - type: Foo @ annotation.Bar  # <1>
+
+  parameters:
+     - type: Foo @ annotation.Bar # <2>
+----
+
+`MappedFoo` is a class that is not generated. Adding an annotation at the parameter level works as expected (mapping `<2>`).  But it is not possible to add the `Bar` annotation directly at the class (mapping `<1>`):
+
+[source, java]
+----
+@Bar
+@Generated
+public class Foo {
+    // ....
+}
+----
+
+instead, openapi-processor will add it on any `MappedFoo` property used in the generated model classes:
+
+[source, java]
+----
+@Generated
+public class FooBar {
+
+    @Bar
+    @JsonProperty("foo")
+    private MappedFoo foo;
+
+     // ....
+}
+----
+
+== bean validation v3 support
+
+**Spring Boot 3** updates bean validations to v3. In v3 the package name changed from `javax` to  `jakarta`. It is now possible to select between the v2 & v3 version in the `mapping.yaml`.
+
+the new mapping schema v3 adds `javax` and `jakarta` as possible values for the `bean-validation` option. `true/false` will still work as before.
+
+[source, yaml]
+----
+# use v3 for proper validation of the mapping file
+openapi-processor-mapping: v3
+
+options:
+  # no bean validation, as before
+  bean-validation: false
+
+  # enable bean validation, as before (will use `javax...`)
+  bean-validation: true
+
+  # new: enable bean validation with `javax...`
+  bean-validation: javax
+
+  # new: enable bean validation with `jakarta...`
+  bean-validation: jakarta
+----
+
+== bean validation support on mapped data types
+
+openapi-processor now preserves bean validation annotations when the source data type is mapped to an existing class. This is most interesting for the `@Valid` annotation.
+
+It adds the annotations it would add on the source data type. In previous versions the annotations got lost when the data type was mapped to an existing class. Without`@Valid` the validation would not be triggered on the mapped object.
+
+having this OpenAPI description
+
+[source, yaml]
+----
+openapi: 3.1.0
+info:
+  title: mapped bean validation
+  version: 1.0.0
+
+paths:
+  /foo:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Foo'
+      responses:
+        204:
+          description: none
+
+components:
+  schemas:
+    Foo:
+      type: object
+      properties:
+        foo:
+          type: integer
+          minimum: 0
+----
+
+the endpoint looks like this without a mapping that replaces `Foo` (ignore the `@Mapping`/`@Parameter` annotations, this is pseudo code used by the integration tests):
+
+[source, java]
+----
+package generated.api;
+
+import annotation.Mapping;
+import annotation.Parameter;
+import generated.model.Foo;
+import javax.validation.Valid;
+
+public interface Api {
+
+    @Mapping("/foo")
+    void postFoo(@Parameter @Valid Foo body);   // has @Valid annotation
+
+}
+----
+
+with a mapping that replaces `Foo` with `Bar`
+
+[source, yaml]
+----
+openapi-processor-mapping: v3
+
+options:
+  package-name: generated
+  bean-validation: true
+
+map:
+  types:
+    - type: Foo => openapiprocessor.Bar
+----
+
+it will now generate the endpoint with a `@Valid` on the mapped data type.
+
+[source, java]
+----
+package generated.api;
+
+import annotation.Mapping;
+import annotation.Parameter;
+import javax.validation.Valid;
+import openapiprocessor.Bar;
+
+public interface Api {
+
+    @Mapping("/foo")
+    void postFoo(@Parameter @Valid Bar body);   // new: has @Valid annotation
+
+}
+----
