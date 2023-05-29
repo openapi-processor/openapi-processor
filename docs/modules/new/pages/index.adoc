@@ -1,7 +1,6 @@
 = What's New
 
+include::2023-02.adoc[]
 include::2023-01.adoc[]
-
 include::2022-10.adoc[]
-
 include::2022-05.adoc[]

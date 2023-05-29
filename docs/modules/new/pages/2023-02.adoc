@@ -1,0 +1,56 @@
+== January 2023
+
+* openapi-processor-spring/micronaut 2023.2
+
+== nested generic types
+
+It is now possible to create type mappings with nested generics types. Here are a few examples:
+
+[source,yaml]
+----
+openapi-processor-mapping: v3
+
+options:
+  package-name: generated
+
+map:
+  types:
+    - type: Foo => java.util.Map<java.lang.String, java.util.List<java.lang.String>>
+
+  paths:
+    /foo:
+      responses:
+        - content: application/json => java.util.Map<java.lang.String, java.lang.String>
+
+    /foo2:
+      responses:
+        - content: application/json => java.util.Map<java.lang.String, java.util.List<java.lang.String>>
+----
+
+This is useful to map an OpenAPI dictionary description using `additionalProperties` to a proper java map type:
+
+[source,yaml]
+----
+# a schema the defines a dictionary with string keys and string values
+Map:
+    type: object
+    additionalProperties:
+      type: string
+----
+
+== annotation mapping allows class parameter
+
+annotation mapping now accepts a java class type as parameter. It is possible to add a mapping like this:
+
+[source,yaml]
+----
+openapi-processor-mapping: v3
+
+map:
+  types:
+    - type: string:foo @ io.oap.Annotation (value = io.oap.Bar.class)
+----
+
+== improved validation output
+
+schema validation by the internal parser has simpler & better output based on the JSON schema basic output format.
