@@ -54,3 +54,5 @@ map:
 == improved validation output
 
 schema validation by the internal parser has simpler & better output based on the JSON schema basic output format. It is not perfect but it is getting better.
+
+It will provide better help on where the error is, but it may report multiple ambiguous errors. If a schema property uses `anyOf` or `oneOf` and all possibilities don't match  (e.g. because there is a spelling error) the validator can't know which one was meant and complains about all of them.
