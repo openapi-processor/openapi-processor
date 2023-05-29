@@ -53,4 +53,4 @@ map:
 
 == improved validation output
 
-schema validation by the internal parser has simpler & better output based on the JSON schema basic output format.
+schema validation by the internal parser has simpler & better output based on the JSON schema basic output format. It is not perfect but it is getting better.
