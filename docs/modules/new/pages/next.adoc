@@ -4,35 +4,23 @@
 
 This just lists a few things that are planned for the future in no particular order. I'm working on this as times permits... &#x1f600;
 
-== Spring Boot 3
 
-Spring Boot 3 uses bean validation v3. v3 changes the package name from  `javax. ...` to `jakarta. ...`. openapi-processor will support this in the next version (2031.1).
-
-It is implemented and needs documentation and testing.
-
-== mapping improvements
-
-the `mapping` was missing a (now) obvious feature. Mapping a model type should still add bean validation annotations on the target type. This is mostly interesting for `@Valid`.
-
-Same issue with annotation mapping. Mapping a type that should get an additional annotation would drop the annotation mapping. openapi-processor will apply the annotation mapping to a mapped type.
-
-There is also improved support for simple data types.
-
-It is implemented and needs documentation and testing.
-
-// == Java record support
-//
-// As an alternative to the simple pojo (`class` es) models with getter & setters, openapi-processor will be able to generate java `record` models.
-//
-// This is partially implemented. Needs documentation and testing.
-//
 == json schema validator
 
-Finish json schema validator draft 2019-09 and implement draft 2020-12. Draft 2020-12 is required to validate OpenAPI 3.1. documents.
+I made some progress on the json-schema-validator. draft 2019-09 and draft 2020-12 are nearly done. The validator is able to create the standard JSON schema output format. Validation of OpenAPI 3.0 is already using it.
 
-== internal OpenAPI 3.0 / 3.1
+2020-12 is required to validate OpenAPI 3.1. documents.
+
+== internal OpenAPI 3.1
 
 Add validation for OpenAPI 3.1 parser.
+
+== Java record support
+
+As an alternative to the simple pojo (`class` es) models with getter & setters, openapi-processor will be able to generate java `record` models.
+
+This is partially implemented. Needs documentation and testing.
+
 
 == annotation processor
 
