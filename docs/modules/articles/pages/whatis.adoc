@@ -7,3 +7,15 @@
 It does support gradle and maven with plugins to convert OpenAPI yaml files to java (controller) interfaces & (payload) pojo classes as part of the build process.
 
 It generates Java because the controller interface and pojo classes are easily usable from other jvm languages. Usually you will just use them without looking at the generated code.
+
+== what is openapi-processor?
+
+{oap}[openapi-processor] is an *easy-to-use* tool that generates java based (annotated) controller *interfaces* and *pojos* (model classes) from an OpenAPI yaml description. It has a *powerful mapping* feature to map OpenAPI types to java types.
+
+It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+
+== motivation
+
+The motivation of openapi-processor-spring is to have a less complex tool that is easier to use and that has better support for some Spring features and generates simpler code.
+
+Less complexity means: it does only create *plain Java interfaces and simple model classes* and it does not have a lot of options.
