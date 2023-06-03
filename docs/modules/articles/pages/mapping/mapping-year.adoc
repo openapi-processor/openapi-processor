@@ -1,0 +1,142 @@
+= type mapping OpenAPI formats, `java.time.Year`
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 3.June 2023
+
+[small]#{date}#
+
+// == what is openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == type mapping
+
+Assume we have this simple (but useless ;-) OpenAPI description. It uses a custom integer `format` to specify that the integer parameter and response represents a _year_.
+
+[source,yaml]
+----
+openapi: 3.1
+info:
+  title: pending API
+  version: 1.0.0
+
+paths:
+  /query:
+    get:
+      description: echo query parameter with type mapping
+      parameters:
+        - name: year
+          description: the year
+          in: query
+          required: true
+          schema:
+            type: integer  # <1>
+            format: year
+      responses:
+        '200':
+          description: echo response
+          content:
+            text/plain:
+              schema:
+                type: integer  # <1>
+                format: year
+----
+
+<1> the integer type with custom `format`.
+
+By default, openapi-processor-spring does not know what to do with the custom format and simply maps the OpenAPI `integer` to a Java `Integer`.
+
+[source,java,title=the generated interface code]
+----
+package io.openapiprocessor.oap.api;
+
+import io.openapiprocessor.oap.support.Generated;
+import javax.validation.constraints.NotNull;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Generated(value = "openapi-processor-spring", version = "2023.2")
+public interface Api {
+
+    /**
+     * echo query parameter with type mapping
+     *
+     * @return echo response
+     */
+    @GetMapping(
+            path = "/query",
+            produces = {"text/plain"})
+    Integer getQuery(@RequestParam(name = "year") @NotNull Integer year);
+
+}
+----
+
+Since Java has a `java.time.Year` class it could be useful to use it instead of `Integer`.
+
+We can *easily* help openapi-processor to generate the interface with `java.time.Year` by adding a *type mapping* to the `mapping.yaml` configuration.
+
+[source,yaml,,title=mapping.yaml]
+----
+openapi-processor-mapping: v3
+
+options:
+  generated-date: false
+  package-name: io.openapiprocessor.oap
+  bean-validation: javax
+  javadoc: true
+
+map:
+  types:
+    - type: integer:year => java.time.Year # <1>
+----
+
+
+<1> this is the interesting part of the `mapping.yaml`. It tells the processor to map the integer custom format to the `java.time.Year` class.
+
+The left side of the arrow is the `type` : `format` combination used in the OpenAPI and on the right side is the fully qualified java class name that is used in the generated code.
+
+Regenerating the code will now generate the interface like this:
+
+[source,java,title=the generated interface code]
+----
+package io.openapiprocessor.oap.api;
+
+import io.openapiprocessor.oap.support.Generated;
+import java.time.Year;
+import javax.validation.constraints.NotNull;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Generated(value = "openapi-processor-spring", version = "2023.2")
+public interface Api {
+
+    /**
+     * echo query parameter with type mapping
+     *
+     * @return echo response
+     */
+    @GetMapping(
+            path = "/query",
+            produces = {"text/plain"})
+    Year getQuery(@RequestParam(name = "year") @NotNull Year year); // <1>
+
+}
+----
+
+<1> it is now using `java.time.Year` instead of `Integer`.
+
+Easy :-)
+
+If such a custom type is used in a property of an OpenAPI schema, openapi-processor will use the same type mapping definition.
+
+We can use this simple mechanism for many other types to improve the generated code, for example:
+
+[source,yaml,title=type mapping examples]
+----
+  - type: string:uuid => java.util.UUID
+  - type: string:date-time => java.time.Instant
+  - type: string:offset-date-time => java.time.OffsetDateTime
+----
+
+That's it.
