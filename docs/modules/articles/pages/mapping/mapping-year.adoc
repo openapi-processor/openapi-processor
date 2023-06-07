@@ -1,4 +1,4 @@
-= type mapping OpenAPI formats, `java.time.Year`
+= mapping OpenAPI formats
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
@@ -128,9 +128,9 @@ public interface Api {
 
 Easy :-)
 
-If such a custom type is used in a property of an OpenAPI schema, openapi-processor will use the same type mapping definition.
+If such a custom type is used in the `properties` of an OpenAPI schema, openapi-processor will use the same type mapping definition.
 
-We can use this simple mechanism for many other types to improve the generated code, for example:
+We can use this simple mechanism for many other types to improve the generated code. Here are a few examples:
 
 [source,yaml,title=type mapping examples]
 ----
@@ -139,4 +139,8 @@ We can use this simple mechanism for many other types to improve the generated c
   - type: string:offset-date-time => java.time.OffsetDateTime
 ----
 
-That's it.
+I'm sure you can find more useful mappings. :-)
+
+*summary*
+
+This short article described how easy it is to improve the openapi-processor generated code with type mapping.
