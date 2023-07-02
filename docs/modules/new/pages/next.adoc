@@ -15,12 +15,6 @@ I made some progress on the json-schema-validator. draft 2019-09 and draft 2020-
 
 Add validation for OpenAPI 3.1 parser.
 
-== Java record support
-
-As an alternative to the simple pojo (`class` es) models with getter & setters, openapi-processor will be able to generate java `record` models.
-
-This is partially implemented. Needs documentation and testing.
-
 
 == annotation processor
 
