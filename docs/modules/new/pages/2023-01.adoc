@@ -178,7 +178,7 @@ components:
           minimum: 0
 ----
 
-the endpoint looks like this without a mapping that replaces `Foo` (ignore the `@Mapping`/`@Parameter` annotations, this is pseudo code used by the integration tests):
+the endpoint looks like this without a mapping that replaces `Foo` (ignore the `@Mapping`/`@Parameter` annotations, this is pseudocode used by the integration tests):
 
 [source, java]
 ----
