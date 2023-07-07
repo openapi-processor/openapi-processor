@@ -1,0 +1,139 @@
+= object annotation mapping & lombok
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 7. July 2023
+:lombok: https://projectlombok.org
+:sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
+
+[small]#{date}#
+
+// == what is openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == type mapping
+
+With xref:new:2023-07.adoc[openapi-processor-spring/micronaut release 2023.3] openapi-processor has a new mapping feature that allows it to add annotations to **all** generated model classes with a **single** mapping entry.
+
+This is very useful in combination with link:{lombok}[lombok].
+
+The article is based on the openapi-processor sample link:{sample-lombok}[samples:spring-mvc-boot-3-lombok]. The sample has a few more mapping entries.
+
+== the api
+
+here is the sample api. Nothing clever, it is just for demonstration. :-)
+
+It has a simple `post` endpoints that accepts a `Foo` schema. `Foo` has a few properties one of them a `Bar` schema.
+
+.openapi.yaml
+[source,yaml]
+----
+include::object-lombok/openapi.yaml[]
+----
+
+== no mapping
+
+Without (annotation) mappings the configuration (`mapping.yaml`) his very simple:
+
+.simple `mapping.yaml`
+[source,yaml]
+----
+include::object-lombok/plain-mapping.yaml[]
+----
+
+openapi-processor(-spring) will generate an interface for the endpoint and two standard pojo classes for the schemas `Foo` and `Bar`.
+
+Here is the generated interface:
+
+.`FooApi.java` interface
+[source,java]
+----
+include::object-lombok/plain-FooApi.java[]
+----
+
+and the `Foo.java` pojo model class:
+
+.`Foo.java` pojo
+[source,java]
+----
+include::object-lombok/plain-Foo.java[]
+----
+
+`Bar.java` is similar with different properties.
+
+== lombok
+
+The generated classes doesn't implement anything apart the getter and setters. No `equals()`, `hashCode()` or anything else.
+
+openapi-processor does minimize the generated logic which would never really fit anyway.
+
+If you need `equals()`, `hashCode()` or a `Builder` to make the model classes easier to use you can do that with link:{lombok}[lombok] and the new *object annotation mapping*.
+
+== lombok object mapping
+
+The *object annotation mapping* tells the processor to annotate all `object` s (i.e. all generated model classes) with the given annotation.
+
+With annotation mapping the configuration has a few new lines:
+
+.object `mapping.yaml`
+[source,yaml]
+----
+include::object-lombok/object-mapping.yaml[]
+----
+
+<1> adds the lombok `Builder` annotation to all `object` s
+<2> adds the lombok `EqualsAndHashCode` annotation to all `object` s
+
+Note that the annotation is given with package. The processor requires it to generate the `import` statements.
+
+With the changes the generated model classes will now look like this:
+
+.`Foo` pojo with lombok
+[source,java]
+----
+include::object-lombok/object-Foo.java[]
+----
+
+
+.`Bar` pojo with lombok
+[source,java]
+----
+include::object-lombok/object-Bar.java[]
+----
+
+<1> the additional lombok annotations at the class level.
+
+Now we can use the lombok builder and `equals()` / `hashcode()` with the model classes generated from the OpenAPI description.
+
+Nice!
+
+== limitations?
+
+This is a new feature, and we have to find out where it useful and where not.
+
+known limitations:
+
+- an `object` annotation will always add the given annotation at the class level of the generated class.
+
+lombok specific:
+
+- the processor generates getters and setter itself, so the lombok `@Getter` and `@Setter` annotation can't be used.
+
+== object mapping with parameters
+
+The mapping will accept (simple) annotation parameters.
+
+For example if you don't like lombok's default builder name, just add its annotation parameter to change it. Order of parameters or whitespaces do not matter.
+
+.object and parameter mapping.yaml
+[source,yaml]
+----
+include::object-lombok/object-mapping-parameter.yaml[]
+----
+
+== summary
+
+This article shows how we can use an `object` annotation mapping to improve the model classes generated from the OpenAPI description with lomboks `@Builder` and `@EqualsAndHashCode` annotations.
+
+To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].

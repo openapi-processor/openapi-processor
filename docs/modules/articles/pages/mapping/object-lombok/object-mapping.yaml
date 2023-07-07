@@ -1,0 +1,13 @@
+openapi-processor-mapping: v4
+
+options:
+  package-name: io.openapiprocessor.openapi
+  bean-validation: jakarta
+  format-code: false
+  javadoc: true
+
+map:
+  types:
+    # annotates all generated model classes
+    - type: object @ lombok.Builder <1>
+    - type: object @ lombok.EqualsAndHashCode <2>
