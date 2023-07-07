@@ -34,7 +34,7 @@ include::object-lombok/openapi.yaml[]
 
 == no mapping
 
-Without (annotation) mappings the configuration (`mapping.yaml`) his very simple:
+Without (annotation) mappings the configuration (`mapping.yaml`) is very simple:
 
 .simple `mapping.yaml`
 [source,yaml]
@@ -52,7 +52,7 @@ Here is the generated interface:
 include::object-lombok/plain-FooApi.java[]
 ----
 
-and the `Foo.java` pojo model class:
+and the pojo model classes:
 
 .`Foo.java` pojo
 [source,java]
