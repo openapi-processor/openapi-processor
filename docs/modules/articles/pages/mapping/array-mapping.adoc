@@ -2,6 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
+:page-aliases: spring::howto/global-array-mapping.adoc
 :date: April 2020
 :update: 8. July 2023
 
