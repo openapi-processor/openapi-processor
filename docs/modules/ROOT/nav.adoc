@@ -14,3 +14,7 @@
 ** xref:articles:mapping/annotation-mapping-1.adoc[annotation mapping & bean validation]
 ** xref:articles:mapping/array-mapping.adoc[array type mapping]
 ** xref:articles:mapping/pageable-page-mapping.adoc[Spring Boot: mapping Pageable & Page]
+* OpenAPI
+** xref:openapi:file_upload.adoc[]
+** xref:openapi:file_download.adoc[]
+
