@@ -1,4 +1,4 @@
-= openapi array mapping
+= array type mapping
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
