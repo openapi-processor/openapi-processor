@@ -16,4 +16,4 @@
 ** xref:articles:mapping/pageable-page-mapping.adoc[Spring Boot: mapping Pageable & Page]
 * OpenAPI
 ** xref:openapi:file_upload.adoc[uploading file(s)]
-** xref:openapi:file_download.adoc[downloading fil(s)]
+** xref:openapi:file_download.adoc[downloading file(s)]
