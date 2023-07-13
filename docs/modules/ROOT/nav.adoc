@@ -9,7 +9,7 @@
 ** xref:new:2022-05.adoc[2022, May]
 * xref:new:next.adoc[What's Next]
 * Articles
-// ** xref:articles:mapping/object-lombok.adoc[object annotation mapping with lombok]
+** xref:articles:mapping/object-lombok.adoc[object annotation mapping with lombok]
 ** xref:articles:mapping/mapping-year.adoc[type mapping OpenAPI formats]
 ** xref:articles:mapping/annotation-mapping-1.adoc[annotation mapping & bean validation]
 ** xref:articles:mapping/array-mapping.adoc[array type mapping]
