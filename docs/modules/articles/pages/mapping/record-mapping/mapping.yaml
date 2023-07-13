@@ -1,0 +1,9 @@
+openapi-processor-mapping: v4
+
+options:
+  package-name: io.openapiprocessor.openapi
+  model-type: record # <1>
+
+map:
+  types:
+    - type: string:uuid => java.util.UUID

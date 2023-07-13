@@ -1,0 +1,92 @@
+= using java records as DTOs
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 12. July 2023
+:lombok: https://projectlombok.org
+:sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
+
+[small]#{date}#
+
+// == what is openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (model/dto classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == type mapping
+
+When generating interfaces and schema classes (dtos) from an OpenAPI wouldn't it be nice to use java `record` s instead of plain pojos?
+
+xref:new:2023-07.adoc[openapi-processor-spring/micronaut release 2023.3] is able to generate records instead pojo from OpenAPI schemas.
+
+== a little bit of OpenAPI
+
+Here is a simple OpenAPI snippet that defines a schema:
+
+[source,yaml]
+----
+components:
+  schemas:
+    Foo:
+      type: object
+      properties:
+        foo:
+          type: string
+        id:
+          type: string
+          format: uuid
+----
+
+== .. as pojo
+
+with its default settings openapi-processor will generate a pojo dto class with some getter/setter noise.
+
+.`Foo.java` pojo dto
+[source,java]
+----
+include::record-mapping/Foo-pojo.java[]
+----
+
+It is probably not a big issue because you won't look at it very often. :-)
+
+== .. a bit configuration
+
+It may still be useful to use java records because they are immutable and provide equals() plus hasCode() out of the box.
+
+The generated pojos are not immutable, and they don't offer equals() plus hashCode().
+
+We could add it via annotation mapping and link:{lombok}[lombok]. How this works is described in  xref:articles/pages/mapping/object-lombok.adoc[object annotation mapping & lombok].
+
+Back to records.
+
+The only thing we have to do to get records is to enable it in the options section of the `mapping.yaml`:
+
+[source,yaml]
+----
+include::record-mapping/mapping.yaml[]
+----
+
+<1> that is the interesting line that switches generation of pojos to records.
+
+If `model-type` is not given the processor will generate pojos.
+
+This is a global setting, i.e. either all schemas are generated as pojo or all schemas are generated as record.
+
+== .. as record
+
+After switching to records the generated `Foo.java` will look like this:
+
+.`Foo.java` record dto
+[source,java]
+----
+include::record-mapping/Foo-record.java[]
+----
+
+less code, the same properties, the same annotations, no explicit getter/setters.
+
+== summary
+
+This article shows how openapi-processor can generate java records instead of pojos.
+
+To learn more about openapi-processor and how to generate controller interfaces and dto classes from an OpenAPI description take a look at the {oap}[documentation].
+
+
