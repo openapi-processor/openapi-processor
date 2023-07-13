@@ -11,7 +11,7 @@ Martin Hauner
 
 By default, the OpenAPI `array` maps to a simple java array. That is probably the first thing you want to change.
 
-To change that default mapping for example to `java.util.Collection` a simple global type mapping  is necessary in the xref:mapping/index.adoc[`mapping.yaml`].
+To change that default mapping for example to `java.util.Collection` a simple global type mapping  is necessary in the xref:spring::mapping/index.adoc[`mapping.yaml`].
 
 Given the following openapi.yaml fragment:
 
@@ -39,7 +39,7 @@ the processor will create the following endpoint interface using the default arr
 String[] getArray();
 ----
 
-To globally change the mapping of `array` to another collection type we just need to add a simple *global* type mapping to the xref:mapping/index.adoc[`mapping.yaml`]:
+To globally change the mapping of `array` to another collection type we just need to add a simple *global* type mapping to the xref:spring::mapping/index.adoc[`mapping.yaml`]:
 
 [source,yaml]
 ----

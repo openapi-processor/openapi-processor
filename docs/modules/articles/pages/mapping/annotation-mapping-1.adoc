@@ -23,7 +23,7 @@ here is a simple api that takes a `Foo` schema as request body. The schema has s
 .openapi.yaml
 [source,yaml]
 ----
-include::annotation-mapping-1/openapi.yaml[]
+include::example$annotation-mapping-1/openapi.yaml[]
 ----
 
 == bean validation annotations
@@ -33,7 +33,7 @@ Enabling bean validation in the `mapping.yaml` (the processor configuration) wil
 .generated file
 [source,java]
 ----
-include::annotation-mapping-1/FooSimple.java[]
+include::example$annotation-mapping-1/FooSimple.java[]
 ----
 
 <1> the bean validation annotations created from the OpenAPI constraints.
@@ -47,7 +47,7 @@ Let's create the annotation
 .manually created custom bean validation annotation
 [source,java]
 ----
-include::annotation-mapping-1/Sum.java[]
+include::example$annotation-mapping-1/Sum.java[]
 ----
 
 and the validation code.
@@ -55,7 +55,7 @@ and the validation code.
 .manually created validation
 [source,java]
 ----
-include::annotation-mapping-1/FooSumValidator.java[]
+include::example$annotation-mapping-1/FooSumValidator.java[]
 ----
 
 == mapping for the custom annotation
@@ -65,7 +65,7 @@ Now comes the interesting part, the _annotation type mapping_ that tells the pro
 .processor configuration mapping.yaml
 [source,yaml]
 ----
-include::annotation-mapping-1/mapping.yaml[]
+include::example$annotation-mapping-1/mapping.yaml[]
 ----
 
 <1> the new mapping version. Using another version will produce a warning that the mapping is invalid.
@@ -79,7 +79,7 @@ Now, with the annotation mapping in the configuration the processor will generat
 .generated file with custom annotation
 [source,java]
 ----
-include::annotation-mapping-1/FooCustom.java[]
+include::example$annotation-mapping-1/FooCustom.java[]
 ----
 
 <1> our custom bean validation annotation.

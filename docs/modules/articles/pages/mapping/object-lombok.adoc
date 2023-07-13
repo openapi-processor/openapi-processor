@@ -29,7 +29,7 @@ It has a simple `post` endpoints that accepts a `Foo` schema. `Foo` has a few pr
 .openapi.yaml
 [source,yaml]
 ----
-include::object-lombok/openapi.yaml[]
+include::example$object-lombok/openapi.yaml[]
 ----
 
 == no mapping
@@ -39,7 +39,7 @@ Without (annotation) mappings the configuration (`mapping.yaml`) is very simple:
 .simple `mapping.yaml`
 [source,yaml]
 ----
-include::object-lombok/plain-mapping.yaml[]
+include::example$object-lombok/plain-mapping.yaml[]
 ----
 
 openapi-processor(-spring) will generate an interface for the endpoint and two standard pojo classes for the schemas `Foo` and `Bar`.
@@ -49,7 +49,7 @@ Here is the generated interface:
 .`FooApi.java` interface
 [source,java]
 ----
-include::object-lombok/plain-FooApi.java[]
+include::example$object-lombok/plain-FooApi.java[]
 ----
 
 and the pojo model classes:
@@ -57,7 +57,7 @@ and the pojo model classes:
 .`Foo.java` pojo
 [source,java]
 ----
-include::object-lombok/plain-Foo.java[]
+include::example$object-lombok/plain-Foo.java[]
 ----
 
 `Bar.java` is similar with different properties.
@@ -79,7 +79,7 @@ With annotation mapping the configuration has a few new lines:
 .object `mapping.yaml`
 [source,yaml]
 ----
-include::object-lombok/object-mapping.yaml[]
+include::example$object-lombok/object-mapping.yaml[]
 ----
 
 <1> adds the lombok `Builder` annotation to all `object` s
@@ -92,14 +92,14 @@ With the changes the generated model classes will now look like this:
 .`Foo` pojo with lombok
 [source,java]
 ----
-include::object-lombok/object-Foo.java[]
+include::example$object-lombok/object-Foo.java[]
 ----
 
 
 .`Bar` pojo with lombok
 [source,java]
 ----
-include::object-lombok/object-Bar.java[]
+include::example$object-lombok/object-Bar.java[]
 ----
 
 <1> the additional lombok annotations at the class level.
@@ -129,7 +129,7 @@ For example if you don't like lombok's default builder name, just add its annota
 .object and parameter mapping.yaml
 [source,yaml]
 ----
-include::object-lombok/object-mapping-parameter.yaml[]
+include::example$object-lombok/object-mapping-parameter.yaml[]
 ----
 
 == summary
