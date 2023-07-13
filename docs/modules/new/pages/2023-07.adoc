@@ -88,7 +88,7 @@ openapi-processor uses link:{google-java-format}[google-java-format] to format t
 
 In theory, it is not hard to link:{open}[configure] it but in real life it is a bit fiddly to get this working. To get started without fighting with it, the default is now  `false` instead of `true`.
 
-To (re-)enable code formatting add the `format-code`option to the `mapping.yaml`:
+To (re-)enable code formatting add the `format-code` option to the `mapping.yaml`:
 
 [source,yaml]
 ----
