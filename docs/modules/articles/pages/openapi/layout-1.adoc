@@ -1,0 +1,216 @@
+= structuring an OpenAPI description
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 15.July 2023
+
+// unpublished
+
+[small]#{date}#
+
+// == what is openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (model/dto classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == OpenAPI layout
+
+An OpenAPI description can be used to generate code that helps to implement the server side part of the api.
+Os. This has a couple of advantages.
+
+For me the biggest advantages of generating annotation based controller interfaces are:
+
+* I don't have to remember all the details and parameters of the controller annotations and the annotation "noise" is _hidden_ in an interface
+
+* it is easier to create a more consistent api because it is NOT spread over a number of source files
+
+* the api is an explicit artifact and not implicitly derived from the implementation
+
+== writing an OpenAPI description
+
+Of course, writing an OpenAPI description has its own challenges. It is not very difficult (having IDE support), but you need to structure it in a manageable way.
+
+Having everything in a single file is not a good idea if it is handwritten. It doesn't work long for source code, and it doesn't work very long for an OpenAPI description.
+
+Here is *one possible* way to structure an OpenAPI document into multiple files and directories to keep track of the document and to make it easier to navigate.
+
+The solution is to split up the OpenAPI document by using `$ref` s at a couple of places and a simple naming schema for the extracted files.
+
+It helps to find the description of an endpoint when we have the endpoint path and are looking for its file or the other way round, finding out what the endpoint path is when we have the file.
+
+== path item $refs
+
+The first place where we use `$ref` s is at the path items. It allows us to move the full description of an endpoint to a separate file.
+
+[source,yaml,title=openapi.yaml]
+----
+openapi: 3.1.0
+info:
+  title: sample API
+  version: 1.0.0
+
+paths:
+  /foo:
+    $ref: 'foo.yaml'
+
+  /bar:
+    $ref: 'bar.yaml'
+
+  /foo2:
+    $ref: 'foo/foo.yaml'
+
+----
+
+An OpenAPI parser will find `foo.yaml` and `bar.yaml` if they are siblings of the OpenAPI root file. We can also place them in subdirectories like in the last example.
+
+== path head to directory
+
+Usually I create a folder for each group of endpoints. Endpoints form a group if they start with the same path element (the path head). Let's say we have the following endpoints around the topic foo:
+
+[source,yaml]
+----
+paths:
+  /foo:
+   # ...
+  /foo/parts/{part}:
+   # ...
+  /foo/parts/fixed:
+   # ...
+  /foo/parts/{part}/bars/{bar}/fix-ed:
+   # ...
+----
+
+They all start with `/foo` and build an endpoint group that goes into a subdirectory `foo`:
+
+[source,text]
+----
+|--- openapi.yaml
+\--- foo
+     |--- ...
+     \--- ...
+----
+
+When we are looking for an api that starts with `/foo` we know we will find it in the subdirectory `foo`.
+
+It is possible to create more directory levels for more common path elements, but we don't want a deeply nested tree that makes it harder to navigate.
+
+I use only *a single* directory level with a simple naming schema for the endpoints of the group.
+
+== path tail to file name
+
+The naming schema is to separate all parts of the path tail by underscores and replace path parameters with an `x` character.
+
+Using the naming schema for the above endpoints we will get the following directory layout:
+
+[source,text]
+----
+|--- openapi.yaml
+\--- foo
+     |--- _.yaml # <1>
+     |--- parts_x.yaml # <2>
+     |--- parts_fixed.yaml # <3>
+     \--- parts_x_bars_x_fix-ed.yaml # <4>
+----
+
+<1> `_.yaml` is the file for the `/foo` endpoint. The `/foo` endpoint has a head (the directory) but no tail. Its empty tail is represented by the underscore.
+
+<2> `parts_x.yaml` is the file for the endpoint `/foo/parts/\{part\}`. Its head is `/foo` (i.e. the directory) and its tail is `/parts/\{part\}` with the parts  `/parts` and the parameter `\{part\}`.
++
+Applying the naming schema we get `/parts` plus `_` plus `x` (for the parameter) => `parts_x.yaml`.
+
+<3> `parts_fixed.yaml` is the file for the endpoint `/foo/parts/fixed`. Again its head is `/foo` (i.e. the directory) and its tail is `parts/fixed`. No path parameters.
++
+Applying the naming schema we get `/parts` plus `fixed` => `parts_fixed.yaml`.
+
+<4> this follows the same simple naming schema. :-)
+
+== path item file content
+
+A path item file contains the extracted endpoint with all used HTTP methods.
+
+This is the second place where we can extract part of it with more  `$ref` s to make it easier to read. Extracting makes sense for parameters or schemas, especially if they are used in multiple endpoints.
+
+This could look like this:
+
+.foo.yaml
+[source,yaml]
+----
+get:
+  summary: an example endpoint description
+  operationId: get_foo
+  parameters:
+    - $ref: 'resources.yaml#/parameters/path/APathParameter'
+    - $ref: 'resources.yaml#/parameters/query/AQueryParameter'
+    - $ref: '../common/resources.yaml#/parameters/path/CommonPathParameter'
+  responses:
+    200:
+      description: an example response schema
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "resources.yaml#/schemas/Foo"
+
+put:
+  # ....
+----
+
+The parameters and the response schema are extracted to a file named `resources.yaml` in the same directory. It collects all extracted items used by the endpoint group (see next section).
+
+If we have some common parameters or schemas used by multiple otherwise unrelated endpoint groups (i.e. from different folders) we can put them in its own directory (here `../common`).
+
+[source,text]
+----
+|--- openapi.yaml
+|--- foo
+|    |--- _.yaml
+|    |--- parts_x.yaml
+|    |--- parts_fixed.yaml
+|    |--- parts_x_bars_x_fix-ed.yaml
+|    \--- resources.yaml
+\--- common
+     \--- resources.yaml
+----
+
+== resources.yaml
+
+The `resources.yaml` could be:
+
+.resources.yaml
+[source,yaml]
+----
+schemas:
+  Foo:
+   # ...
+
+parameters:
+  path:
+    APathParameter:
+      - name: pathParamName
+        in: path
+        # ...
+
+  query:
+    - name: queryParamName
+      in: query
+      # ...
+----
+
+The naming and/or nesting are created as needed.
+
+For example, if an endpoint group just uses one type of parameter we don't need the `path`/`query` separation. We can separate path or query parameters by another attribute or separate request and response schemas.
+
+We can put all of this in multiple resource files. We can structure in any way that makes sense to us and our teammates.
+
+// == IDE support
+//
+// If you are using IntelliJ IDEA, using `$ref` works pretty well because it navigates between the $ref'erenced files, even those extracted files that do not have an OpenAPI file header.
+//
+// [NOTE]
+// Confusing is that this works for me on a Mac but not on Windows (with the latest IDEA version). I have no idea why the platform would make a difference here... it is probably something else.
+
+== summary
+
+This article describes a simple way to structure handwritten OpenAPI files by grouping endpoints by their path into subdirectories using a simple naming schema.
+
+It helps to find the description of an endpoint when we have the endpoint path and are looking for its file or the other way round, finding out what the endpoint path is when we have the file.
