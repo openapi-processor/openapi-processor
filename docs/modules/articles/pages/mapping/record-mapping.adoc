@@ -6,6 +6,8 @@ Martin Hauner
 :lombok: https://projectlombok.org
 :sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
 
+// todo unpublished, next
+
 [small]#{date}#
 
 // == what is openapi-processor?
