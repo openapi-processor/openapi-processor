@@ -10,7 +10,7 @@ Martin Hauner
 
 // == what is openapi-processor?
 //
-// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (DTOs) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
 //
 // == type mapping
 
@@ -110,7 +110,7 @@ Nice!
 
 == limitations?
 
-This is a new feature, and we have to find out where it useful and where not.
+This is a new feature, and we have to find out where it is useful and where not.
 
 known limitations:
 
