@@ -2,7 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
-:date: 13. July 2023
+:date: 27. July 2023
 :lombok: https://projectlombok.org
 :sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
 
