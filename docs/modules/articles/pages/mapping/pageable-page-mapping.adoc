@@ -2,7 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
-:page-aliases: spring::howto/pageable-page-mapping.adoc
+// :page-aliases: spring::howto/pageable-page-mapping.adoc
 :date: January 2020
 :update: 8. July 2023
 
