@@ -1,5 +1,5 @@
 = describing an endpoint to download files
-:page-aliases: spring::howto/file_download.adoc
+// :page-aliases: spring::howto/file_download.adoc
 
 [source,yaml]
 ----
