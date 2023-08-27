@@ -2,7 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
-:date: 12. July 2023
+:date: 27. August 2023
 :lombok: https://projectlombok.org
 :sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
 
@@ -16,9 +16,17 @@ Martin Hauner
 //
 // == type mapping
 
-When generating interfaces and schema classes (dtos) from an OpenAPI wouldn't it be nice to use java `record` s instead of plain pojos?
+When generating interfaces and schema classes (dtos) from an OpenAPI, wouldn't it be nice to use java `record` s instead of plain pojos?
 
-xref:new:2023-07.adoc[openapi-processor-spring/micronaut release 2023.3] is able to generate records instead pojo from OpenAPI schemas.
+This would result in less code, immutable fields and a couple of auto-generated methods: getters, setters, `equals()`, `hashCode()` and `toString()`.
+
+xref:new:2023-07.adoc[openapi-processor-spring/micronaut release 2023.3] is able to generate records instead of pojos from OpenAPI schemas.
+
+This is possible because openapi-processor doesn't generate inheritance hierarchies. This would be a problem with records because records do not support the `extends` keyword.
+
+openapi-processor does support `allOf` by merging all item properties into a single object, and it can add a marker interface to `oneOf` items to use a named type in the api interfaces instead of `Object`.
+
+Both ways work with records!
 
 == a little bit of OpenAPI
 
@@ -38,7 +46,7 @@ components:
           format: uuid
 ----
 
-== .. as pojo
+== OpenAPI as pojo
 
 with its default settings openapi-processor will generate a pojo dto class with some getter/setter noise.
 
@@ -50,15 +58,15 @@ include::example$record-mapping/Foo-pojo.java[]
 
 It is probably not a big issue because you won't look at it very often. :-)
 
-== .. a bit configuration
+== a small piece of configuration
 
 It may still be useful to use java records because they are immutable and provide equals() plus hasCode() out of the box.
 
-The generated pojos are not immutable, and they don't offer equals() plus hashCode().
+The generated pojos are not immutable, and they don't offer `equals()` or `hashCode()`.
 
 We could add it via annotation mapping and link:{lombok}[lombok]. How this works is described in  xref:articles:mapping/object-lombok.adoc[object annotation mapping & lombok].
 
-Back to records.
+But we could avoid lombok for this and simply use the built-in records.
 
 The only thing we have to do to get records is to enable it in the options section of the `mapping.yaml`:
 
@@ -73,7 +81,7 @@ If `model-type` is not given the processor will generate pojos.
 
 This is a global setting, i.e. either all schemas are generated as pojo or all schemas are generated as record.
 
-== .. as record
+== OpenAPI as records
 
 After switching to records the generated `Foo.java` will look like this:
 
@@ -84,6 +92,8 @@ include::example$record-mapping/Foo-record.java[]
 ----
 
 less code, the same properties, the same annotations, no explicit getter/setters.
+
+Now we have to find out how well this works in real code.. :-)
 
 == summary
 
