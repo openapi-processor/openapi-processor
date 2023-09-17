@@ -7,11 +7,15 @@ This just lists a few things that are planned for the future in no particular or
 
 == json schema validator
 
+**added in 2023.4**
+
 I made some progress on the json-schema-validator. draft 2019-09 and draft 2020-12 are nearly done. The validator is able to create the standard JSON schema output format. Validation of OpenAPI 3.0 is already using it.
 
 2020-12 is required to validate OpenAPI 3.1. documents.
 
 == internal OpenAPI 3.1
+
+**added in 2023.4**
 
 Add validation for OpenAPI 3.1 parser.
 
