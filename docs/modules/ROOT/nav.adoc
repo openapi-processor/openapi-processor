@@ -10,6 +10,7 @@
 ** xref:new:2022-05.adoc[2022, May]
 * xref:new:next.adoc[What's Next]
 * Articles
+** xref:articles:openapi/layout-1.adoc[structuring an OpenAPI description]
 ** xref:articles:mapping/record-mapping.adoc[using java records as DTOs]
 ** xref:articles:mapping/object-lombok.adoc[object annotation mapping with lombok]
 ** xref:articles:mapping/mapping-year.adoc[type mapping OpenAPI formats]
