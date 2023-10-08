@@ -2,7 +2,7 @@
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
-:date: 15.July 2023
+:date: 8. October 2023
 
 // unpublished
 
@@ -14,12 +14,13 @@ Martin Hauner
 //
 // == OpenAPI layout
 
-An OpenAPI description can be used to generate code that helps to implement the server side part of the api.
-Os. This has a couple of advantages.
+An OpenAPI description can be used to generate code that helps to implement the server side part of the api. This has a couple of advantages.
 
 For me the biggest advantages of generating annotation based controller interfaces are:
 
-* I don't have to remember all the details and parameters of the controller annotations and the annotation "noise" is _hidden_ in an interface
+* I don't have to remember all the details and parameters of the controller annotations
+
+* the annotation "noise" is _hidden_ in an interface
 
 * it is easier to create a more consistent api because it is NOT spread over a number of source files
 
@@ -27,9 +28,9 @@ For me the biggest advantages of generating annotation based controller interfac
 
 == writing an OpenAPI description
 
-Of course, writing an OpenAPI description has its own challenges. It is not very difficult (having IDE support), but you need to structure it in a manageable way.
+Of course, writing an OpenAPI description has its own challenges. It is not very difficult (with IDE support), but you need to structure it in a manageable way.
 
-Having everything in a single file is not a good idea if it is handwritten. It doesn't work long for source code, and it doesn't work very long for an OpenAPI description.
+Having everything in a single file is not a good idea if it starts to grow. It doesn't work for source code, and it doesn't work very for an OpenAPI description.
 
 Here is *one possible* way to structure an OpenAPI document into multiple files and directories to keep track of the document and to make it easier to navigate.
 
@@ -214,3 +215,5 @@ We can put all of this in multiple resource files. We can structure in any way t
 This article describes a simple way to structure handwritten OpenAPI files by grouping endpoints by their path into subdirectories using a simple naming schema.
 
 It helps to find the description of an endpoint when we have the endpoint path and are looking for its file or the other way round, finding out what the endpoint path is when we have the file.
+
+Use it as inspiration :-)
