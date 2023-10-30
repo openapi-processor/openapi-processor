@@ -1,0 +1,19 @@
+== October 2023
+
+* openapi-processor-spring/micronaut 2023.5
+
+==  support primitive types
+
+it is now possible to use primitive types in `mapping.yaml`:
+
+[source,yaml]
+----
+openapi-processor-mapping: v4
+
+options:
+  package-name: generated
+
+map:
+  types:
+    - type: string:binary => byte[]
+----
