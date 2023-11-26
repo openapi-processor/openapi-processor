@@ -6,7 +6,7 @@
 
 * openapi-processor-spring/micronaut 2023.3
 
-== object @ annotation
+=== object @ annotation
 
 Using the `object` keyword it is possible to add an annotation to **all** generated schema/model classes using a single annotation mapping:
 
@@ -28,7 +28,7 @@ public class Foo {
 }
 ----
 
-== java records
+=== java records
 
 openapi-processor is now capable of generating java `record` s instead of pojos for schemas. This is a global setting in the `mapping.yaml`. It can either have the value `default` (which is default) to generate pojos or `record` to generate records.
 
@@ -82,7 +82,7 @@ public class Foo {
 }
 ----
 
-== `java-format` option
+=== `java-format` option
 
 openapi-processor uses link:{google-java-format}[google-java-format] to format the generated files (including javadoc). Unfortunately it depends on internal jdk packages that are link:{jdk-396}[strongly encapsulated] since JDK 16. It is necessary to tell the jdk to export a few packages.
 

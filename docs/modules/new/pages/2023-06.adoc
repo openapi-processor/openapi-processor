@@ -2,7 +2,7 @@
 
 * openapi-processor-spring/micronaut 2023.2
 
-== nested generic types
+=== nested generic types
 
 It is now possible to create type mappings with nested generics types. Here are a few examples:
 
@@ -38,7 +38,7 @@ Map:
       type: string
 ----
 
-== annotation mapping allows class parameter
+=== annotation mapping allows class parameter
 
 annotation mapping now accepts a java class type as parameter. It is possible to add a mapping like this:
 
@@ -51,7 +51,7 @@ map:
     - type: string:foo @ io.oap.Annotation (value = io.oap.Bar.class)
 ----
 
-== improved validation output
+=== improved validation output
 
 schema validation by the internal parser has simpler & better output based on the JSON schema basic output format. It is not perfect but it is getting better.
 

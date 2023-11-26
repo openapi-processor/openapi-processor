@@ -2,7 +2,7 @@
 
 * openapi-processor-spring/micronaut 2023.1
 
-== support `requestBody` `$ref`
+=== support `requestBody` `$ref`
 
 the processor is now able to resolve `$ref` s of `requestBody` (This works with all 3 OpenAPI parsers).
 
@@ -40,7 +40,7 @@ components:
 
 <1> `$ref` is direct child of `requestBody`.
 
-== annotation mapping support for simple data types
+=== annotation mapping support for simple data types
 
 it is now possible to add an annotation mapping for simple data types (format works too):
 
@@ -69,7 +69,7 @@ public class Foo {
 }
 ----
 
-== annotation mapping support for mapped types
+=== annotation mapping support for mapped types
 
 in the previous version an annotation mapping was lost if the type was mapped at the same time to an existing class. It will now add the annotation to the existing class if possible.
 
@@ -116,7 +116,7 @@ public class FooBar {
 }
 ----
 
-== bean validation v3 support
+=== bean validation v3 support
 
 **Spring Boot 3** updates bean validations to v3. In v3 the package name changed from `javax` to  `jakarta`. It is now possible to select between the v2 & v3 version in the `mapping.yaml`.
 
@@ -141,7 +141,7 @@ options:
   bean-validation: jakarta
 ----
 
-== bean validation support on mapped data types
+=== bean validation support on mapped data types
 
 openapi-processor now preserves bean validation annotations when the source data type is mapped to an existing class. This is most interesting for the `@Valid` annotation.
 

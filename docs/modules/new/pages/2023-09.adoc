@@ -6,15 +6,15 @@
 
 * openapi-processor-spring/micronaut 2023.4
 
-== json schema validation for OpenAPI 3.1
+=== json schema validation for OpenAPI 3.1
 
 the processor does now run json schema validation on OpenAPI 3.1 documents.
 
-== automatically clear output directory
+=== automatically clear output directory
 
 when called, the processor clears the target directory to avoid any left over/obsolete files from previous runs.
 
-== accept generic wildcard in mapping
+=== accept generic wildcard in mapping
 
 it is now possible to use the generic `?` in a mapping.
 
@@ -29,21 +29,21 @@ map:
      - add: foo => io.openapiprocessor.GenericType<?>
 ----
 
-== Spring: missing import
+=== Spring: missing import
 
 Spring doesn't have shortcut annotations, e.g. `@GetMapping` instead of  `@RequestMapping(..., method = RequestMethod.HEAD)` for the http methods HEAD, OPTIONS & TRACE.
 
 The processor does now add the missing import of `RequestMethod`.
 
-== improved json schema of mapping.yaml
+=== improved json schema of mapping.yaml
 
 when using endpoint specific mappings the processor (sometimes) complained about invalid entries in the `mapping.yaml`. This was caused by wrong definitions in the corresponding json schema.
 
-== don't request json schema draft
+=== don't request json schema draft
 
 a miss-configuration of the json-schema validator caused an unnecessary network request to download a json schema (draft 7) from https://json-schema.org.
 
-== write http operations in original order
+=== write http operations in original order
 
 the controller endpoint methods for the http operations are written in the same order as in the OpenAPI description.
 

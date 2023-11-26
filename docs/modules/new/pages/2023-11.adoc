@@ -4,7 +4,7 @@
 
 * openapi-processor-spring/micronaut 2023.6
 
-==  support different enum styles
+===  support different enum styles
 
 it is now possible to (globally) configure different enum types in `mapping.yaml`:
 

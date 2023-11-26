@@ -5,7 +5,7 @@
 * openapi-processor-spring/micronaut 2022.5
 
 
-== annotation mapping
+=== annotation mapping
 
 this is a new feature.
 
@@ -36,7 +36,7 @@ The `Sum` annotation in the example is a custom bean validation but the feature 
 
 See xref:spring::mapping/annotation.adoc[annotation mapping] for the details.
 
-== @Generated
+=== @Generated
 
 This will replace the text header from the generated files with a (generated) `@Generated` annotation.
 
@@ -74,7 +74,7 @@ options:
 
 <1> use `v2.1` as the mapping version to avoid validation warnings in the mapping file.
 
-== additional parameter configuration did not working in global context
+=== additional parameter configuration did not working in global context
 
 using an additional parameter in the global context was not implemented.
 
@@ -85,12 +85,12 @@ map:
     - add: request => javax.servlet.http.HttpServletRequest
 ----
 
-== @HeadMapping/@TraceMapping/@OptionsMapping do not exist
+=== @HeadMapping/@TraceMapping/@OptionsMapping do not exist
 
 a few http methods do not have an explicit mapping annotation: `@HeadMapping`, `@TraceMapping`, `@OptionsMapping`.
 
 The processor now generates `@RequestMapping(method =  RequestMethod.` {http method} `))` .
 
-== windows path handling
+=== windows path handling
 
 was broken since 2022.4
