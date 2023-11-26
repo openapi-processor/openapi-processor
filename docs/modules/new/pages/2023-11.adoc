@@ -1,5 +1,6 @@
-== November 2023
 :sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-multiple-apis
+
+== November 2023
 
 * openapi-processor-spring/micronaut 2023.6
 
