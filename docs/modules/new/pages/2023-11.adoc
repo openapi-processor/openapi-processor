@@ -1,0 +1,59 @@
+== November 2023
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-multiple-apis
+
+* openapi-processor-spring/micronaut 2023.6
+
+==  support different enum styles
+
+it is now possible to (globally) configure different enum types in `mapping.yaml`:
+
+[source,yaml]
+----
+openapi-processor-mapping: v5
+
+options:
+  package-name: generated
+  enum-type: default|string|framework
+----
+
+**`default`**, which is default, creates a simple java enum with all uppercase enum values. It will create the same code as previous versions.
+
+**`string`**, simply uses `String` and does not create an enum class. This is useful if automatic conversion of the incoming value to a java enum value does not work. In case `bean-validation` is enabled the processor adds a (generated) validation annotation that verifies that the string is a valid (OpenAPI) enum value.
+
+[source,java]
+----
+public interface FooApi {
+    @Mapping(path = "/foo", produces = {"application/json"})
+    Foo postFoo(@Parameter(name = "enum") @Values(values = {"one", "two"}) String aEnum);
+}
+----
+
+**`framework`**, is a placeholder for framework specific enum generation, only supported by openapi-processor-spring.
+
+It generates a Java enum class similar to the `default` enum type. In addition, it generates a Spring `ConverterFactory` that Spring can use to convert incoming enum values to its corresponding java enum value (if passed as a parameter, not as part of the body).
+
+To enable the `ConverterFactory`, create a configuration class like this:
+
+[source,java]
+----
+package io.openapiprocessor.samples;
+
+import {package-name}.spring.StringToEnumConverterFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverterFactory(new StringToEnumConverterFactory());
+    }
+}
+----
+
+This registration is one time task. The converter factory does create an enum converter for *all* generated enum classes.
+
+There is a link:{sample}[sample] that is using different `enum-type` configurations (`string` & `framework`).
