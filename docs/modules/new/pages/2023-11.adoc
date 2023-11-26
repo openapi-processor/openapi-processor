@@ -58,3 +58,4 @@ public class WebConfig implements WebMvcConfigurer {
 This registration is one time task. The converter factory does create an enum converter for *all* generated enum classes.
 
 There is a link:{sample}[sample] that is using different `enum-type` configurations (`string` & `framework`).
+
