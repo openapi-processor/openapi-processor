@@ -27,7 +27,7 @@ content:
 
   - url: ../../openapi-processor-gradle
     start_path: docs
-    branches: [2023.1.x, 2022.2.x, 2022.1.x, 2021.3.x. master]
+    branches: [2023.2.x, 2023.1.x, 2022.2.x, 2022.1.x, 2021.3.x. master]
 
   - url: ../../openapi-processor-samples
     start_path: docs
