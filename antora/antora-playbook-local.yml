@@ -23,7 +23,7 @@ content:
 
   - url: ../../openapi-processor-maven
     start_path: docs
-    branches: [2021.1.x, 1.0.x. master]
+    branches: [2024.1.x, 2021.1.x, 1.0.x. master]
 
   - url: ../../openapi-processor-gradle
     start_path: docs
