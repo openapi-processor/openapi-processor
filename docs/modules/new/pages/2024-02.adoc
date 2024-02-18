@@ -1,0 +1,241 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-multiple-apis
+
+== February 2024
+
+* openapi-processor-spring/micronaut 2024.1
+
+
+=== annotation mapping by OpenAPI extensions
+
+it is now possible to use OpenAPI `x-`tensions to add additional annotations to schema properties:
+
+Here is a simple schema that has `x-`tensions on the `bar` property.
+
+[source,yaml]
+----
+openapi: 3.1.0
+# ...
+components:
+  schemas:
+    Foo:
+      type: object
+      properties:
+        bar:
+          type: string
+          x-foo: single
+          x-bar:
+            - listA
+            - listB
+----
+
+we can now map the `x-`tensions/values to annotations like this:
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+map:
+  extensions:
+    x-foo: single @ io.oap.FooA(value = "any")
+    x-bar:
+      - listA @ io.oap.FooB
+      - listB @ io.oap.FooC
+----
+
+.. which will generate the additional annotations on the property:
+
+[source,java]
+----
+package generated.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import generated.support.Generated;
+import io.oap.FooA;
+import io.oap.FooB;
+import io.oap.FooC;
+
+@Generated(value = "openapi-processor-core", version = "test")
+public class Foo {
+
+    @FooA(value = "any")
+    @FooB
+    @FooC
+    @JsonProperty("bar")
+    private String bar;
+
+    public String getBar() {
+        return bar;
+    }
+
+    public void setBar(String bar) {
+        this.bar = bar;
+    }
+
+}
+----
+
+
+=== annotation mapping by parameter name
+
+another small improvement to annotation mapping is that we can add annotations by parameter name:
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+map:
+  parameters:
+    - name: foo @ annotation.Foo
+----
+
+=== reactive bean validation
+
+the position of the `@Valid` annotation on reactive types has changed.
+
+Until now the `@Valid` was placed on the generic type of the reactive wrapper, like this:
+
+[source,java]
+----
+    @Mapping("/foo-flux")
+    void postFooFlux(@Parameter Flux<@Valid Bar> body);
+----
+
+but validation did not happen with Spring. Spring needs the `@Valid` on the reactive wrapper to trigger the validation. Therefore `@Valid` is now placed by default on the reactive wrapper:
+
+[source,java]
+----
+    @Mapping("/foo-flux")
+    void postFooFlux(@Parameter @Valid Flux<Bar> body);
+----
+
+It should only take a bit annotation clean up on the interface implementations to adapt your code to the new `@Valid` position.
+
+==== keeping the old behavior
+
+To postpone the update, set the `bean-validation-valid-on-reactive` option to `false`.
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+
+options:
+  # ...
+
+compatibility:
+  # optional, default is true
+  bean-validation-valid-on-reactive: false
+----
+
+I would like to remove this option in the future. If you still need the old `@Valid` position please create an issue to help me understand why the old `@Valid` position is still useful.
+
+=== identifier word breaks
+
+the processor does now recognize a change from letter to number as a word break. The improves generation of camel case identifiers.
+
+given an identifier from the OpenAPI description, the processor would generate the following names for different kinds of identifiers:
+
+|===
+|                   |  OpenAPI       | camel case    | variable  | class      | enum       |
+
+| new
+| foo2Bar
+| foo2**B**ar
+| foo2**B**ar
+| Foo2**B**ar
+| FOO2_BAR
+
+| old
+| foo2Bar
+| foo2bar
+| foo2bar
+| Foo2bar
+| FOO2BAR
+|===
+
+==== keeping the old behavior
+
+To postpone the update, set the `identifier-word-break-from-digit-to-letter` option to `false`.
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+
+options:
+  # ...
+
+compatibility:
+  # optional, default is true
+  identifier-word-break-from-digit-to-letter: false
+----
+
+=== Support Mono<ResponseEntity> as result type
+
+previous versions allowed to configure a result wrapper (e.g. Spring `ResponseEntity`) and reactive types via `single` and `multi` mapping.
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+
+options:
+   # ...
+
+map:
+  result: org.springframework.http.ResponseEntity
+
+  single: reactor.core.publisher.Mono
+  multi: reactor.core.publisher.Flux
+----
+
+Using both always wraps the reactive types with the `result` type. For example with Spring `ResponseEntity` (`result type`) and the reactor types `Mono` and `Flux` as
+
+[source,java]
+----
+ResponseEntity<Mono<...>>
+ResponseEntity<Flux<...>>
+----
+
+Unfortunately if you need the reactive result to modify the http response, something like this:
+
+[source,java]
+----
+// does not work
+public ResponseEntity<Mono<Result>> someEndpoint() {
+    return someBean.getResult()
+           .map(r -> ResponseEntity
+                   .ok()
+                   .eTag(r.eTag())
+                   .body(Mono.just(r)));
+}
+----
+
+it will not work because the final type of the statement is `Mono<ResponseEntity<Mono<Result>>>` and not the expected `ResponseEntity<Mono<Result>>`.
+
+With this release we can fix that by setting the `result` mapping to
+
+[source,yaml]
+----
+openapi-processor-mapping: v6
+
+options:
+  # ...
+
+map:
+  # wrap the ResponseEntity with Mono
+  result: reactor.core.publisher.Mono<org.springframework.http.ResponseEntity>
+
+  single: reactor.core.publisher.Mono
+  multi: reactor.core.publisher.Flux
+----
+
+which will generate the endpoint signature as
+
+[source,java]
+----
+public Mono<ResponseEntity<Mono<Result>>> someEndpoint() {
+   // ...
+}
+----
+
+and the above code will now work.
+
+It is recommended to configure this on the endpoint level if you just need this for a few endpoints.
+
+See also Spring [`ResponseEntity`](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-methods/responseentity.html) documentation.
