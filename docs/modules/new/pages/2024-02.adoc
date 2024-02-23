@@ -133,7 +133,7 @@ the processor does now recognize a change from letter to number as a word break.
 given an identifier from the OpenAPI description, the processor would generate the following names for different kinds of identifiers:
 
 |===
-|                   |  OpenAPI       | camel case    | variable  | class      | enum       |
+|                   |  OpenAPI       | camel case    | variable  | class      | enum
 
 | new
 | foo2Bar
@@ -238,4 +238,4 @@ and the above code will now work.
 
 It is recommended to configure this on the endpoint level if you just need this for a few endpoints.
 
-See also Spring [`ResponseEntity`](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-methods/responseentity.html) documentation.
+See also Spring link:https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-methods/responseentity.html[`ResponseEntity`] documentation.
