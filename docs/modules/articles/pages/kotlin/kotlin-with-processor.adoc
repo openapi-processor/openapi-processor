@@ -1,0 +1,106 @@
+= openapi-processor, java records and spring boot 3 with kotlin
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:kotlin-sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-kt
+:date: 25. February 2024
+
+[small]#{date}#
+
+// == do you know openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == openapi-processor, java records and spring boot 3 with kotlin
+
+
+
+Although openapi-processor generates *java* interface and pojo/record source files it works nicely with *Kotlin* on the JVM.
+
+In many cases it is not necessary to have a generator that outputs the same language used to implement the project.
+
+== getting started
+
+Setup is the same as usual, configure the processor to run in your gradle or maven build. See the {oap}[documentation] or the {kotlin-sample}[Kotlin sample] (the sample contains a bit more code than described here).
+
+Next we create our OpenAPI document, run the processor (openapi-processor-spring) and implement the generated java interfaces in Kotlin.
+
+This is all straight forward. No magic involved.
+
+== OpenAPI
+
+Here is the sample api. To make it a little bit more interesting it contains an endpoint that uses paging.
+
+.openapi.yaml
+[source,yaml]
+----
+include::example$kotlin-with-processor/openapi.yaml[]
+----
+
+The api contains a `Pageable` and a `Page` dto (data transfer object) that represent the Spring paging objects with the sames names. Note that `Page` contains only basic properties. To describe the content of the page we have `BarContent` and combine both with `allOf` to create the page response dto `BarPage`.
+
+We do all this to describe the API for someone that reads the API.
+
+It is not necessary for the code generation itself.
+
+Since we are using Spring we want to use Spring's `org.springframework.data.domain.Pageable` and a `org.springframework.data.domain.Page` types and tell the processor to use them instead of the types used in the OpenAPI description.
+
+For whatever reason we also don't want to use the `Bar` schema described in the OpenAPI. We already have a nice and short Kotlin version of `Bar` so we want to use that instead of the generated java record for `Bar` (this is just for demonstration, we could simply use the generated `Bar` dto).
+
+That's done by adding a few type mappings to the processor configuration.
+
+Here is the full mapping file:
+
+.mapping.yaml
+[source,yaml]
+----
+include::example$kotlin-with-processor/mapping.yaml[]
+----
+
+<1> this one tells the processor to use our kotlin `Bar` instead of generating a java `Bar` record.
+<2> and this two map the paging schemas from the OpenAPI to Spring`s java types.
+
+Next we look at the generated java interface.
+
+== the generated java interface
+
+The generated java interface of our API is shown below.
+
+It uses Spring`s page types and also happily uses our Kotlin version of `Bar`. No problem here with referencing the Kotlin class from the generated java interface.
+
+.BarApi.java
+[source,java]
+----
+include::example$kotlin-with-processor/BarApi.java[]
+----
+
+<1> here it is using the Kotlin `Bar` class.
+<2> here it is using Spring's pageable types.
+
+.Bar.kt
+[source,groovy]
+----
+include::example$kotlin-with-processor/Bar.kt[]
+----
+
+What's left is the Kotlin implementation of the generated java interface.
+
+== Kotlin implementation
+
+We can simply implement the interface as if it is a Kotlin interface.
+
+.Bar.kt
+[source,groovy]
+----
+include::example$kotlin-with-processor/ApiController.kt[]
+----
+
+What is important here is that it hides all the Spring and Bean Validation annotation noise and that I don't have to fight with the annotations to get the details right. :-)
+
+From my experience I can tell that you don't look very often at the generated interfaces. Why care if it is Java or Kotlin? If I can work with Kotlin I should be qualified to read and understand the Java interfaces. :-)
+
+== summary
+
+This little article described how the openapi-processor can easily be used in a Kotlin project. It also mapped an OpenAPI type to a Kotlin class that is referenced in the generated java API interface. No problem. Kotlin does handle the mixed Kotlin Java code.
+
+To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].

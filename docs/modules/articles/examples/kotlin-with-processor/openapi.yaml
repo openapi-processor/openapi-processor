@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: openapi-processor-spring sample api
+  version: 1.0.0
+
+paths:
+  /bar:
+    post:
+      tags:
+        - bar
+      summary: echo a Bar.
+      description: simple sample endpoint.
+      operationId: echoBar
+      requestBody:
+        $ref: '#/components/requestBodies/BarBody'
+      responses:
+        '200':
+          description: the echoed Bar
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bar'
+
+  /bars:
+    get:
+      tags:
+        - bar
+      summary: get Bar pages.
+      description: simple sample endpoint.
+      parameters:
+        - in: query
+          name: pageable
+          required: false
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        '200':
+          description: the pages of Bars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarPage'
+
+components:
+  schemas:
+    Foo:
+      type: object
+      properties:
+        foo:
+          type: string
+          maxLength: 10
+        id:
+          type: string
+          format: uuid
+        bar:
+          $ref: '#/components/schemas/Bar'
+
+    Bar:
+      type: object
+      properties:
+        bar:
+          type: string
+          maxLength: 20
+
+    Pageable:
+      description: minimal Pageable query parameters
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
+
+    Page:
+      description: minimal Page response without content property
+      type: object
+      properties:
+        number:
+          type: integer
+        size:
+          type: integer
+
+    BarContent:
+      description: specific content List of the Page response
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bar'
+
+    BarPage:
+      description: typed Page
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Page'
+        - $ref: '#/components/schemas/BarContent'
+
+
+  requestBodies:
+
+    BarBody:
+      description: the Bar object that is echoed
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Bar'
