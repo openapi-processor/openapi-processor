@@ -1,4 +1,4 @@
-= openapi-processor, java records and spring boot 3 with kotlin
+= openapi-processor & spring boot 3 with kotlin
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
