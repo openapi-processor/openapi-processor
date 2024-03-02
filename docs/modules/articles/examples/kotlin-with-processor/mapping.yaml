@@ -22,6 +22,6 @@ options:
 
 map:
   types:
-    - type: Bar => io.openapiprocessor.samples.MappedBar # <1>
+    - type: Bar => io.openapiprocessor.samples.Bar # <1>
     - type: Pageable => org.springframework.data.domain.Pageable # <2>
     - type: BarPage => org.springframework.data.domain.Page<io.openapiprocessor.samples.MappedBar> # <2>

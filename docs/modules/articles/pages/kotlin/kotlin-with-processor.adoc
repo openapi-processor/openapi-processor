@@ -1,4 +1,4 @@
-= openapi-processor & spring boot 3 with kotlin
+= openapi-processor & Spring Boot 3 with Kotlin
 Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
@@ -37,15 +37,20 @@ Here is the sample api. To make it a little bit more interesting it contains an 
 include::example$kotlin-with-processor/openapi.yaml[]
 ----
 
-The api contains a `Pageable` and a `Page` dto (data transfer object) that represent the Spring paging objects with the sames names. Note that `Page` contains only basic properties. To describe the content of the page we have `BarContent` and combine both with `allOf` to create the page response dto `BarPage`.
+The api contains a few objects that represent the Spring paging objects:
+
+<1> `Pageable`, the incoming page properties, i.e. `org.springframework.data.domain.Pageable`
+<2> `Page`, the common page properties of a page result, i.e. `org.springframework.data.domain.Page` except the `content` property
+<3> `BarContent` represents the generic property of the `Page`
+<4> `BarPage` combines `Page` and `BarContent` with `allOf` to create the final page response dto.
 
 We do all this to describe the API for someone that reads the API.
 
 It is not necessary for the code generation itself.
 
-Since we are using Spring we want to use Spring's `org.springframework.data.domain.Pageable` and a `org.springframework.data.domain.Page` types and tell the processor to use them instead of the types used in the OpenAPI description.
+Since we are using Spring we want to use Spring's page classes instead of the dtos created by the processor from the OpenAPI description. To do that we tell the processor to use them instead of the types used in the OpenAPI description.
 
-For whatever reason we also don't want to use the `Bar` schema described in the OpenAPI. We already have a nice and short Kotlin version of `Bar` so we want to use that instead of the generated java record for `Bar` (this is just for demonstration, we could simply use the generated `Bar` dto).
+For whatever reason we also don't want to use the `Bar` schema described in the OpenAPI. We already have a nice and short Kotlin version of `Bar` so we want to use it instead of the generated java record for `Bar` (this is just for demonstration, we could simply use the generated `Bar` dto).
 
 That's done by adding a few type mappings to the processor configuration.
 

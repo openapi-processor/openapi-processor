@@ -42,7 +42,9 @@ paths:
                 $ref: '#/components/schemas/BarPage'
 
 components:
+
   schemas:
+
     Foo:
       type: object
       properties:
@@ -62,7 +64,7 @@ components:
           type: string
           maxLength: 20
 
-    Pageable:
+    Pageable: # <1>
       description: minimal Pageable query parameters
       type: object
       properties:
@@ -71,7 +73,7 @@ components:
         size:
           type: integer
 
-    Page:
+    Page: # <2>
       description: minimal Page response without content property
       type: object
       properties:
@@ -80,7 +82,7 @@ components:
         size:
           type: integer
 
-    BarContent:
+    BarContent: # <3>
       description: specific content List of the Page response
       type: object
       properties:
@@ -89,7 +91,7 @@ components:
           items:
             $ref: '#/components/schemas/Bar'
 
-    BarPage:
+    BarPage: # <4>
       description: typed Page
       type: object
       allOf:
