@@ -3,7 +3,7 @@ Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
 :kotlin-sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-kt
-:date: 25. February 2024
+:date: 3. March 2024
 
 [small]#{date}#
 
@@ -15,7 +15,7 @@ Martin Hauner
 
 
 
-Although openapi-processor generates *java* interface and pojo/record source files it works nicely with *Kotlin* on the JVM.
+Although openapi-processor generates *java* interface and pojo/record source files it works very well with *Kotlin* on the JVM.
 
 In many cases it is not necessary to have a generator that outputs the same language used to implement the project.
 
