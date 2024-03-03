@@ -7,7 +7,7 @@ image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**
-is a small framework that converts an link:{openapi}[OpenAPI] yaml description to a target format. The primary target is Java code. It generates interfaces and pojos based on the API and you implement the interfaces in your controllers.
+is a small framework that converts an link:{openapi}[OpenAPI] yaml (or json) descriptions to a target format. The primary target is Java code. It generates interfaces and DTOs (pojos or records) based on the API and you implement the interfaces in your controllers.
 
 The target programming language is Java, which makes the generated code usable from most JVM languages.
 
@@ -29,7 +29,7 @@ The *advantages* are:
 
 [.py-6]
 **code generation** +
-A processor generates java interfaces based on the endpoint descriptions of the API and simple POJO classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface and all that is left to *you* is the implementation of the generated interfaces in any way you like.
+A processor generates java interfaces based on the endpoint descriptions of the API and simple Pojo or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface and all that is left to *you* is the implementation of the generated interfaces in any way you like.
 
 [.py-6]
 image::process-flow.png[process,700,align="center"]
@@ -47,7 +47,7 @@ image::process-flow.png[process,700,align="center"]
 a|xref:spring::index.adoc[openapi-processor-*spring*]
 |link:{oap-central}[image:{central-spring}[]]
 
-2+a|creates link:{springboot}[Spring Boot] java interfaces & models (pojos) from the OpenAPI description using spring annotations.
+2+a|creates link:{springboot}[Spring Boot] java interfaces & dtos (pojos or records) from the OpenAPI description using spring annotations.
 |===
 ====
 
@@ -58,20 +58,20 @@ a|xref:spring::index.adoc[openapi-processor-*spring*]
 a|xref:micronaut::index.adoc[openapi-processor-*micronaut*]
 |link:{oap-central}[image:{central-micronaut}[]]
 
-2+a|creates link:{micronaut}[Micronaut] java interfaces & models (pojos) from the OpenAPI description using micronaut annotations.
+2+a|creates link:{micronaut}[Micronaut] java interfaces & dtos (pojos or records) from the OpenAPI description using micronaut annotations.
 |===
 ====
 
-[.card]
-====
-[cols="2,>1",frame=none,grid=none]
-|===
-a|xref:json::index.adoc[openapi-processor-*json*]
-|link:{oap-central}[image:{central-json}[]]
-
-2+a|converts the OpenAPI yaml description to json format.
-|===
-====
+// [.card]
+// ====
+// [cols="2,>1",frame=none,grid=none]
+// |===
+// a|xref:json::index.adoc[openapi-processor-*json*]
+// |link:{oap-central}[image:{central-json}[]]
+//
+// 2+a|converts the OpenAPI yaml description to json format.
+// |===
+// ====
 ++++
 </div>
 ++++
@@ -117,12 +117,89 @@ a|xref:maven::index.adoc[openapi-processor-*maven*]
 
 [.card]
 ====
-it generates **java interfaces and java model (pojo) classes only** for all defined endpoints and schemas to allow full control of the endpoint implementation. It does not generate any other file.
+it generates **java interfaces and java dtos (pojo/record) classes** for all defined endpoints and schemas to allow full control of the endpoint implementation.
+
+[source,java,title=endpoint interface]
+----
+package io.openapiprocessor.openapi.api;
+
+import io.openapiprocessor.openapi.support.Generated;
+import io.openapiprocessor.samples.MappedBar;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Generated(value = "openapi-processor-spring", version = "2024.1")
+public interface BarApi {
+
+    /**
+     * echo a Bar.
+     * simple sample endpoint
+     *
+     * @return bar
+     */
+    @PostMapping(path = "/bar", consumes = {"application/json"}, produces = {"application/json"})
+    MappedBar postBar(@RequestBody(required = false) @Valid MappedBar body);
+
+}
+----
+
 ====
 
 [.card]
 ====
-it has a **powerful type mapping configuration** (one level generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or http method (of an endpoint).
+it has a **powerful type mapping configuration** (with generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or http method (of an endpoint).
+
+[source,yaml,title=global type mapping]
+----
+openapi-processor-mapping: v6
+options:
+  # ...
+
+map:
+  types: # list of global mappings
+    - type: array => java.util.Collection
+    - type: string:date-time => java.time.Instant
+----
+
+====
+
+[.card]
+====
+it offers **annotation mapping** to add additional annotations to the dtos generated from the OpenAPI schemas.
+
+[source,yaml,title=global annotation mapping]
+----
+openapi-processor-mapping: v6
+options:
+  # ...
+
+map:
+  types:
+    # add an annotation to the OpenAPI schema Foo
+    # (the annotation may have parameters)
+    - type: Foo @ annotation.Bar()
+----
+====
+
+[.card]
+====
+it can map OpenAPI `x-` tensions to add additional annotations to schema properties.
+
+[source,yaml,title=global x-tension mapping]
+----
+openapi-processor-mapping: v6
+options:
+  # ...
+
+map:
+  extensions:
+    # map x-tension values to annotations
+    x-foo: single @ io.oap.FooA(value = "any")
+    x-bar:
+      - listA @ io.oap.FooB
+      - listB @ io.oap.FooC
+----
 ====
 
 [.card]
@@ -137,7 +214,7 @@ it generates **human-readable code**.
 
 [.card]
 ====
-it supports **bean validations**. The constraints of the openapi description map to java bean validation annotations.
+it supports **bean validations**. The constraints of the OpenAPI description map to java bean validation annotations.
 ====
 
 [.card]
@@ -158,6 +235,11 @@ it handles **multiple responses** by generating one endpoint method for each res
 [.card]
 ====
 it handles **relative `$ref` 's** between multiple yaml files.
+====
+
+[.card]
+====
+it is tested with handles **relative `$ref` 's** between multiple yaml files.
 ====
 
 ++++
