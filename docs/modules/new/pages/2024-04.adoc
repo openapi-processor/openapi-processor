@@ -1,0 +1,28 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-multiple-apis
+
+== April 2024
+
+* openapi-processor-spring/micronaut 2024.2
+
+=== setting the new compatibility options did not work
+
+fixed setting the new compatibility options, it was always using the default values.
+
+=== remove extra line feed in javadoc
+
+removed the extra line feed (an empty line) in javadoc comments between summary and description.
+
+=== optionally clear output directory
+
+its is now possible to disable clearing of the `targetDir` when the processor is writing the generated files.
+
+[source,yaml]
+----
+openapi-processor-mapping: v7
+
+options:
+  # ...
+
+  # enable/disable deletion of targetDir: true (default) or false.
+  clear-target-dir: false
+----
