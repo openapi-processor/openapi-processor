@@ -14,6 +14,7 @@
 ** xref:new:2022-05.adoc[2022, May]
 * xref:new:next.adoc[What's Next]
 * Articles
+** xref:articles:mapping/custom-enum-mapping.adoc[custom enum value names]
 ** xref:articles:kotlin/kotlin-with-processor.adoc[Spring Boot 3 & Kotlin]
 ** xref:articles:openapi/layout-1.adoc[structuring an OpenAPI description]
 ** xref:articles:mapping/record-mapping.adoc[using java records as DTOs]

@@ -1,0 +1,187 @@
+= custom enum mapping
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 1. May 2024
+
+[small]#{date}#
+
+// == do you know openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == openapi-processor, custom enum mapping
+
+How do I use custom names for OpenAPI enum values with openapi-processor?
+
+For example having an enum in the OpenAPI description like this
+
+.openapi.yaml
+[source, yaml]
+----
+# ...
+
+components:
+  schemas:
+    AnEnum:
+      type: string
+      enum:
+        - "A1"
+        - "A2"
+----
+
+openapi-processor will generate the enum as
+
+.openapi.yaml
+[source, java]
+----
+public enum AnEnum {
+    A1("A1"),
+    A2("A2");
+
+    // ...
+}
+----
+
+but we may like to use more descriptive names for the enum values in the source code.
+
+== the unsupported solution ...
+
+Other generators us an OpenAPI x-tension keyword to provide better names for the enum values:
+
+.openapi.yaml
+[source, yaml]
+----
+  x-enumNames:
+    - "nicer"
+    - "names"
+----
+
+Using x-tension keywords like this is a bit against the philosophy of openapi-processor.
+
+== openapi-processor philosophy
+
+I would like to keep tooling specific stuff out of the OpenAPI description.
+
+Let's assume we have multiple consumers of the api. Each consumer may use another programming languages and different tooling. Now we would have to add the `x-enumNames` equivalent of each tooling to the OpenAPI... Things get more difficult when we don't have control over the OpenAPI description. We would have to add some pre-processing to add the enum names to the api.
+
+The typical openapi-processor way would be to create some kind of mapping. That would be possible, but I fear this may be cumbersome to work with. Not sure.
+
+It probably depends on how many enums I need to map and how often I have to change them.
+
+Maybe this is a future feature. :-)
+
+Now let's see how we can solve this with the current openapi-processor version.
+
+== a bit code & type mapping to the rescue
+
+openapi-processor has no explicit support for mapping OpenAPI enum values to custom names in the generated source code.
+
+With a little bit of code and a simple type mapping we can still get custom enum vale names.
+
+=== custom enum
+
+First, we create the custom enum. It uses nearly the same code as the generated enum. We just change the enum value names to more descriptive ones:
+
+.NamedEnum.kt
+[source, kotlin]
+----
+package io.openapiprocessor.samples
+
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonValue
+
+enum class NamedEnum(@JsonValue /* <2> */ val value: String) {
+    FOO("A1"), // <1>
+    BAR("A2"); // <1>
+
+    companion object {
+        @JsonCreator // <2>
+        fun fromValue(value: String): NamedEnum {
+            for (v in NamedEnum.entries) {
+                if (v.value == value) {
+                    return v
+                }
+            }
+            throw IllegalArgumentException(value)
+        }
+    }
+}
+----
+
+<1> the custom enum value names we want to use in the source code.
+<2> jackson annotations for serialization.
+
+=== type mapping
+
+Second, we tell the processor to use our custom enum class instead of generating it.
+
+.mapping.yaml
+[source, yaml]
+----
+openapi-processor-mapping: v7
+
+options:
+  # ...
+
+map:
+  types:
+    - type: AnEnum => io.openapiprocessor.samples.NamedEnum
+----
+
+The processor will now use our custom Enum at all places in the generated source code where `AnEnum` is used in the OpenAPI description, and we can use our more descriptive enum value names.
+
+== request body
+
+This solution will work for request payloads with enum properties. Our custom enum uses two jackson annotations to help jackson serialize/deserialize the enum when it finds an enum in the payload.
+
+If the enum is not used as query parameter we are done here.
+
+== query parameter
+
+If the enum is used as query parameter we need a little bit more code to help Spring by providing an enum converter for proper deserialization.
+
+The converter is quite simple, it just delegates to the enums `fromValue()` method to convert the string value to the matching enum value.
+
+.NamedEnumConverter.kt
+[source, kotlin]
+----
+package io.openapiprocessor.samples
+
+import org.springframework.core.convert.converter.Converter
+
+class NamedEnumConverter: Converter<String, NamedEnum> {
+    override fun convert(source: String): NamedEnum {
+        return NamedEnum.fromValue(source)
+    }
+}
+----
+
+The last step is to register the converter using a `WebMvcConfigurer`:
+
+.WebConfig.kt
+[source, kotlin]
+----
+package io.openapiprocessor.samples
+
+import org.springframework.context.annotation.Configuration
+import org.springframework.format.FormatterRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
+@Configuration
+open class WebConfig : WebMvcConfigurer {
+    override fun addFormatters(registry: FormatterRegistry) {
+        registry.addConverter(NamedEnumConverter())
+    }
+}
+----
+
+Spring is now able to deserialize an enum query parameter to our custom enum class.
+
+== summary
+
+This article describes how to use custom value names for an OpenAPI enum. This can be achieved with a little bit of custom code. It also explains why openapi-processor doesn't use an x-tension keyword.
+
+To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
+
+
