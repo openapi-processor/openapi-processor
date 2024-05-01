@@ -47,7 +47,7 @@ but we may like to use more descriptive names for the enum values in the source 
 
 == the unsupported solution ...
 
-Other generators us an OpenAPI x-tension keyword to provide better names for the enum values:
+Other generators use an OpenAPI x-tension keyword to provide better names for the enum values:
 
 .openapi.yaml
 [source, yaml]
@@ -63,7 +63,7 @@ Using x-tension keywords like this is a bit against the philosophy of openapi-pr
 
 I would like to keep tooling specific stuff out of the OpenAPI description.
 
-Let's assume we have multiple consumers of the api. Each consumer may use another programming languages and different tooling. Now we would have to add the `x-enumNames` equivalent of each tooling to the OpenAPI... Things get more difficult when we don't have control over the OpenAPI description. We would have to add some pre-processing to add the enum names to the api.
+Let's assume we have multiple consumers of the api. Each consumer may use another programming language and different tooling. Now we would have to add the `x-enumNames` equivalent of each tooling to the OpenAPI... Things get more difficult when we don't have control over the OpenAPI description. We would have to add some pre-processing to add the enum names to the api.
 
 The typical openapi-processor way would be to create some kind of mapping. That would be possible, but I fear this may be cumbersome to work with. Not sure.
 
@@ -182,6 +182,6 @@ Spring is now able to deserialize an enum query parameter to our custom enum cla
 
 This article describes how to use custom value names for an OpenAPI enum. This can be achieved with a little bit of custom code. It also explains why openapi-processor doesn't use an x-tension keyword.
 
-To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
+// To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
 
 
