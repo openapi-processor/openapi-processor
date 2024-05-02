@@ -32,7 +32,7 @@ components:
 
 openapi-processor will generate the enum as
 
-.openapi.yaml
+.AnEnum.java
 [source, java]
 ----
 public enum AnEnum {
