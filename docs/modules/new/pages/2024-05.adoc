@@ -1,0 +1,85 @@
+== May 2024
+
+* openapi-processor-spring/micronaut 2024.3
+
+=== response $ref did not work
+
+using `responses` with `$ref`s did not work with all (supported) OpenAPI parsers.
+
+- internal OpenAPI parser did not work (the default parser).
+- openapi4j did not work (not maintained anymore).
+- Swagger parser worked.
+
+It now works for all 3 (supported) OpenAPI parsers.
+
+=== bad enum creation
+
+the processor did not create a proper enum for an enum description like this:
+
+[source,yaml]
+----
+components:
+  schemas:
+    AnEnum:
+      type: string
+      enum:
+        - "1"
+        - "2"
+----
+
+because `1` and `2` are not valid java identifiers, the processor generated
+
+[source,java]
+----
+public enum Enum {
+    INVALID("1"),
+    INVALID("2");
+    ...
+}
+----
+
+The processor will now prefix invalid identifiers with "v" (value) to avoid this. The enum above will produce
+
+[source,java]
+----
+public enum Enum {
+    V1("1"),
+    V2("2");
+    ...
+}
+----
+
+=== missing constraints with `null` mapping
+
+using a null mapping:
+
+[source,yaml]
+----
+openapi-processor-mapping: v7
+
+options:
+  bean-validation: true
+
+map:
+  paths:
+    /foo:
+      null: org.openapitools.jackson.nullable.JsonNullable
+----
+
+on a property
+
+[source,yaml]
+----
+      properties:
+        bar:
+          nullable: true
+          type: string
+          maxLength: 4
+----
+
+did not add the constraint to the generated property.
+
+=== dependency updates
+
+* updated (internal) OpenAPI parser to 2024.3 (was 2024.2)
+* updated swagger parser to 2.1.22 (was 2.1.21)
