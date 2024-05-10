@@ -2,33 +2,32 @@
 
 = What's Next
 
-This just lists a few things that are planned for the future in no particular order. I'm working on this as times permits... &#x1f600;
-
-at the moment there is nothing worth mentioning on this list.
+This just lists a few things that *may* happen in the future in no particular order. I'm working on this as times permits... &#x1f600;
 
 == json schema validator
 
-**added in 2023.4**
+May 24
 
-I made some progress on the json-schema-validator. draft 2019-09 and draft 2020-12 are nearly done. The validator is able to create the standard JSON schema output format. Validation of OpenAPI 3.0 is already using it.
+- internal refactoring to separate validator code by draft version
+- native compilation
 
-2020-12 is required to validate OpenAPI 3.1. documents.
+== internal OpenAPI parser
 
-== internal OpenAPI 3.1
+May 24
 
-**added in 2023.4**
+- native compilation
 
-Add validation for OpenAPI 3.1 parser.
+== processor-angular
 
+May 24
+
+- generate typescript DTOs
+- generate angular client
 
 == annotation processor
+
+December 22
 
 **dropped**
 
 unfortunately openapi-processor can't run as annotation processor. The problem is simply to detect when processing is necessary.
-
-link:https://github.com/openapi-processor/openapi-processor-spring/pull/145[spring annotation processor prototype], link:https://github.com/openapi-processor/openapi-processor-core/pull/100[core annotation processor prototype]
-
-Run openapi-processor as an annotation processor. This should make it easier to integrate openapi-processor into a build without the need of a plugin for the build tool.
-
-I will probably try to support both for a while, i.e. make it run as annotation processor or via the plugins.
