@@ -4,6 +4,6 @@
 
 == serve local site
 
-from root folder
+from this folder
 
- http-server public -c-1
+    npx http-server ../public -c-1 -p 8080
