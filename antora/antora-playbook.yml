@@ -3,6 +3,9 @@ site:
   url: https://openapiprocessor.io
   start_page: home@oap::home.adoc
 
+urls:
+  latest_version_segment: ''
+
 content:
   sources:
   - url: ../
