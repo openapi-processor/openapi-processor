@@ -1,0 +1,73 @@
+== June 2024
+
+* openapi-processor-spring/micronaut 2024.4
+
+=== add request body description to javadoc
+
+The request body description is added as `@param` to the generated javadoc.
+
+[source,yaml]
+----
+openapi: 3.1.0
+info:
+  title: javadoc
+  version: v1
+
+paths:
+  /foo:
+    get:
+      requestBody:
+        description: this is the request body
+        # ...
+----
+
+=== missing `@Generated`
+
+the generated `Values` and `ValueValidator` (used by `enum-type` `string`) were not annotated with `@Generated`.
+
+=== missing import of class annotation parameter
+
+using a `.class` parameter in a class annotation mapping did not add the import of the parameter class.
+
+[source,yaml]
+----
+map:
+  types:
+    - type: Foo @ io.oap.ClassAnnotation(value = io.oap.Param.class)
+----
+
+In this example the import for `Param` was missing.
+
+=== disable `@Generated`
+
+its is now possible to disable the  `@Generated` annotation. If it is disabled the processor will not add it to any generated type.
+
+[source,yaml]
+----
+openapi-processor-mapping: v8
+
+options:
+  # ...
+
+  # enable/disable generated annotation, true (default) or false.
+  generated-annotation: false
+----
+
+=== control `@JsonProperty` annotation
+
+By setting the `json-property-annotation` option is is possible to control the generation of the @JsonProperty annotation. It allows three values: `always`, `auto` or  `never`.
+
+* `always`: (the default) adds a `@JsonProperty` annotation to all properties.
+* `auto`: only adds a `@JsonProperty` annotation to a property if it is required, i.e. if the OpenAPI property name is not a valid java identifier or if a property uses the `readOnly`/ `writeOnly` (OpenAPI) flags.
+* `never`: never adds a `@JsonProperty` annotation to the properties. This may generated invalid code if the property name is not a valid java identifier.
+
+[source,yaml]
+----
+openapi-processor-mapping: v8
+
+options:
+  # ...
+
+  # control @JsonProperty annotation, always (default), auto, never.
+  json-property-annotation: auto
+----
