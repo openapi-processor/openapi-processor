@@ -1,0 +1,129 @@
+== October 2024
+
+* openapi-processor-spring/micronaut 2024.5
+
+=== support for servers/server/url
+
+it is now possible to tell the processor to generate a properties resource file with the path of a selected OpenAPI `servers/server/url`.
+
+Given an OpenAPI description with a `servers` key:
+
+[source,yaml]
+----
+openapi: 3.1.0
+info:
+  title: server url example
+  version: 1.0.0
+
+servers:
+  - url: "{schema}://{host}:{port}/{path}/v{version}"
+    variables:
+      schema:
+        default: https
+        enum:
+          - https
+          - http
+      host:
+        default: openapiprocessor.io
+      port:
+        default: "443"
+      path:
+        default: api
+      version:
+        default: "1"
+----
+
+and a mapping
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+options:
+  base-path:
+    # false/true=0,1,2,... (default false)
+    server-url: true
+----
+
+it will generate a properties file `api.properties`
+
+[source,properties]
+----
+openapi.base.path = /api/v1
+----
+
+that can be used to configure the (Spring) `context-path`:
+
+[source,properties]
+----
+# application.properties
+
+#spring.config.import = api.properties
+server.servlet.context-path=${openapi.base.path}
+----
+
+See xref:spring:processors/server-url.adoc[Server Url] for more.
+
+
+=== javadoc of `record`
+
+a record should have its javadoc at the record using `@param` s to describe the record properties.
+
+Instead of
+
+[source,java]
+----
+/**
+ * this is the <em>Foo</em> schema description
+ */
+@Generated(value = "openapi-processor-core", version = "test")
+public record Foo(
+    /**
+     * <em>property</em> description
+     */
+    @JsonProperty("foo-bar")
+    String fooBar
+) {}
+----
+
+the processor now generates:
+
+[source,java]
+----
+/**
+ * this is the <em>Foo</em> schema description
+ *
+ * @param fooBar <em>property</em> description
+ */
+@Generated(value = "openapi-processor-core", version = "test")
+public record Foo(
+    @JsonProperty("foo-bar")
+    String fooBar
+) {}
+----
+
+=== warn on endpoint without success response
+
+the processor ignores endpoints that have no success response (i.e. 2xx response code). To detect this "error" at compile time the processor will now print a warning with the effected endpoint.
+
+=== type annotation mapping ignored with model-name-suffix
+
+using a mapping like this:
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+options:
+  model-name-suffix: Resource
+
+maps:
+  types:
+    - type: Foo @ io.openapiprocessor.Annotation()
+----
+
+did not add the annotation because of the `model-name-suffix`.
+
+=== dependency updates
+
+* updated (internal) OpenAPI parser to 2024.4 (was 2024.3)
+* updated com.fasterxml.jackson:jackson-bom from 2.17.1 to 2.18.0
+* updated com.google.googlejavaformat:google-java-format from 1.22.0 to 1.23.0
