@@ -16,21 +16,11 @@ info:
   version: 1.0.0
 
 servers:
-  - url: "{schema}://{host}:{port}/{path}/v{version}"
+  - url: "https://openapiprocessor.io/{path}"
     variables:
-      schema:
-        default: https
-        enum:
-          - https
-          - http
-      host:
-        default: openapiprocessor.io
-      port:
-        default: "443"
       path:
         default: api
-      version:
-        default: "1"
+# ...
 ----
 
 and a mapping
@@ -48,7 +38,7 @@ it will generate a properties file `api.properties`
 
 [source,properties]
 ----
-openapi.base.path = /api/v1
+openapi.base.path = /api
 ----
 
 that can be used to configure the (Spring) `context-path`:
