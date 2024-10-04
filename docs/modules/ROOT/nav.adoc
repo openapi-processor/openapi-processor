@@ -2,6 +2,7 @@
 * xref:index.adoc[Introduction]
 * xref:jdk.adoc[JDK 16+]
 * xref:new:index.adoc[What's New]
+** xref:new:2024-10.adoc[2024, October]
 ** xref:new:2024-05.adoc[2024, May]
 ** xref:new:2024-04.adoc[2024, April]
 ** xref:new:2024-02.adoc[2024, February]
