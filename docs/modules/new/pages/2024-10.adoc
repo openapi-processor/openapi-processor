@@ -51,7 +51,7 @@ that can be used to configure the (Spring) `context-path`:
 server.servlet.context-path=${openapi.base.path}
 ----
 
-See xref:spring:processors/server-url.adoc[Server Url] for more.
+See xref:spring::processor/server-url.adoc[Server Url] for more.
 
 
 === javadoc of `record`
