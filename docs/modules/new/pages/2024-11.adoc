@@ -1,0 +1,37 @@
+== November 2024
+
+* openapi-processor-spring/micronaut 2024.6
+
+=== trace mapping lookup
+
+the processor can now create a log of the mapping lookup.  It may help to understand failing mappings.
+
+It adds two new options to control the logging.
+
+
+[source,yaml]
+----
+openapi-processor-mapping: v10
+options:
+  package-name: # ...
+
+map:
+ # ...
+
+logging:
+  mapping: true
+  mapping-target: stdout
+----
+
+`logging.mapping` enables the logging of the mapping lookups. `mapping-target` set the output channel. Simplest is to use `stdout`. The other possible value is `logger`. See the xref:spring::mapping/logging.adoc[logging documentation] for a more detailed description.
+
+=== minimum/maximum and their exclusive version did not work for OpenAPI 3.1
+
+fixed in the OpenAPI parser.
+
+
+=== dependency updates
+
+* updated (internal) OpenAPI parser to 2024.6 (was 2024.5)
+* updated com.fasterxml.jackson:jackson-bom from 2.18.1 to 2.18.0
+* updated com.google.googlejavaformat:google-java-format from 1.23.0 to 1.24.0
