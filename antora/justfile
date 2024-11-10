@@ -1,0 +1,10 @@
+default:
+  @just --list --unsorted
+
+# generate local site
+local:
+ npx antora antora-playbook-local.yml  --ui-bundle-url ../../openapi-processor-site-ui/build/ui-bundle.zip
+
+# serve site
+serve:
+  npx http-server ../public -c-1 -p 8080
