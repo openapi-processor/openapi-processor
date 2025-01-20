@@ -1,0 +1,132 @@
+= mapping OpenAPI Dictionaries
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: January 2025
+
+[small]#{date}#
+
+Dictionaries or maps in OpenAPI are defined with the `additionalProperties` keyword. To get a java `Map<K,V>` in the generated code an explicit mapping is necessary.
+
+== simple Dictionary
+
+The following OpenAPI schema describes a dictionary of strings or in java terms a `Map<String, String>`.
+
+[source,yaml]
+----
+components:
+  schemas:
+    Dictionary:
+      type: object
+      additionalProperties:
+        type: string
+----
+
+The key is always a `string` and the  `type: string` defines the type of the value. In this case also a `string`.
+
+Adding mappings for dictionaries works as for any other OpenAPI schema. Mapping the dictionary to `Map<String, String>` in the generated code use would be:
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: Dictionary => java.util.Map<java.lang.String, java.lang.String>
+----
+
+== object Dictionary
+
+The next example uses a schema `Foo` as value for the string keys:
+
+[source,yaml]
+----
+components:
+  schemas:
+    FooDictionary:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Foo'
+
+    Foo:
+      type: object
+      properties:
+        bar: string
+        # ...
+----
+
+which would be mapped like this:
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: FooDictionary => java.util.Map<java.lang.String, io.openapiprocessor.openapi.model.Foo>
+----
+
+or a little bit shorter using the `\{package-name\}` placeholder.
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: FooDictionary => java.util.Map<java.lang.String, {package-name}.model.Foo>
+----
+
+== advanced Dictionary
+
+Dictionaries could also use an array value, for example using array of `Foo` as value:
+
+[source,yaml]
+----
+components:
+  schemas:
+    FooDictionary:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/Foo'
+
+    Foo:
+      type: object
+      properties:
+        bar: string
+        # ...
+----
+
+The mapping works as expected by nesting generic types:
+
+[source,yaml]
+----
+openapi-processor-mapping: v9
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: FooDictionary => java.util.Map<java.lang.String, java.util.Collection<{package-name}.model.Foo>>
+----
+
+
+
+== summary
+
+This short article shows how to create mappings for OpenAPI dictionaries to java `Map<K, V>`.
+
+
+// To learn more about openapi-processor and how to easily generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
