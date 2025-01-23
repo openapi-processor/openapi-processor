@@ -1,0 +1,21 @@
+= Articles
+
+== 2025
+=== xref:articles:mapping/dictionaries.adoc[mapping OpenAPI Dictionaries]
+
+== 2024
+=== xref:articles:mapping/custom-enum-mapping.adoc[custom enum value names]
+=== xref:articles:kotlin/kotlin-with-processor.adoc[Spring Boot 3 & Kotlin]
+
+== 2023
+=== xref:articles:openapi/layout-1.adoc[structuring an OpenAPI description]
+=== xref:articles:mapping/record-mapping.adoc[using java records as DTOs]
+=== xref:articles:mapping/object-lombok.adoc[object annotation mapping with lombok]
+=== xref:articles:mapping/mapping-year.adoc[type mapping OpenAPI formats]
+
+== 2022
+=== xref:articles:mapping/annotation-mapping-1.adoc[annotation mapping & bean validation]
+
+== 2020
+=== xref:articles:mapping/array-mapping.adoc[array type mapping]
+=== xref:articles:mapping/pageable-page-mapping.adoc[Spring Boot: mapping Pageable & Page]
