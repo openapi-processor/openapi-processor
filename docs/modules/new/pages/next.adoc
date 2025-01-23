@@ -4,12 +4,17 @@
 
 This just lists a few things that *may* happen in the future in no particular order. I'm working on this as times permits... &#x1f600;
 
-== json schema validator
+== inline name mappings
 
-May 24
+October 24
 
-- internal refactoring to separate validator code by draft version
-- native compilation
+the processor automatically generates names based on the yaml/json path for inline types (so they are unique). May be nice to map the generated name to a nicer name.
+
+== autodetect unused mappings
+
+October 24
+
+the processor could detect which mappings are not used at all and report them to remove noise from the `mapping.yaml`
 
 == internal OpenAPI parser
 
@@ -20,31 +25,9 @@ October 24
 it is possible, don't know yet how to run native test, compiling tests as native image fails.
 
 
-== processor-angular
+== json schema validator
 
-October 24
+May 24
 
-**worth it? there is probably something specialized on the client side**
-
-- generate typescript DTOs
-- generate angular client
-
-== autodetect unused mappings
-
-October 24
-
-the processor could detect which mappings are not used at all and report them to remove noise from the `mapping.yaml`
-
-== inline name mappings
-
-October 24
-
-the processor automatically generates names based on the yaml/json path for inline types (so they are unique). May be nice to map the generated name to a nicer name.
-
-== annotation processor
-
-December 22
-
-**dropped**
-
-unfortunately openapi-processor can't run as annotation processor. The problem is simply to detect when processing is necessary.
+- internal refactoring to separate validator code by draft version
+- native compilation
