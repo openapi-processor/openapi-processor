@@ -3,6 +3,8 @@
 * xref:jdk.adoc[JDK 16+]
 
 * xref:new:index.adoc[What's New]
+** [small]#2025#
+*** xref:new:2025-03.adoc[2025.1 [small]#(March)#]
 ** [small]#2024#
 *** xref:new:2024-11.adoc[2024.6 [small]#(November)#]
 *** xref:new:2024-10.adoc[2024.5 [small]#(October)#]

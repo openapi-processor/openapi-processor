@@ -1,0 +1,219 @@
+== March 2025
+
+* openapi-processor-spring/micronaut 2025.1
+
+=== do not generate accessors of pojos
+
+It is now possible to disable generation of accessor methods on pojo dtos. The properties are still private. This is only useful in combination with an object annotation mapping that adds the accessors. For example lombok.Getter & lombok.Setter.
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: generated
+  model-type: default           # i.e. pojo
+  model-accessors: false        # only used if model-type is default
+
+map:
+  types:
+    - type: object @ lombok.Getter
+    - type: object @ lombok.Setter
+----
+
+[source,java]
+----
+package io.openapiprocessor.openapi.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.openapiprocessor.openapi.support.Generated;
+import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Generated(value = "openapi-processor-spring")
+public class Foo {
+
+    @JsonProperty("id")
+    private UUID id;
+
+}
+----
+
+=== schema mappings
+
+It is now possible to restrict annotation mappings to schema properties by using schema level mappings. Schema mappings are only supported at the global level:
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: generated
+  format-code: false
+
+map:
+  types:
+    - type: integer:year => java.time.Year
+
+  schemas:
+    - type: integer:year @ com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.NUMBER_INT)
+----
+
+The schema mapping will tell the processor to apply the annotation only on dto properties:
+
+[source,java,opts=novalidate]
+----
+package generated.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import generated.support.Generated;
+import java.time.Year;
+
+@Generated(value = "openapi-processor-core", version = "latest")
+public class Foo {
+
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+    @JsonProperty("year")
+    private Year year;
+
+    // ...
+}
+
+and not to the api endpoint method parameter:
+
+ package generated.api;
+
+ import generated.model.Foo;
+ import generated.support.Generated;
+ import java.time.Year;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.RequestParam;
+
+ @Generated(value = "openapi-processor-core", version = "test")
+ public interface Api {
+
+     @GetMapping(path = "/foo", produces = {"application/json"})
+     Foo getFoo(@RequestParam(name = "year", required = false) Year year);
+
+ }
+----
+
+=== alternative code formatter
+
+experimental (whatever is the use of formatting the generated code anyway.. ;-)
+
+the current code formatter google-java-format uses internal java classes which requires additional configuration.
+
+To avoid this additional configuration openapi-processor now supports the eclipse code formatter.
+
+To support this the format-code option accepts two new values: `google` and `eclipse`.
+
+[source,yaml,opts=novalidate]
+----
+openapi-processor-mapping: v11
+options:
+  package-name: # ...
+  format-code: false      # disable code formatter
+  format-code: true       # use default google code formatter
+  format-code: google     # use google code formatter, i.e. the same as "true"
+  format-code: eclipse    # use eclipse code formatter
+----
+
+
+=== javadoc improvement
+
+improved javadoc generation for $ref with description.
+
+[source,yaml]
+----
+# OpenAPI document
+
+components:
+  schemas:
+
+    Foo:
+      description: >
+        this is the *Foo* schema description
+      type: object
+      properties:
+        foo-bar:
+          description: >
+            *property* description
+          type: string
+        enum:
+          description: >                                     # <1>
+            enum *property* description
+          $ref: '#/components/schemas/FooEnum'
+
+    FooEnum:
+        description: "this is an *enum* description"
+        type: string
+        enum: ['foo', 'bar']
+----
+
+javadoc generation now handles a description (<1>) at $ref elements.
+
+For the given OpenAPI description above the pojo for Foo will now look like this
+
+[source,java]
+----
+package generated.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import generated.support.Generated;
+
+/**
+ * this is the <em>Foo</em> schema description
+ */
+@Generated(value = "openapi-processor-core", version = "test")
+public class Foo {
+
+    /**
+     * <em>property</em> description
+     */
+    @JsonProperty("foo-bar")
+    private String fooBar;
+
+    /**
+     * enum <em>property</em> description
+     */
+    @JsonProperty("enum")
+    private FooEnum aEnum;
+
+    // ...
+}
+----
+
+And for the record variant:
+
+[source,java]
+----
+package generated.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import generated.support.Generated;
+
+/**
+ * this is the <em>Foo</em> schema description
+ *
+ * @param fooBar <em>property</em> description
+ * @param aEnum enum <em>property</em> description
+ */
+@Generated(value = "openapi-processor-core", version = "test")
+public record Foo(
+    @JsonProperty("foo-bar")
+    String fooBar,
+
+    @JsonProperty("enum")
+    FooEnum aEnum
+) {}
+----
+
+=== dependency updates
+
+* updated (internal) OpenAPI parser to 2025.1 (was 2024.7)
+* updated com.fasterxml.jackson:jackson-bom to 2.18.2 (was 2.18.1)
