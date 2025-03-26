@@ -1,0 +1,154 @@
+= Spring Boot: mapping Pageable & Page with `object` content
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: March 2025
+// :update: 8. July 2023
+
+[small]#{date}#
+
+this is a small extension to the xref:mapping/pageable-page-mapping.adoc[] article.
+
+The previous article described one possibility to create a pageable api description and mapping it to Spring Boots `Pagable` & `Page` types.
+
+It used the following OpenAPI schema to describe the `content` property, i.e. the `T` of Spring Boot's `Page<T>`:
+
+[source,yaml]
+----
+StringContent:
+  description: specific content List of the Page response
+  type: object
+  properties:
+    content:
+      type: array
+      items:
+        type: string
+----
+
+The example used `allOf` to compose it with an OpenAPI `Page` schema to create a schema object that is a representation of the Spring Boot `Page<T>`.
+
+It also used a simple `String` data type and named the composed object `StringPage`. `StringPage` was then used to map it to the `Page<T>` Spring Boot.
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: StringPage => org.springframework.data.domain.Page<java.lang.String>
+----
+
+== using paging with an `object`
+
+To make this a little bit more interesting we now use an `object` (`Foo`) instead of `String`:
+
+[source,yaml]
+----
+Foo:
+  description: a sample object
+  type: object
+  properties:
+    bar:
+      type: string
+    # ...
+----
+
+How do we use it as `T`?
+
+We just replace the `java.lang.String` with ... what?
+
+First thing is to take a look at the java package and name the processor generates for the OpenAPI `Foo` object.
+
+- the package name
++
+The package name is easy, it starts with the `package-name` option we set in the `mapping.yaml`, here `io.openapiprocessor.openapi`. Then we add a sub package `model`. `model` because the processor will create all schema objects in the `model` sub package.
++
+The final package name is: `io.openapiprocessor.openapi.model`
+
+- the class name
++
+not difficult either, usually it is just the name of the OpenAPI schema. Here `Foo`.
+
+So the resulting java class name is `io.openapiprocessor.openapi.model.Foo` and we can use it in the mapping of `Page`:
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  types:
+    - type: FooPage => org.springframework.data.domain.Page<io.openapiprocessor.openapi.model.Foo>
+----
+
+That is the simplest case.
+
+== `model-name-suffix`
+
+If the `mapping.yaml` contains the `model-name-suffix` option we have an additional step to create the java class name.
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: io.openapiprocessor.openapi
+  model-name-suffix: Resource
+
+# ...
+----
+
+The java class would get the name `FooResource` instead of the plain `Foo` name. With a different `model-name-suffix`, e.g. `Dto` the class name would be, no surprise, `FooDto`.
+
+The mapping would change to:
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: io.openapiprocessor.openapi
+  model-name-suffix: Resource
+
+map:
+  types:
+    - type: FooPage => org.springframework.data.domain.Page<io.openapiprocessor.openapi.model.FooResource>
+----
+
+Too bad we have to repeat the `package-name` ...
+
+== `package-name` variable
+
+Actually, we do not need to repeat it.
+
+We can use a placeholder for the `package-name` option in the mapping to shorten the mapping.
+
+The placeholder is `\{package-name\}` and the processor will replace it with the value of the `package-name` option.
+
+The final mapping with placeholder is:
+
+[source,yaml]
+----
+openapi-processor-mapping: v11
+
+options:
+  package-name: io.openapiprocessor.openapi
+  model-name-suffix: Resource
+
+map:
+  types:
+    - type: FooPage => org.springframework.data.domain.Page<{package-name}.model.FooResource>
+----
+
+I recommend to use the placeholder. It does not only shorten the mapping and make the mapping a little bit easier to read, it will also make it easier to change the package name without the need to update the `Page<T>` mapping.
+
+== summary
+
+This article shows how to use an `object` with Spring Boot paging. How to build the java class name from options and OpenAPI for the mapping to Spring Boot's `Page<T>` and how to shorten the mapping using the `\{package-name\}` placeholder.
+
+// To learn more about openapi-processor and how to easily generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
