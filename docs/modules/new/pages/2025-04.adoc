@@ -1,0 +1,133 @@
+== April 2025
+
+* openapi-processor-spring/micronaut 2025.2
+
+=== support endpoint with different responses for different status codes
+
+For the example below, versions before 2025.2 would pick Bar (the last response) as the return type for the `getFooApplicationJson()` endpoint method. This doesn't work because the method must be able to return `Foo` or `Bar`.
+
+To make this work it will now use `Object` as return type.
+
+[source,yaml]
+----
+openapi: 3.1.0
+info:
+  title: test multiple success responses
+  version: 1.0.0
+
+paths:
+  /foo:
+    get:
+      description: endpoint with multiple success responses
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Foo'
+        '202':
+          description: another success
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Bar'
+
+components:
+  schemas:
+
+    Foo:
+      type: object
+      properties:
+        foo:
+          type: string
+
+    Bar:
+      type: object
+      properties:
+        bar:
+          type: string
+----
+
+===  marker interface for responses
+
+The previous fix handles multiple response objects by using `Object` as the result type. An `Object` return type is not very descriptive. It is impossible to know from the interface which results are possible.
+
+To improve on that situation, the processor can generate a marker interface that is more descriptive and helps with navigation in the IDE.
+
+Generation of the marker interface is enabled by adding the `response-interface` option:
+
+[source,yaml]
+----
+openapi-processor-mapping: v12
+
+options:
+  package-name: ...
+  # ...
+  response-interface: true
+----
+
+The marker interface is an empty interface, and its name is derived from the http method, path and content type to create a unique name.
+
+If the response type (e.g., Foo from the above example OpenAPI) is used on multiple endpoints with multiple success response statuses, it will implement multiple marker interfaces.
+
+[source,java]
+----
+package generated.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import generated.support.Generated;
+
+@Generated(value = "openapi-processor-core", version = "test")
+public class Foo implements GetFooApplicationJsonResponse /* , .. more interfaces if Foo is used on multiple endpoints */ {
+
+    @JsonProperty("foo")
+    private String foo;
+
+    // ...
+}
+----
+
+That way it is possible to find the possible result type by navigating to the implementations of the marker interface.
+
+=== drop OpenAPI parameter
+
+It is now possible to drop a parameter given in the OpenAPI description from the generated code. This may be useful if a parameter is, for example, handled by a request filter and therefore is not needed in the endpoint method anymore.
+
+To drop a parameter add a `parameters/drop` entry with the name of the parameter to drop it:
+
+[source,yaml]
+----
+openapi-processor-mapping: v12
+
+options:
+  package-name: generated
+
+map:
+  paths:
+    /foo:
+      parameters:
+        - drop: foo
+----
+
+Even if it is possible to add it at the global level, it is best used at the endpoint level.
+
+=== result-style
+
+the `result-style` option is now handled on all levels (global, endpoint, http method) and not just on the global level.
+
+
+=== formatter selection
+
+the processor didn't use the new formatter selection, it does now properly handle `google` & `eclipse` (no need to for extra jdk configuration) values.
+
+[source,yaml]
+----
+openapi-processor-mapping: v12
+options:
+  package-name: # ...
+  format-code: false      # disable code formatter
+  format-code: true       # use default google code formatter
+  format-code: google     # use google code formatter, i.e. the same as "true"
+  format-code: eclipse    # use eclipse code formatter
+----
