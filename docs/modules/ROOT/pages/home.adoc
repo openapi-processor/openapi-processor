@@ -7,7 +7,7 @@ image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**
-is a small framework that converts an link:{openapi}[OpenAPI] yaml (or json) descriptions to a target format. The primary target is Java code. It generates interfaces and DTOs (pojos or records) based on the API and you implement the interfaces in your controllers.
+is a small framework that converts an link:{openapi}[OpenAPI] YAML (or JSON) descriptions to a target format. The primary target is Java code. It generates interfaces and DTOs (pojos or records) based on the API, and you implement the interfaces in your controllers.
 
 The target programming language is Java, which makes the generated code usable from most JVM languages.
 
@@ -23,13 +23,13 @@ The *advantages* are:
 
 * you have a single place to maintain the api which makes it easier to create a consistent api and keep the overview.
 * you don't need to manually write the controller annotations and remember all the annotation details.
-* you can easily skip generation of endpoints that have special (unsupported) requirements and write them manually.
-* it is easy to document in plain text. You can use markdown in the OpenAPI `description` properties.
+* you can skip generation of endpoints that have special (unsupported) requirements and write them manually.
+* it is easy to document in plain text. You can use Markdown in the OpenAPI `description` properties.
 * it helps to keep the implementation in sync with the OpenAPI description. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
 
 [.py-6]
 **code generation** +
-A processor generates java interfaces based on the endpoint descriptions of the API and simple Pojo or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface and all that is left to *you* is the implementation of the generated interfaces in any way you like.
+A processor generates java interfaces based on the endpoint descriptions of the API and simple Pojo or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface, and all that is left to *you* is the implementation of the generated interfaces in any way you like.
 
 [.py-6]
 image::process-flow.png[process,700,align="center"]
