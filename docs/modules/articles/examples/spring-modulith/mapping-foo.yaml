@@ -1,0 +1,16 @@
+openapi-processor-mapping: v10
+
+options:
+  package-name: io.openapiprocessor.samples.foo // <1>
+
+  target-dir:
+    layout: standard
+
+  base-path:
+    server-url: 0
+    properties-name: foo.properties
+
+  javadoc: true
+  format-code: true
+  model-type: record
+  model-name-suffix: Dto

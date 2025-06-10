@@ -1,0 +1,112 @@
+:toc:
+:oap: https://openapiprocessor.io
+:date: November 2024
+:spring-modulith: https://docs.spring.io/spring-modulith/reference/
+:oap-sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-monolith-kt
+:intellij: https://plugins.jetbrains.com/plugin/17008-openapi-processor
+
+= Spring Modulith & OpenAPI using openapi-processor
+
+[small]#{date}#
+
+openapi-processor does work out-of-the-box with {spring-modulith}[Spring Modulith]. With a little bit of configuration, we can place the generated code from the OpenAPI into a module subpackage, making it only available to its parent module.
+
+== project layout
+
+// todo fix sample name
+
+The full project is available as {oap-sample}[samples project] on GitHub. It doesn't do anything useful. It mainly shows how we can generate the module api in the corresponding module.
+
+This project has two modules `Foo` and `Bar` with their own OpenAPI description and a third module `listen` that uses the public spring modulith module api, i.e. `BarEvent` & `FooEvent` (not the OpenAPI) from the other two modules.
+
+By default, the packages parallel to the main class are the (spring modulith) modules. Here `io.openapiprocessor.samples.bar` & `io.openapiprocessor.samples.foo`. Classes in those packages provide the module api and can be used by other modules.
+
+The sub-packages can only be accessed by code from the module itself but not from other modules.
+
+=== OpenAPI of the modules
+
+The OpenAPI of a module should not be available to other modules. It describes the http api of the module, and we don't want or need to call it from other modules in our project.
+
+In contrast to the usual setup with a single `src/api` folder that is the home of the OpenAPI files and the `mapping.yaml` they are placed into an `api` sub-package of the modules, making it "private" to the module.
+
+By placing the OpenAPI directly into the module source package it is in the module it belongs to. That way it is easier to find, and it can be a starting point for navigation (in IntelliJ IDEA, see the Note).
+
+.project layout
+image::spring-modulith/project.png[project layout., 500]
+
+NOTE: With the {intellij}[openapi-processor-intellij plugin] you will get editing support for the `mapping.yaml` configuration and (simple) navigation support. It is possible to navigate directly from an OpenAPI path to the generated interface.
+
+== openapi processor mapping
+
+Looking at the picture of the project layout, we may notice that both modules have a `mapping.yaml` configuration.
+
+Each module has its own `mapping.yaml` to configure the target package as a package of the module and making it "private" to the module.
+
+Most interesting in the mappings below is the `package-name` option.
+
+.Bar module `mapping.yaml`
+[source,yaml]
+----
+include::example$spring-modulith/mapping-bar.yaml[]
+----
+
+<1> this sets the root package for the generated files. It is identical to the module package of the `Bar` module.
+
+.Foo module `mapping.yaml`
+[source,yaml]
+----
+include::example$spring-modulith/mapping-foo.yaml[]
+----
+
+<1> mostly identical to the `Bar` module configuration except the `package-name`. This time identical to the module package of the `Foo` module.
+
+openapi-processor will create its sub-packages in the package with the files generated from the modules OpenAPI description.
+
+== openapi processor build
+
+Next, we take a look at the build configuration necessary to generate code from each OpenAPI.
+
+The configuration just shows the openapi-processor specific part of the Gradle build file. The configuration is also possible with the openapi processor maven plugin.
+
+.gradle configuration
+[source,java]
+----
+include::example$spring-modulith/build.gradle.kts[]
+----
+
+It has *two* openapi-processor configurations, one for each module with an OpenAPI description.
+
+<1> the parameter to the `process` method is the name of the module, and it is used to name the task `process\{name}` to process the configured OpenAPI description.
++
+the `processorName()` call selects the processor, in this case `spring` and `processor()` provides the group artifact coordinates of the openapi-processor-spring library ( referencing the coordinates from a `gradle/libs.versions.toml` file).
+
+<2> the location of the OpenAPI description i.e., the `apiPath`. It is the path to the `openapi.yaml` file in the `api` package of the module.
++
+It also configures the target directory (`targetDir`) for the generated files in the gradle `build` directory.
+
+<3> The `mapping.yaml` location i.e., the path to the `mapping.yaml` in the `api` package of the module.
+
+<4> add the additional source sets so that Gradle compiles the generated files and copies the generated resource files.
+
+<5> make sure the OpenAPI is processed before compiling any other sources.
+
+Running the build the gradle `build` directory will look more or less like this:
+
+.build layout
+image::spring-modulith/build.png[build layout., 500]
+
+The processor output is placed into the module package of the corresponding module to make sure the generated code is available to, and only to the module it belongs to.
+
+== considerations
+
+The configuration shown here places the generated files into the same package as the normal source files. We want that to create proper module boundaries.
+
+One issue to be aware of is that with this layout, we may get duplicate class errors on compilation if we create classes with the same name as any of the generated interfaces or classes.
+
+Since we should get an error in this situation, it would be easy to fix.
+
+== summary
+
+This article described how it is possible to use openapi-processor together with Spring Modulith.
+
+By having a processing configuration for each module, the generated files are placed into the module packages without breaking the module boundaries.

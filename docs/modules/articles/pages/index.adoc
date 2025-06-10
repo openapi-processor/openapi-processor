@@ -1,6 +1,7 @@
 = Articles
 
 == 2025
+// === xref:articles:mapping/spring-modulith.adoc[Spring Modulith]
 === xref:articles:processor/content-type-multiple.adoc[separate methods for each content-type]
 === xref:articles:mapping/pageable-page-mapping-object.adoc[Spring Boot: mapping Pageable & Page 2]
 === xref:articles:mapping/dictionaries.adoc[mapping OpenAPI Dictionaries]
