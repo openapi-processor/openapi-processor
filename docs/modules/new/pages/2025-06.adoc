@@ -1,0 +1,180 @@
+include::spring:ROOT:partial$vars.adoc[]
+
+== June 2025
+
+* openapi-processor-spring/micronaut 2025.3
+
+=== generate code into packages
+
+_this is experimental_
+
+[WARNING]
+it may not behave nicely if the expected configuration requirements are not met. It also works only with the **INTERNAL** OpenAPI parser (which is the default).
+
+The `package-name-from-path` option enables the creation of package names based on the file location of $ref’erenced parts of the OpenAPI description. The basic `package-name` option **must** be a **parent** package of the **target** packages (see below).
+
+[source,yaml,subs=attributes+]
+----
+openapi-processor-mapping: {var-mapping-version}
+
+options:
+  package-name: io.openapiprocessor.sample
+  package-name-from-path: true
+----
+
+Here is an example layout to show what this is about.
+
+The OpenAPI description of the endpoint `foo` is placed into the `package` where it will be implemented. The generated interface and resources get the package `io.openapiprocessor.samples.foo`.
+
+The example shows only the controller implementation, but it could also contain service and repositories used to handle the `foo` endpoint. That way, *everything* related to that endpoint is in one place.
+
+[source]
+----
+sample
+\---- src
+      +---- api
+      |     +---- mapping.yaml
+      |     \---- openapi.yaml
+      \---- main
+            +---- kotlin
+            |     +---- io
+            |     |     \---- openapiprocessor
+            |     |           \---- samples
+            |     |                 +---- foo
+            |     |                 |     +---- FooController.kt
+            |     |                 |     +---- foo.yaml
+            |     |                 |     \---- resources.yaml
+            |     |                 \---- bar
+            |     |                       \---- ...
+            \---- resources
+                  \---- application.properties
+----
+
+The main OpenAPI file will look something like this:
+
+[source,yaml,subs=attributes+]
+----
+# openapi.yaml
+openapi: {var-openapi-version}
+info:
+  title: openapi-processor sample api
+  version: 1.0.0
+
+servers:
+  - url: "https://openapiprocessor.io/\{path}"
+    variables:
+      path:
+        default: api
+
+paths:
+  /foo:
+    $ref: '../main/kotlin/io/openapiprocessor/samples/foo/foo.yaml' # <1>
+----
+
+<1> `foo.yaml` (the path item of `foo`) is $ref`erenced from the main OpenAPI description.
+
+[source,yaml,subs=attributes+]
+----
+# io/openapiprocessor/samples/foo/foo.yaml
+post:
+  tags:
+    - foo
+  summary: echo a Foo.
+  description: simple sample endpoint
+  requestBody:
+    $ref: 'resources.yaml#/FooBody'
+  responses:
+    '200':
+      description: foo
+      content:
+        application/json:
+          schema:
+            $ref: 'resources.yaml#/Foo' # <1>
+----
+
+<1> and $references the `resource.yaml` in the same folder that describes the payload resource.
+
+The package name of the foo endpoint files is `io.openapiprocessor.samples.foo` and the nearest **parent** package is `io.openapiprocessor.samples`. This is then the `package-name` option value.
+
+It is possible to use `io.openapiprocessor` or even `io` as the parent package.
+
+Important is that the **parent** package is *shorter* than the target package and that the **target** package starts with the parent package.
+
+The generated files will still go to the output folder of the used build tool. No change there apart from the package names.
+
+=== generate response status annotation
+
+the processor does now automatically generate a response status annotation for success responses (i.e., 2xx) not equal to 200.
+
+[WARNING]
+====
+This will conflict with manually added response status annotations.
+
+To keep the old behavior, i.e., no automatically added annotations, set `result-status: false` on the global mapping level.
+====
+
+It is configured by adding it to the mapping section of the configuration file. It is available on all levels, i.e., global, endpoint and endpoint method.
+
+[source,yaml,subs=attributes+]
+----
+openapi-processor-mapping: {var-mapping-version}
+
+options:
+    # ...
+
+map:
+  # result-status: true is the default
+  # setting it to false on the global level disables it
+  result-status: false
+
+  paths:
+    # enable it for a specific endpoint
+    /foo:
+      result-status: true
+
+      # ... or for a specific method of an endpoint
+      #get:
+      #  result-status: true
+----
+
+example:
+
+[source,yaml,subs=attributes+]
+----
+openapi: {var-openapi-version}
+info:
+  title: sample api
+  version: 1.0.0
+
+paths:
+  /nop:
+    get:
+      tags:
+        - nop
+      summary: response status
+      description: adds status for success other than 200
+      responses:
+        '204':
+          description: no content
+----
+
+generates (with the framework-specific annotations):
+
+[source,java]
+----
+package generated.api;
+
+import annotation.Mapping;
+import annotation.Status;
+import generated.support.Generated;
+
+@Generated(value = "openapi-processor-core",  version = "test")
+public interface NopApi {
+
+  /** response status adds status for success other than 200 */
+  @Status(204)
+  @Mapping("/nop")
+  void getNop();
+
+}
+----
