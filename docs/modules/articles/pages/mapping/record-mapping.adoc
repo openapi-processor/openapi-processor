@@ -1,12 +1,10 @@
-= using java records as DTOs
-Martin Hauner
 :toc:
 :oap: https://openapiprocessor.io
 :date: 27. August 2023
 :lombok: https://projectlombok.org
 :sample-lombok: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-3-lombok
 
-// todo unpublished, next
+= using java records as DTOs
 
 [small]#{date}#
 
@@ -48,7 +46,7 @@ components:
 
 == OpenAPI as pojo
 
-with its default settings openapi-processor will generate a pojo dto class with some getter/setter noise.
+with its default settings, openapi-processor will generate a pojo dto class with some getter/setter noise.
 
 .`Foo.java` pojo dto
 [source,java]
