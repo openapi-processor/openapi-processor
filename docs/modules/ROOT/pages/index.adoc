@@ -8,7 +8,7 @@
 :micronaut: https://micronaut.io/
 :gradle: https://gradle.org/
 :maven: https://maven.apache.org/
-:oap-playground: https://playground.openapi-processor.io
+:oap-playground: https://playground.openapiprocessor.io
 :oap-license: https://apache.org/licenses/LICENSE-2.0.txt
 :version-spring-: https://img.shields.io/github/v/release/openapi-processor/openapi-processor-spring?color=009051&include_prereleases&label=latest
 :version-spring: https://img.shields.io/bintray/v/openapi-processor/primary/openapi-processor-spring?color=009051&label=latest
