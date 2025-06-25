@@ -1,0 +1,278 @@
+:toc:
+:oap: https://openapiprocessor.io
+:date: 22. June 2025
+:generator: https://openapi-generator.tech
+:processor: https://openapi-processor.io
+:latest: https://openapiprocessor.io/oap/new/2025-06.html
+:oap-sample-packages: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
+
+= OpenAPI, generate package-names from location
+
+[small]#{date}#
+
+// == what is openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos/records* (model/dto classes) from an OpenAPI yaml/json description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+
+One (_classic_) way to structure our source code is to have several packages like `service`,  `repository`, `domain`, `dto` and `controllers` and have the code related to an endpoint distributed into those packages. For each endpoint.
+
+The code gets structured by *layer*.
+
+A drawback of structuring it by layer is that we usually work on a single endpoint. We are more interested in the *topic* of the endpoint and not its layers.
+
+Therefore, an alternative way (and hopefully used more often nowadays) to structure our code is to group everything related to a single endpoint *topic* in the same package.
+
+Everything in one place. That makes it easier to modify an endpoint and requires less navigation.
+
+We can even move part of the OpenAPI description of the endpoints into the topic package using `$ref`.
+
+One small issue with this is that openapi-processor still generates everything into the same few packages: `api`, `model` etc., ignoring our packages by topic.
+
+Wouldn't it be nice if the processor could generate the OpenAPI code with the package of the file location?
+
+The *package-names from location* feature, introduced in the 2025.3 release of link:{latest}[openapi-processor], allows the processor to create package names based on the file location of $ref'erenced parts of the OpenAPI description.
+
+Let's see how this works.
+
+== enabling package-names from location
+
+*package-names from location* is enabled by setting the `package-names:location` option.
+
+`package-names:location` is the *parent* package for location based package names.
+
+Only (OpenAPI) file locations below the parent package will be generated with a location based package name. Any other (OpenAPI) file location will use `package-names.base` (or `package-name`) as the package name (which is the current behaviour).
+
+Enabling this has a few conditions:
+
+- to create an interface or resource in a specific package, its OpenAPI description has to be in the target package and must be reachable from the root OpenAPI description.
+
+- it only works with the `INTERNAL` OpenAPI parser (it is the default parser). It will not work with the `SWAGGER` OpenAPI parser.
+
+=== mapping.yaml
+
+Here is an example of a `mapping.yaml` that enables it:
+
+[source,yaml,subs=attributes+,title="mapping.yaml"]
+----
+openapi-processor-mapping: {var-mapping-version}
+
+options:
+  #package-name: io.openapiprocessor.openapi  # <1>
+
+  package-names:
+    base: io.openapiprocessor.openapi # <2>
+    # this enables package generation from the endpoint $ref file location
+    location:  io.openapiprocessor.samples # <3>
+----
+
+<1> the shortcut for setting `package-names.base`. If location based packages should be used, setting `package-names.base` is preferred.
+
+<2> this is the base package for all generated code. This is identical to the current behaviour (i.e. `package-name`). Any file the is not below `package-names.location` will be generated with this as the base package.
+
+<3> `package-name.location` is the *parent* package name of the project's *target* packages. If the processor finds a file ref'erenced from the main OpenAPI in a subpackage of `package-name.location` the generated sources will be generated with that package.
+
+== moving OpenAPI descriptions into packages
+
+The next step is to split the OpenAPI definition into multiple files and move them into the desired packages.
+
+The `openapi.yaml` is placed into the usual place, in this example in the source folder `src/api`.
+
+[source,yaml,subs=attributes+,title="openapi.yaml"]
+----
+openapi: {var-openapi-version}
+info:
+  title: openapi-processor sample api
+  version: 1.0.0
+
+servers:
+  - url: "https://openapiprocessor.io/\{path}"
+    variables:
+      path:
+        default: api
+
+paths:
+  /foo:
+    $ref: '../main/kotlin/io/openapiprocessor/samples/foo/foo.yaml' # <1>
+----
+
+The project directories so far look like this, where `sample` is the root folder of the project.
+
+[title="directory structure, api"]
+----
+sample
+\---- src
+      \---- api
+            +---- mapping.yaml
+            \---- openapi.yaml
+----
+
+=== foo endpoint $ref
+
+The `foo` path item in `openapi.yaml` $ref'erences the endpoint definition in `foo.yaml`.
+
+[source,yaml,subs=attributes+,title="foo.yaml"]
+----
+post:
+  tags:
+    - foo
+  summary: echo a Foo.
+  description: simple sample endpoint
+  requestBody:
+    $ref: 'resources.yaml#/FooBody'
+  responses:
+    '200':
+      description: foo
+      content:
+        application/json:
+          schema:
+            $ref: 'resources.yaml#/Foo'
+----
+
+`foo.yaml` is placed into the main source folder of the project into the *target* package the generated interface should have.
+
+In this case the *target* package (i.e., topic package) of `FooApi.java` will be `io.openapiprocessor.samples.foo`.
+
+The controller implementation and services for this endpoint will go into the same package.
+
+`foo.yaml` also $ref'erences a `resources.yaml` file placed in the same package that defines the `Foo` payload schema:
+
+[source,yaml,subs=attributes+,title="resources.yaml"]
+----
+FooBody:
+  content:
+    application/json:
+      schema:
+        $ref: '#/Foo'
+
+Foo:
+  type: object
+  description: Foo object description
+  properties:
+    foo:
+      type: string
+      maxLength: 10
+      description: foo property description
+    id:
+      type: string
+      format: uuid
+      description: id property description
+----
+
+The final directory structure then looks like this:
+
+[title="directory structure, api and sources"]
+----
+sample
+\---- src
+      +---- api
+      |     +---- mapping.yaml
+      |     \---- openapi.yaml
+      \---- main
+            +---- kotlin
+            |     \---- io
+            |           \---- openapiprocessor
+            |                 \---- samples
+            |                       +---- foo
+            |                       |     +---- FooController.kt
+            |                       |     +---- foo.yaml
+            |                       |     \---- resources.yaml
+            |                       +---- bar
+            |                       |      \---- ...
+            |                       \ Application.kt
+            \---- resources
+                  \---- application.properties
+----
+
+== package-names.location
+
+Having an idea now how the files are organized, it is possible to explain which package is the *location* or *parent* package.
+
+From the file tree above:
+
+The package name of the `foo` endpoint files is `io.openapiprocessor.samples.foo` and the nearest *parent* package is `io.openapiprocessor.samples`. This is a candidate for the `package-names.location` option.
+
+It is possible to use `io.openapiprocessor` or even `io` as the *parent* package.
+
+=== directory structure after processing
+
+Assuming a Gradle build, the directory structure after processing is:
+
+----
+sample
++---- build
+|     \---- openapi
+|            +--- java
+|            |    \---- io
+|            |          \---- openapiprocessor
+|            |                \---- samples
+|            |                      +---- foo
+|            |                      |     +---- Foo.java
+|            |                      |     \---- FooApi.java
+|            |                      \---- bar
+|            |                            \---- ...
+|            \---- resources
+|                  \---- api.properties
+\---- src
+      +---- api
+      |     +---- mapping.yaml
+      |     \---- openapi.yaml
+      \---- main
+            +---- kotlin
+            |     +---- io
+            |     |     \---- openapiprocessor
+            |     |           \---- samples
+            |     |                 +---- foo
+            |     |                 |     +---- FooController.kt
+            |     |                 |     +---- foo.yaml
+            |     |                 |     \---- resources.yaml
+            |     |                 \---- bar
+            |     |                       \---- ...
+            \---- resources
+                  \---- application.properties
+----
+
+The `FooApi.java` and `Foo.java` are generated into the package folder with the corresponding package-name:
+
+.FooApi.java
+[source,java]
+----
+include::example$package-names-from-location/foo/FooApi.java[]
+----
+
+<1> the expected package name `io.openapiprocessor.samples.foo`
+
+.Foo.java
+[source,java]
+----
+include::example$package-names-from-location/foo/Foo.java[]
+----
+
+<1> the expected package name `io.openapiprocessor.samples.foo`
+
+
+The `@Generated` annotation used in the generated files (which is also generated) is placed into the usual `{package-names.base}.support` package.
+
+.Generated.java
+[source,java]
+----
+include::example$package-names-from-location/openapi/support/Generated.java[]
+----
+
+<1> the standard output package based on `package-names.base`.
+
+== migrating to package-names from location
+
+Since all OpenAPI files that are not placed below the `package-names.location` use `package-names.base` (i.e. `package-name`), it is possible to slowly migrate to *package-names from location* by moving a single endpoint and keeping everything else where it is now.
+
+Moving everything in one-step may not be good idea because a lot of pacakge-names will change.
+
+== sample code
+
+A full working example with multiple endpoints is available in the link:{oap-sample-packages}[samples] repository.
+
+== summary
+
+This article described how it is possible to use openapi-processor to generate the OpenAPI classes into different packages instead of putting a lot of (unrelated) files into the same package.
+
+It does make it a little bit easier to recognize where the generated files belong to.
