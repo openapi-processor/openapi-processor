@@ -1,0 +1,195 @@
+= enum mapping, _invalid_ enum value names
+Martin Hauner
+:toc:
+:oap: https://openapiprocessor.io
+:date: 20. July 2024
+:discussions: https://github.com/orgs/openapi-processor/discussions/new
+
+[small]#{date}#
+
+// == do you know openapi-processor?
+//
+// {oap}[openapi-processor] is an *easy-to-use* tool to generate java based (annotated) controller *interfaces* and *pojos* (model classes) from an OpenAPI yaml description. It supports *Spring Boot*, *Micronaut* with *maven* or *gradle*.
+//
+// == openapi-processor, custom enum mapping
+
+In a previous article xref:articles:mapping/custom-enum-mapping.adoc[] I described how we can create a custom enum mapping if we would like to use different or better names for the enum values in the code than the ones used in the OpenAPI description.
+
+It is a simple solution, it just has the drawback that we manually have to keep our enum in sync with the OpenAPI description. But I fear there is no better alternative.
+
+
+Another issue with enum values is that the generated enum has to use valid Java identifiers. The processor can't just uppercase the enum value (the Java convention for enums values) because it may not be a valid Java identifier.
+
+In versions before 2025.3.1 openapi-processor would simply strip invalid characters at the beginning to create a valid enum identifier.
+
+Unfortunately this was not the best solution because it may still create invalid code.
+
+For example having an enum in the OpenAPI description that has enum values starting with numbers (which is not allowed for a java identifier)
+
+.openapi.yaml
+[source, yaml]
+----
+# ...
+
+components:
+  schemas:
+    AnEnum:
+      type: string
+      enum:
+        - "1A"
+        - "2A"
+----
+
+would create a Java enum with duplicate enum values:
+
+.BrokenEnum.java
+[source, java]
+----
+public enum AnEnum {
+    A("1A"),
+    A("2A");
+
+    // ...
+}
+----
+
+Because of that, starting with openapi-processor 2025.3.1, it now simply prefixes all OpenAPI enum values with `V` (for value) that start with an invalid character:
+
+.ValidEnum.java
+[source, java]
+----
+public enum AnEnum {
+    A("V1_A"),
+    A("V2_A");
+
+    // ...
+}
+----
+
+You may wonder why there is an underscore. The processor splits an OpenAPI name into _words_ , the switch from number to letter is considered a word break, and then joins the _words_ with an underscore to create the enum name...
+
+== enum-type: string
+
+If you want to avoid all that, an alternative would be to use `enum-type` option `string`:
+
+
+.mapping.yaml
+[source, yaml]
+----
+openapi-processor-mapping: v13
+
+options:
+  enum-type: string
+----
+
+
+With this openapi-processor will not create Java enum classes but simply use `String`. Having the following OpenAPI endpoint and eum description
+
+.openapi.yaml
+[source, yaml]
+----
+  # ...
+
+  /string-enum:
+    post:
+      summary: api with enum in body and parameter.
+      parameters:
+        - name: type
+          description: enum parameter
+          in: query
+          schema:
+            $ref: '#/components/schemas/Type'
+      responses:
+        '204':
+          description: no result
+
+components:
+  schemas:
+    Type:
+      type: string
+      description: Type
+      enum:
+        - foo
+        - bar
+
+ # ...
+----
+
+the generated code looks like this:
+
+.Api.java
+[source, java]
+----
+// ...
+
+@ResponseStatus(HttpStatus.NO_CONTENT)
+@PostMapping(path = "/string-enum")
+void postStringEnum(@RequestParam(name = "type", required = false) String type);
+
+// ...
+----
+
+Now the enum has exactly the same value as described in the OpenAPI. There is no issue anymore with translating the enum names to valid java identifiers.
+
+No win without loss, this is a global setting, i.e. now *all* enums will use `String`, and we have lost type-safety.
+
+== validating string enum
+
+We can reduce the pain of the lost type-safety by enabling bean validation.
+
+.openapi.yaml
+[source, yaml]
+----
+openapi-processor-mapping: v13
+
+options:
+  # ...
+
+  # use bean validations with jakarta package name
+  bean-validation: jakarta
+----
+
+In case `bean-validation` and `enum-type: string` are configured the processor will generate an annotation and a validator to check that the enum `String` parameter matches any of the allowed values (as described in the OpenAPI).
+
+
+The generated interface endpoint will now look like this:
+
+.Api.java
+[source, java]
+----
+// ...
+
+@ResponseStatus(HttpStatus.NO_CONTENT)
+@PostMapping(path = "/string-enum")
+void postStringEnum(@RequestParam(name = "type", required = false) @Values(values = { "foo", "bar" }) String type);
+
+// ...
+----
+
+making it possible to validate `type` parameter.
+
+[NOTE]
+====
+make sure you annotate the controller with `@Validated` to run the `@Values` check.
+
+[source,java,title=api interface with validation]
+----
+@Validated
+@RestController
+public class ApiController implements Api {
+    // ...
+}
+----
+====
+
+== summary
+
+This article describes how to handle OpenAPI enum values that are no valid Java identifiers. Either by accepting the default generated enum, which may have non-perfect enum names or by using `enum-type: string` which will reduce type-safety.
+
+My favorite is to use the manual enum described in xref:articles:mapping/custom-enum-mapping.adoc[].
+
+If you have an idea how to make this easier start a discussion on link:{discussions}[GitHub].
+
+// To learn more about openapi-processor and how to generate controller interfaces and model classes from an OpenAPI description take a look at the {oap}[documentation].
+
+

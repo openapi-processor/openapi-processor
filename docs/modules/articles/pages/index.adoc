@@ -1,6 +1,7 @@
 = Articles
 
 == 2025
+=== xref:articles:mapping/custom-enum-mapping.adoc[invalid enum value names]
 === xref:articles:processor/package-names-from-location.adoc[generate package names from location]
 // === xref:articles:mapping/spring-modulith.adoc[Spring Modulith]
 === xref:articles:processor/content-type-multiple.adoc[separate methods for each content-type]
