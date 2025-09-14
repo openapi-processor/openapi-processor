@@ -1,3 +1,7 @@
+= OpenAPI, generate package-names from location
+
+include::spring::partial$links.adoc[]
+
 :toc:
 :oap: https://openapiprocessor.io
 :date: 22. June 2025
@@ -5,8 +9,6 @@
 :processor: https://openapi-processor.io
 :latest: https://openapiprocessor.io/oap/new/2025-06.html
 :oap-sample-packages: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
-
-= OpenAPI, generate package-names from location
 
 [small]#{date}#
 
