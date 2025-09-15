@@ -2,6 +2,7 @@
 :page-title: openapiprocessor.io
 :page-aliases: start@oap:ROOT:home.adoc
 :page-layout: home
+include::spring::partial$links.adoc[]
 
 image:openapi-processor-at-1280x200.png[openapi-processor]
 
@@ -150,9 +151,9 @@ public interface BarApi {
 ====
 it has a **powerful type mapping configuration** (with generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or http method (of an endpoint).
 
-[source,yaml,title=global type mapping]
+[source,yaml,subs=attributes+,title=global type mapping]
 ----
-openapi-processor-mapping: v6
+openapi-processor-mapping: {var-mapping-version}
 options:
   # ...
 
@@ -168,9 +169,9 @@ map:
 ====
 it offers **annotation mapping** to add additional annotations to the dtos generated from the OpenAPI schemas.
 
-[source,yaml,title=global annotation mapping]
+[source,yaml,subs=attributes+,title=global annotation mapping]
 ----
-openapi-processor-mapping: v6
+openapi-processor-mapping: {var-mapping-version}
 options:
   # ...
 
@@ -186,9 +187,9 @@ map:
 ====
 it can map OpenAPI `x-` tensions to add additional annotations to schema properties.
 
-[source,yaml,title=global x-tension mapping]
+[source,yaml,subs=attributes+,title=global x-tension mapping]
 ----
-openapi-processor-mapping: v6
+openapi-processor-mapping: {var-mapping-version}
 options:
   # ...
 
