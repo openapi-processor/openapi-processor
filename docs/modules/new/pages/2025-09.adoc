@@ -1,0 +1,126 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
+include::spring:ROOT:partial$vars.adoc[]
+
+== September 2025
+
+* openapi-processor-spring/micronaut 2025.4
+
+=== incompatibility when using `enum-type: framework` and `format-code`
+
+when using `enum-type: framework` openapi-processor created a `package-info.java` which failed to format if `format-code: true|google` was enabled.
+
+=== use $ref filename without json pointer as class name
+
+the processor did create the class name of `FooResponse` based on the location as `FooGetResponse200.java` if the `$ref` did not have a json pointer.
+
+It does now use the file name as class name if the `$ref` does not have a json pointer, i.e. in the example below the class name will be `FooResponse` instead of `FooGetResponse200`.
+
+[source,yaml,subs=attributes+,title=openapi.yaml]
+----
+openapi: 3.1.0
+info:
+  title: get class name from file name
+  version: 1.0.0
+
+paths:
+  /foo:
+    get:
+      responses:
+        '200':
+          description: the foo result
+          content:
+            application/json:
+                schema:
+                  $ref: 'FooResponse.yaml'
+----
+
+[source,yaml,subs=attributes+,title=FooResponse.yaml]
+----
+title: Foo Schema
+type: object
+properties:
+  bar:
+    type: string
+----
+
+=== mapping and bean validation annotations
+
+the processor could produce invalid code that does not compile when combining a mapping with bean validation.
+
+An OpenAPI (like the one below) with an integer parameter and bean validation enabled would add `@DecimalMin` & `@DecimalMax` annotations to the parameter in the generated code.
+
+[source,yaml,subs=attributes+,title=openapi.yaml]
+----
+openapi: {var-openapi-version}
+info:
+  title: drop bean validation annotation if mapped to unsupported type
+  version: 1.0.0
+
+paths:
+  /foo:
+    get:
+      parameters:
+        - in: query
+          name: year
+          schema:
+            type: integer
+            format: year
+            minimum: 1970
+            maximum: 2099
+----
+
+This is an issue if the parameter type is mapped to a different Java type.
+
+[source,yaml,subs=attributes+,title=openapi.yaml]
+----
+openapi-processor-mapping: {var-mapping-version}
+
+options:
+  package-name: generated
+  bean-validation: jakarta
+
+map:
+  types:
+    - type: integer:year => java.time.Year
+----
+
+In the example to `java.time.Year`, because both annotations are not supported on `java.time.Year`.
+
+To fix this, the processor does not add it if it is not allowed.
+
+
+In case the target type is not recognized automatically (and the annotations are dropped), for example on a custom `java.lang.Number` implementation, it is possible to tell the processor that an annotation is valid on that type.
+
+[source,yaml,subs=attributes+,title=mapping.yaml]
+----
+openapi-processor-mapping: {var-mapping-version}
+
+options:
+# ...
+
+map:
+# ...
+
+bean-validation:
+  jakarta.validation.constraints.DecimalMin:
+    - other.CustomInteger
+  jakarta.validation.constraints.DecimalMax:
+    - other.CustomInteger
+----
+
+=== dropping parameters by OpenAPI name
+
+dropping parameters did only work for parameters names if the OpenAPI name was identical to the Java name, i.e. no special characters. It does now handle special characters like `-`, `_` or ` ` (space).
+
+[source,yaml,subs=attributes+,title=mapping.yaml]
+----
+# ...
+
+map:
+ paths:
+   /foo:
+     get:
+       parameters:
+         - drop: foo-Param
+         - drop: barParam
+----
