@@ -238,10 +238,9 @@ it handles **multiple responses** by generating one endpoint method for each res
 it handles **relative `$ref` 's** between multiple yaml files.
 ====
 
-[.card]
-====
-it is tested with handles **relative `$ref` 's** between multiple yaml files.
-====
+// [.card]
+// ====
+// ====
 
 ++++
 </div>
