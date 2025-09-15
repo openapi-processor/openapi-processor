@@ -48,7 +48,6 @@ content:
       - 2023.5.x
       - 2023.4.x
       - 2023.3.x
-      - 2023.2.x
       - master
 
   - url: ../../openapi-processor-json
