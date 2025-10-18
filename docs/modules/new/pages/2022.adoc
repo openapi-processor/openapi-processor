@@ -1,0 +1,7 @@
+:toc:
+
+= 2022 Releases
+
+include::2022-10.adoc[]
+
+include::2022-05.adoc[]
