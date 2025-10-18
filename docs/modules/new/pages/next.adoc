@@ -4,6 +4,16 @@
 
 This just lists a few things that *may* happen in the future in no particular order. I'm working on this as times permits... &#x1f600;
 
+== Quarkus/JAX-RS support
+
+October 25
+
+this is a two part thing
+
+1. openapi-processor-jaxrs, this probably needs a few internal changes because the mapping is not described by a single annotation as with Spring or Micronaut.
+
+2. a quarkus extension
+
 == inline name mappings
 
 October 24
