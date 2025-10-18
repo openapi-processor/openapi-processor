@@ -8,7 +8,7 @@ image:openapi-processor-at-1280x200.png[openapi-processor]
 
 [.py-6]
 **openapi-processor**
-is a small framework that converts an link:{openapi}[OpenAPI] YAML (or JSON) descriptions to a target format. The primary target is Java code. It generates interfaces and DTOs (pojos or records) based on the API, and you implement the interfaces in your controllers.
+is a small framework that converts an link:{openapi}[OpenAPI 3.2, 3.1 or 3.0] YAML (or JSON) descriptions to a target format. The primary target is Java code. It generates interfaces and DTOs (POJOs or Records) based on the API, and you implement the interfaces in your controllers.
 
 The target programming language is Java, which makes the generated code usable from most JVM languages.
 
@@ -23,17 +23,29 @@ The *disadvantages* are:
 The *advantages* are:
 
 * you have a single place to maintain the api which makes it easier to create a consistent api and keep the overview.
+* it is easy to document in plain text. You can use Markdown in the OpenAPI `description` properties.
 * you don't need to manually write the controller annotations and remember all the annotation details.
 * you can skip generation of endpoints that have special (unsupported) requirements and write them manually.
-* it is easy to document in plain text. You can use Markdown in the OpenAPI `description` properties.
+* generating only interfaces (and DTOs) for the endpoints minimizes the constraints for implementing the endpoint methods.
 * it helps to keep the implementation in sync with the OpenAPI description. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
 
 [.py-6]
 **code generation** +
-A processor generates java interfaces based on the endpoint descriptions of the API and simple Pojo or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface, and all that is left to *you* is the implementation of the generated interfaces in any way you like.
+A processor generates java interfaces based on the endpoint descriptions of the API and simple POJO or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface, and all that is left to *you* is the implementation of the generated interfaces in any way you like.
 
 [.py-6]
 image::process-flow.png[process,700,align="center"]
+
+[.pt-6]
+**supported OpenAPI versions**
+[.card]
+====
+[cols="2,>1",frame=none,grid=none]
+|===
+2+a|it supports link:{openapi}[OpenAPI] 3.2 ([.badge .badge-since]+new with 2025.5+), 3.1 and 3.0.
+|===
+====
+
 
 [.pt-6]
 **supported target formats**
@@ -118,7 +130,7 @@ a|xref:maven::index.adoc[openapi-processor-*maven*]
 
 [.card]
 ====
-it generates **java interfaces and java dtos (pojo/record) classes** for all defined endpoints and schemas to allow full control of the endpoint implementation.
+it generates **java interfaces and java DTOs (POJO/Record) classes** for all defined endpoints and schemas to allow full control of the endpoint implementation.
 
 [source,java,title=endpoint interface]
 ----
@@ -130,7 +142,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Generated(value = "openapi-processor-spring", version = "2024.1")
+@Generated(value = "openapi-processor-spring", version = "...")
 public interface BarApi {
 
     /**
@@ -149,7 +161,7 @@ public interface BarApi {
 
 [.card]
 ====
-it has a **powerful type mapping configuration** (with generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or http method (of an endpoint).
+it has a **powerful type mapping configuration** (with generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or HTTP method (of an endpoint).
 
 [source,yaml,subs=attributes+,title=global type mapping]
 ----
@@ -167,7 +179,7 @@ map:
 
 [.card]
 ====
-it offers **annotation mapping** to add additional annotations to the dtos generated from the OpenAPI schemas.
+it offers **annotation mapping** to add additional annotations to the DTOs generated from the OpenAPI schemas.
 
 [source,yaml,subs=attributes+,title=global annotation mapping]
 ----
@@ -220,7 +232,7 @@ it supports **bean validations**. The constraints of the OpenAPI description map
 
 [.card]
 ====
-it supports **json merge patch** apis by generating pojos with jackson-databind-nullable where requested.
+it supports **JSON merge patch** apis by generating DTOs with jackson-databind-nullable where requested.
 ====
 
 [.card]
@@ -235,7 +247,7 @@ it handles **multiple responses** by generating one endpoint method for each res
 
 [.card]
 ====
-it handles **relative `$ref` 's** between multiple yaml files.
+it handles **relative `$ref` 's** between multiple YAML/JSON files.
 ====
 
 // [.card]
