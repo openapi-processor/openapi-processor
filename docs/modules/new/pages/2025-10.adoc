@@ -1,0 +1,68 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
+include::spring:ROOT:partial$vars.adoc[]
+
+== October 2025
+
+* openapi-processor-spring/micronaut 2025.5
+* openapi-processor-json 2025.1
+
+=== OpenAPI 3.2 support
+
+this version adds OpenAPI 3.2 support. It does support the following OpenAPI 3.2 features:
+
+* `$self`
+* `responses/.../.../.../itemSchema` stream response (#314)
+* `paths/.../query` HTTP method (#313)
+* `paths/additionalOperations/...` custom HTTP methods (#313)
+
+=== result mapping must not be a generic type
+
+So far the `result` mapping required a generic wrapper class, like Spring `ResponseEntity<>`. It no longer has to be a generic wrapper. It allows a `plain` replacement class that will be used as the return type.
+
+The current `result` mapping automatically assumes a generic wrapper class by default. To use a `plain` replacement type, i.e. no wrapper, it expects an *arrow mapping*:
+
+`plain => {target type}`
+
+which means, instead of the plain schema described in the OpenAPI response, use `target type`.
+
+[source,yaml,subs=attributes+,title=mapping.yaml]
+----
+openapi-processor-mapping: v15
+
+options:
+  package-name: io.openapiprocessor.generated
+
+map:
+
+  paths:
+    /foo:
+       # standard, result wrapper with generic parameter
+       result: org.springframework.http.ResponseEntity
+
+       # new, mapping of plain replacement class
+       result: plain => io.stream.Response
+----
+
+This allows to return types as Spring `SseEmitter` or Spring `StreamingResponseBody` from an endpoint implementation.
+
+=== generate unreferenced schemas
+
+By default, openapi-processor will only generate DTOs for schemas that are referenced by an endpoint.
+
+It is now possible to generate DTOs from unreferenced schemas under `component/schemas` by setting the `model-unreferenced` option to `true`.
+
+[source,yaml,subs=attributes+,title=mapping.yaml]
+----
+openapi-processor-mapping: v15
+
+options:
+  package-name: io.openapiprocessor.generated
+
+  # default is false
+  model-unreferenced: true
+----
+
+=== dependency updates
+
+* updated (internal) OpenAPI parser to 2025.5 (OpenAPI 3.2 support)
+* updated swagger parser to 2.1.34
