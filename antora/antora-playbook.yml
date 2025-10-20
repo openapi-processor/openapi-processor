@@ -15,6 +15,7 @@ content:
   - url: https://github.com/openapi-processor/openapi-processor-spring
     start_path: docs
     branches:
+      - 2025.5.x
       - 2025.4.x
       - 2025.3.x
       - 2025.2.x
@@ -28,12 +29,12 @@ content:
       - 2023.6.x
       - 2023.5.x
       - 2023.4.x
-      - 2023.3.x
 
   - url: https://github.com/openapi-processor/openapi-processor-micronaut
     start_path: docs
     branches:
-      - 2025.4.x
+      - 2025.5.x
+      - 2025.3.x
       - 2025.3.x
       - 2025.2.x
       - 2025.1.x
@@ -46,7 +47,6 @@ content:
       - 2023.6.x
       - 2023.5.x
       - 2023.4.x
-      - 2023.3.x
 
   - url: https://github.com/openapi-processor/openapi-processor-json
     start_path: docs
@@ -70,7 +70,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2025.5/ui-bundle.zip
+    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2025.6/ui-bundle.zip
 #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   default_layout: oap
