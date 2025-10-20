@@ -4,7 +4,6 @@ include::spring:ROOT:partial$vars.adoc[]
 == October 2025
 
 * openapi-processor-spring/micronaut 2025.5
-* openapi-processor-json 2025.1
 
 === OpenAPI 3.2 support
 
