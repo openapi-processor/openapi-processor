@@ -1,0 +1,255 @@
+= OpenAPI 3.2 with openapi-processor
+
+include::spring::partial$links.adoc[]
+
+:toc:
+:oap: https://openapiprocessor.io
+:date: 19. October 2025
+:generator: https://openapi-generator.tech
+:processor: https://openapi-processor.io
+:migrate32: https://learn.openapis.org/upgrading/v3.1-to-v3.2.html
+:stream32: https://learn.openapis.org/specification/media-types
+:bumbStreaming: https://bump.sh/blog/json-streaming-openapi-3-2/
+
+:latest: https://openapiprocessor.io/oap/new/2025-06.html
+:oap-sample-stream: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-stream-kt
+
+
+[small]#{date}#
+
+OpenAPI 3.2 was released last month. See link:{migrate32}[Upgrading from OpenAPI 3.1 to 3.2] for an overview of the changes.
+
+The newest openapi-processor-spring/micronaut 2025.6 releases add support for OpenAPI 3.2.
+
+This article will show use of two enhancements of OpenAPI 3.2 with openapi-processor-spring:
+
+* `$self`: it provides the base URI for resolving relative references
++
+It is used here with the link:package-names-from-location.adoc[_package-name-from-location_] feature and simplifies the `$ref` s in the OpenAPI description.
+
+* `itemSchema`: which is part of the link:{migrate32}[OpenAPI sequential and streaming media types] support. A bit more detail can be found in the blog article link:{bumbStreaming}[JSON Streaming in OpenAPI v3.2.0].
++
+It is used to show two sample streaming apis using Spring `SseEmitter` and `StreamingResponseBody`.
+
+
+== the sample OpenAPI
+
+Here is the sample OpenAPI
+
+[source,yaml,subs=attributes+,title="openapi.yaml"]
+----
+openapi: 3.2.0 # <1>
+$self: '../main/kotlin/io/openapiprocessor/samples/' #<2>
+info:
+  title: openapi-processor-spring stream sample api
+  version: 1.0.0
+
+servers:
+  - url: "https://openapiprocessor.io/{path}"
+    variables:
+      path:
+        default: api
+
+paths:
+  /sse:
+    $ref: 'sse/sse.yaml' # <2>
+
+  /jsonl:
+    $ref: 'jsonl/jsonl.yaml' # <2>
+----
+
+and the project directory layout.
+
+Because we like to derive the package names from the location we put the path item descriptions into the code packages. See link:package-names-from-location.adoc[_package-name-from-location_] for a more detailed explanation.
+
+[title="directory structure, api and sources"]
+----
+sample
+\---- src
+      +---- api
+      |     +---- mapping.yaml
+      |     \---- openapi.yaml
+      \---- main
+            +---- kotlin
+            |     \---- io
+            |           \---- openapiprocessor
+            |                 \---- samples
+            |                       +---- jsonl
+            |                       |     +---- JsonlController.kt
+            |                       |     \---- jsonl.yaml # <2>
+            |                       +---- sse
+            |                       |     +---- SseController.kt
+            |                       |     \---- sse.yaml # <2>
+            |                       \ StreamApplication.kt
+            \---- resources
+                  \---- application.properties
+----
+
+<1> the new OpenAPI version
+<2> this sets the base uri of the `openapi.yaml` document used for resolving relative references. This allows to shorten the `$ref` uris of the endpoints and avoids repeating the full relative path from the `openapi.yaml` entry document.
++
+Without `$self` the `$ref` s would look like this:
++
+[source,yaml,subs=attributes+,title="openapi.yaml"]
+----
+$ref: '../main/kotlin/io/openapiprocessor/samples/jsonl/jsonl.yaml'
+$ref: '../main/kotlin/io/openapiprocessor/samples/jsonl/sse.yaml'
+----
+
+== the streaming endpoints
+
+We have two sample endpoints, one that provides a `application/jsonl` stream ...
+
+[source,yaml,subs=attributes+,title="jsonl.yaml"]
+----
+get:
+  tags:
+    - jsonl
+  summary: stream objects
+  description: endpoint has a stream response
+  parameters:
+    - name: source
+      description: query, string
+      in: query
+      schema:
+        type: string
+  responses:
+    '200':
+      description: jsonl stream
+      content:
+        application/jsonl:
+          itemSchema: # <1>
+            type: object
+            properties:
+              foo:
+                type: string
+----
+
+and another one that provides server sent events:
+
+[source,yaml,subs=attributes+,title="sse.yaml"]
+----
+get:
+  tags:
+    - sse
+  summary: stream objects
+  description: endpoint has a stream response
+  parameters:
+    - name: source
+      description: query, string
+      in: query
+      schema:
+        type: string
+  responses:
+    '200':
+      description: sse
+      content:
+        application/json:
+          itemSchema: # <1>
+            type: object
+            properties:
+              foo:
+                type: string
+----
+
+<1> the `itemSchema` is a new keyword to describe the objects of the stream.
+
+== mapping configuration
+
+With Spring Boot (MVC) we will use `SseEmitter` as endpoint return type to send server sent events and `StreamingResponseBody` to send JSON lines.
+
+To tell the processor to use those classes as result type instead of the `itemSchema` we use a new variant of the `result` mapping. Everything else in the `mapping.yaml` is not important for this, just look at the `map:` at the end :-)
+
+[source,yaml,subs=attributes+,title="mapping.yaml"]
+----
+openapi-processor-mapping: v15
+
+options:
+  # shortcut to package-names.base
+  # package-name: io.openapiprocessor.samples
+
+  package-names:
+    # same as package-name
+    base: io.openapiprocessor.openapi
+    # this enables package generation from the endpoint $ref file location
+    location: io.openapiprocessor.samples
+
+  # target-dir options
+  target-dir:
+    # add src/resource directories to target-dir
+    layout: standard
+
+  # create a property file with server/url path (requires standard target-dir layout)
+  base-path:
+    server-url: 0
+    properties-name: api.properties
+
+  # generate javadoc from OpenAPI description properties
+  javadoc: true
+
+  # enable code/javadoc formatting
+  format-code: true
+
+  # generate java records
+  model-type: record
+
+map:
+  paths:
+    /sse:
+      result: plain => org.springframework.web.servlet.mvc.method.annotation.SseEmitter # <1>
+
+    /jsonl:
+      result: plain => org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody # <1>
+----
+
+<1> the new `result` mapping: instead of providing a wrapper class with a single generic parameter, like `ResponseEntity` we use an _arrow_ mapping:
++
+`plain => {target type}`
++
+which means, instead of the plain schema described in the OpenAPI response, use the `target type` as endpoint return type.
+
+== generated code
+
+After running the processor we will get this for the JSONL endpoint:
+
+.JsonlApi.java
+[source,java]
+----
+include::example$openapi32/jsonl/JsonlApi.java[]
+----
+
+.JsonlGetResponse200.java
+[source,java]
+----
+include::example$openapi32/jsonl/JsonlGetResponse200.java[]
+----
+
+(As the `itemSchema` is defined inline it gets a generated name, i.e. `JsonlGetResponse200`)
+
+And this for the SSE endpoint:
+
+.SseApi.java
+[source,java]
+----
+include::example$openapi32/sse/SseApi.java[]
+----
+
+.SseGetResponse200.java
+[source,java]
+----
+include::example$openapi32/sse/SseGetResponse200.java[]
+----
+
+(Again, as the `itemSchema` is defined inline it gets a generated name, i.e. `SseGetResponse200`)
+
+== the sample project
+
+The sample project is available in the link:{oap-sample-stream}[samples] repository. It has a simple implementation of the two endpoints (which you should not use as reference implementation).
+
+The sample has two HTTP client scripts (Intellij IDEA) to test each endpoint.
+
+== summary
+
+This article used two new OpenAPI 3.2 features, `$self` & `ìtemSchema` that openapi-processor does support with the latest version. `$self` is used to simplify the path item `$ref` s and `itemSchema` is used to describe the streaming payloads. With a `result` mapping the processor generated the endpoint methods with te mapped streaming result types.
+
+
