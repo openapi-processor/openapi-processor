@@ -19,7 +19,7 @@ include::spring::partial$links.adoc[]
 
 OpenAPI 3.2 was released last month. See link:{migrate32}[Upgrading from OpenAPI 3.1 to 3.2] for an overview of the changes.
 
-The newest openapi-processor-spring/micronaut 2025.6 releases add support for OpenAPI 3.2.
+The newest openapi-processor-spring/micronaut 2025.6 release adds support for OpenAPI 3.2.
 
 This article will show use of two enhancements of OpenAPI 3.2 with openapi-processor-spring:
 
@@ -29,14 +29,14 @@ It is used here with the link:package-names-from-location.adoc[_package-name-fro
 
 * `itemSchema`: which is part of the link:{migrate32}[OpenAPI sequential and streaming media types] support. A bit more detail can be found in the blog article link:{bumbStreaming}[JSON Streaming in OpenAPI v3.2.0].
 +
-It is used to show two sample streaming apis using Spring `SseEmitter` and `StreamingResponseBody`.
+It is used to show two sample streaming apis using Spring `SseEmitter` and `StreamingResponseBody` and the required mapping.
 
 
 == the sample OpenAPI
 
 Here is the sample OpenAPI
 
-[source,yaml,subs=attributes+,title="openapi.yaml"]
+[source,yaml,title="openapi.yaml"]
 ----
 openapi: 3.2.0 # <1>
 $self: '../main/kotlin/io/openapiprocessor/samples/' #<2>
