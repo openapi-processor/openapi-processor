@@ -25,7 +25,7 @@ This article will show use of two enhancements of OpenAPI 3.2 with openapi-proce
 
 * `$self`: it provides the base URI for resolving relative references
 +
-It is used here with the link:package-names-from-location.adoc[_package-name-from-location_] feature and simplifies the `$ref` s in the OpenAPI description.
+It is used here with the xref:processor/package-names-from-location.adoc[_package-name-from-location_] feature and simplifies the `$ref` s in the OpenAPI description.
 
 * `itemSchema`: which is part of the link:{migrate32}[OpenAPI sequential and streaming media types] support. A bit more detail can be found in the blog article link:{bumbStreaming}[JSON Streaming in OpenAPI v3.2.0].
 +
