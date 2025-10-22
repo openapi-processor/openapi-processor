@@ -52,15 +52,13 @@ servers:
 
 paths:
   /sse:
-    $ref: 'sse/sse.yaml' # <2>
+    $ref: 'sse/sse.yaml' # <3>
 
   /jsonl:
-    $ref: 'jsonl/jsonl.yaml' # <2>
+    $ref: 'jsonl/jsonl.yaml' # <3>
 ----
 
 and the project directory layout.
-
-Because we like to derive the package names from the location we put the path item descriptions into the code packages. See link:package-names-from-location.adoc[_package-name-from-location_] for a more detailed explanation.
 
 [title="directory structure, api and sources"]
 ----
@@ -76,17 +74,18 @@ sample
             |                 \---- samples
             |                       +---- jsonl
             |                       |     +---- JsonlController.kt
-            |                       |     \---- jsonl.yaml # <2>
+            |                       |     \---- jsonl.yaml # <4>
             |                       +---- sse
             |                       |     +---- SseController.kt
-            |                       |     \---- sse.yaml # <2>
+            |                       |     \---- sse.yaml # <4>
             |                       \ StreamApplication.kt
             \---- resources
                   \---- application.properties
 ----
 
 <1> the new OpenAPI version
-<2> this sets the base uri of the `openapi.yaml` document used for resolving relative references. This allows to shorten the `$ref` uris of the endpoints and avoids repeating the full relative path from the `openapi.yaml` entry document.
+<2> this sets the base uri of the `openapi.yaml` document used for resolving relative references.
+<3> the `$self` allows to shorten the `$ref` uris of the endpoints and avoids repeating the full relative path from the `openapi.yaml` entry document.
 +
 Without `$self` the `$ref` s would look like this:
 +
@@ -95,6 +94,10 @@ Without `$self` the `$ref` s would look like this:
 $ref: '../main/kotlin/io/openapiprocessor/samples/jsonl/jsonl.yaml'
 $ref: '../main/kotlin/io/openapiprocessor/samples/jsonl/sse.yaml'
 ----
+
+<4> the OpenAPI path items of the endpoints. Putting them in a source package makes it possible to use the package name of the location as package name for generated files.
++
+link:package-names-from-location.adoc[_package-name-from-location_] describes this in more detail.
 
 == the streaming endpoints
 
@@ -224,7 +227,7 @@ include::example$openapi32/jsonl/JsonlApi.java[]
 include::example$openapi32/jsonl/JsonlGetResponse200.java[]
 ----
 
-(As the `itemSchema` is defined inline it gets a generated name, i.e. `JsonlGetResponse200`)
+Because the `itemSchema` is defined inline it gets a generated name, i.e. `JsonlGetResponse200`.
 
 And this for the SSE endpoint:
 
@@ -240,7 +243,7 @@ include::example$openapi32/sse/SseApi.java[]
 include::example$openapi32/sse/SseGetResponse200.java[]
 ----
 
-(Again, as the `itemSchema` is defined inline it gets a generated name, i.e. `SseGetResponse200`)
+Again, because the `itemSchema` is defined inline it gets a generated name, i.e. `SseGetResponse200`.
 
 == the sample project
 
