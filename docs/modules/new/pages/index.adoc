@@ -2,6 +2,8 @@
 
 = What's New
 
+include::2025-12g.adoc[]
+
 include::2025-10.adoc[]
 
 include::2025-09.adoc[]

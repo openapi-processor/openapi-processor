@@ -1,0 +1,93 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
+include::spring:ROOT:partial$vars.adoc[]
+
+== December 2025
+
+* openapi-processor-gradle 2025.1
+
+This version will only work with gradle 7+, use 2021.3 with gradle 5.5+
+
+[cols="2*",options="header"]
+|===
+| minimum gradle version
+| minimum java version
+
+| 8.2+ with kotlin dsl +
+7.2+ with groovy dsl
+| 17
+
+|===
+
+=== migrated to kotlin
+
+the plugin is now (mostly) written in kotlin
+
+=== gradle 9 compatibility
+
+fixed all deprecated warnings for gradle 9
+
+=== configuration improvements
+
+it is now possible to
+
+* pass a file path created by layout to `apiPath`:
++
+[source,kotlin]
+----
+// kotlin dsl
+ openapiProcessor {
+    apiPath(layout.projectDirectory.file("src/api/openapi.yaml"))
+}
+----
+
+*  pass a directory path created by layout to `targetDir`:
++
+[source,kotlin]
+----
+// kotlin dsl
+ openapiProcessor {
+    process("spring") {
+        targetDir(layout.buildDirectory.dir("openapi"))
+    }
+}
+----
+
+* pass a file to the mapping property:
++
+[source,kotlin]
+----
+// kotlin dsl
+ openapiProcessor {
+    process("spring") {
+        prop("mapping", layout.projectDirectory.file("src/api/mapping.yaml"))
+    }
+}
+----
+
+* compile generated code without dependsOn()
++
+[source,kotlin]
+----
+// kotlin dsl
+sourceSets {
+    create("api") {
+        resources {
+            // add api resources
+            srcDir(layout.projectDirectory.dir("src/api"))
+        }
+    }
+
+    afterEvaluate {
+        main {
+            java {
+                // add generated files
+                srcDir(tasks.named("processSpring"))
+            }
+        }
+    }
+}
+----
+
+=== detect mapping.yaml changes outside of apiDir
+
+Gradle does now include the `mapping.yaml` in the up-to-date check if it is outside the `apiDir`.

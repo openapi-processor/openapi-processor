@@ -3,20 +3,22 @@
 * xref:jdk.adoc[JDK 16+]
 
 * xref:new:index.adoc[What's New]
-** [small]#2025#
+** [small]#2025 gradle#
+*** xref:new:2025-12g.adoc[2025.1 [small]#(December)#]
+** [small]#2025 processor#
 *** xref:new:2025-10.adoc[2025.5 [small]#(October)#]
 *** xref:new:2025-09.adoc[2025.4 [small]#(September)#]
 *** xref:new:2025-06.adoc[2025.3 [small]#(June)#]
 *** xref:new:2025-04.adoc[2025.2 [small]#(April)#]
 *** xref:new:2025-03.adoc[2025.1 [small]#(March)#]
-** [small]#2024#
+** [small]#2024 processor#
 *** xref:new:2024-11.adoc[2024.6 [small]#(November)#]
 *** xref:new:2024-10.adoc[2024.5 [small]#(October)#]
 *** xref:new:2024-06.adoc[2024.4 [small]#(June)#]
 *** xref:new:2024-05.adoc[2024.3 [small]#(May)#]
 *** xref:new:2024-04.adoc[2024.2 [small]#(April)#]
 *** xref:new:2024-02.adoc[2024.1 [small]#(February)#]
-** [small]#2023#
+** [small]#2023 processor#
 *** xref:new:2023-11.adoc[2023.6 [small]#(November)#]
 *** xref:new:2023-10.adoc[2023.5 [small]#(October)#]
 *** xref:new:2023-09.adoc[2023.4 [small]#(September)#]
