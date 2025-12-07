@@ -52,7 +52,7 @@ content:
 
   - url: https://github.com/openapi-processor/openapi-processor-gradle
     start_path: docs
-    branches: [2023.2.x, 2023.1.x, 2022.2.x, 2022.1.x, 2021.3.x]
+    branches: [2025.1.x, 2023.2.x, 2023.1.x, 2022.2.x, 2022.1.x, 2021.3.x]
 
   - url: https://github.com/openapi-processor/openapi-processor-samples
     start_path: docs
@@ -64,7 +64,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2025.6/ui-bundle.zip
+    url: https://github.com/openapi-processor/openapi-processor-site-ui/releases/download/v2025.7/ui-bundle.zip
 #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   default_layout: oap
