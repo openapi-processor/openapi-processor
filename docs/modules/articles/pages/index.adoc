@@ -25,3 +25,7 @@
 == 2020
 === xref:articles:mapping/array-mapping.adoc[array type mapping]
 === xref:articles:mapping/pageable-page-mapping.adoc[Spring Boot: mapping Pageable & Page]
+
+=== link:https://dev.to/hauner/openapi-processor-spring-type-mapping-4ecj[openapi-processor-spring type mapping]
+=== link:https://dev.to/hauner/configuring-openapi-processor-maven-39pf[openapi-processor-maven]
+=== link:https://dev.to/hauner/openapi-processor-spring-368k[openapi-processor-spring intro]
