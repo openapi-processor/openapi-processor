@@ -88,5 +88,8 @@ antora:
 
 asciidoc:
   sourcemap: true
+  attributes:
+    icons: font
+    source-highlighter: highlight.js
   extensions:
     - ./lib/tabs-block.js
