@@ -1,0 +1,104 @@
+include::spring:ROOT:partial$vars.adoc[]
+
+== January 2026
+
+* openapi-processor-spring/micronaut 2026.1
+
+
+=== add (marker) interfaces to schema classes via mapping
+
+this version adds interface mapping. This makes it possible to let the generated pojos/records implement (marker) interfaces.
+
+[source,yaml,title=mapping.yaml]
+----
+openapi-processor-mapping: v16
+
+options:
+  package-name: io.openapiprocessor.openapi
+  model-type: record
+
+map:
+  types:
+    - type: Foo =+ java.io.Serializable
+
+    # apply the mapping to ALL generated models/DTOs
+    - type: object =+ java.io.Serializable
+
+  parameters:
+    - type: Bar =+ java.io.Serializable
+
+  # can be used at endpoint level, makes only sense if the models/DTOs are specific to the endpoint
+  paths:
+    /foo:
+      types:
+        - type: Foo =+ java.io.Serializable
+
+      parameters:
+        - type: Foo =+ java.io.Serializable
+
+      get:
+        types:
+          - type: Foo =+ java.io.Serializable
+
+        parameters:
+          - type: Foo =+ java.io.Serializable
+----
+
+This would generate a `Foo` model/DTO like this:
+
+[source,java,title=Foo.java]
+----
+@Generated(value = "openapi-processor-spring",  version = "2026.1")
+public record Foo(@JsonProperty("foo") String foo) implements Serializable {}
+----
+
+==== alternative mapping keywords
+
+the mapping does understand keywords additionally to the mapping operators. Instead of using the operators, it is possible to use `map`, `annotate`, or `implement`.
+
+[source,yaml,title=keywords]
+----
+some-key: {source type} => {target type}
+some-key: {source type} map {target type}
+
+some-key: {source type} @ {target type}
+some-key: {source type} annotate {target type}
+
+some-key: {source type} =+ {target type}
+some-key: {source type} implement {target type}
+----
+
+==== oneOf interface
+
+generation of the oneOf interface does no longer duplicate the interface in the implements list.
+
+==== configure allowed targets for annotations
+
+annotation mapping may place annotations on types, fields, methods or parameters where an annotation is not allowed, i.e., `java.lang.annotation.Target` does not include that target (type, field, etc.)
+
+openapi-processor can't check the allowed targets of java.lang.annotation.Target directly, because the annotations are not available on its classpath. They are just strings.
+
+To solve this issue, it is now possible to configure the allowed targets of an annotation. The mapping.yaml has a new section annotation-targets. This is a map from annotation name to set of allowed targets.
+
+[source,yaml,title=mapping.yaml]
+----
+openapi-processor-mapping: v16
+options:
+  package-name: pkg
+
+map:
+  types:
+    - type: Foo @ lombok.Builder
+
+annotation-targets:
+  # possible entries 'type', 'field', 'method' & 'parameter'
+  lombok.Builder: ['type', 'method']
+----
+
+You don't have to explicitly add `lombok.Builder`. openapi-processor has a default list of know annotations. If there are other common annotations, I can add them to the default list.
+
+The default list is quite short at the moment:
+
+current default list
+
+ -  `lombok.Builder: ['type', 'method']`
