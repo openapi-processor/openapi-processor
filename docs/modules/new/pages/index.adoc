@@ -2,7 +2,7 @@
 
 = What's New
 
-// include::2026-01.adoc[]
+include::2026-01.adoc[]
 
 include::2025-12g.adoc[]
 
