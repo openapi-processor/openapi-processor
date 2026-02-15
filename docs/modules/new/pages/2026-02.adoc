@@ -42,4 +42,4 @@ map:
 #        body-style: object
 ----
 
-IMPORTANT: Currently, the `body-style` mapping is only supported on `application/x-www-form-urlencoded`.
+NOTE: Currently, the `body-style` mapping is only supported on `application/x-www-form-urlencoded`.
