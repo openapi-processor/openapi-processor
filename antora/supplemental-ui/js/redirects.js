@@ -1,11 +1,13 @@
 const redirects = [
     /* spring */
+    {current: /(\/spring\/2025\.\d+)/, target: '/spring'},
     {current: /(\/spring\/2024\.\d+)/, target: '/spring'},
     {current: /(\/spring\/2023\.\d+)/, target: '/spring'},
     {current: /(\/spring\/2022\.\d+)/, target: '/spring'},
     {current: /(\/spring\/2021\.\d+)/, target: '/spring'},
     {current: /(\/spring\/2020\.\d+)/, target: '/spring'},
     /* micronaut */
+    {current: /(\/micronaut\/2025\.\d+)/, target: '/micronaut'},
     {current: /(\/micronaut\/2024\.\d+)/, target: '/micronaut'},
     {current: /(\/micronaut\/2023\.\d+)/, target: '/micronaut'},
     {current: /(\/micronaut\/2022\.\d+)/, target: '/micronaut'},
