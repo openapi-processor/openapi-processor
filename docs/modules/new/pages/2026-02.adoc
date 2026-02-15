@@ -1,0 +1,45 @@
+include::spring:ROOT:partial$vars.adoc[]
+
+== February 2026
+
+* openapi-processor-spring/micronaut 2026.2
+
+=== accept 1xx/3xx as "success" codes
+
+By default, openapi-processor expected at least one response with a 2xx status code. This caused an
+
+`endpoint '/<.. an endpoint ..>' has no success 2xx response.`
+
+error if the endpoint did have a `1xx` or `3xx` but no `2xx` status code.
+
+Both are not error codes; therefore, `1xx` and `3xx` are considered now as _success_ responses.
+
+== application/x-www-form-urlencoded
+
+openapi-processor does now properly handle `application/x-www-form-urlencoded`. This means it properly destructures the response body into method parameters like it does for `multipart/form-data` requests.
+
+To receive the request body as a single object parameter, add a `body-style` mapping. `body-style` supports all the usual mapping levels: global, endpoint and endpoint method.
+
+[source,yaml,title=mapping.yaml]
+----
+openapi-processor-mapping: v17
+
+options:
+  package-name: io.openapiprocessor.openapi
+
+map:
+  # global
+  body-style: object
+  #body-style: destructure # default
+
+  paths:
+    /foo:
+      # endpoint
+      body-style: object
+
+      # endpoint method
+#      post:
+#        body-style: object
+----
+
+IMPORTANT: Currently, the `body-style` mapping is only supported on `application/x-www-form-urlencoded`.
