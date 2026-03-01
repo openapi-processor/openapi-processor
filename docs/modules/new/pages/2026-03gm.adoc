@@ -1,0 +1,49 @@
+:sample: https://github.com/openapi-processor/openapi-processor-samples/tree/master/samples/spring-mvc-boot-4-packages-kt
+include::spring:ROOT:partial$vars.adoc[]
+
+== March 2026
+
+== openapi-processor-gradle 2026.1
+
+=== no need for afterEvaluate
+
+In previous versions it was necessary to access the processor tasks from an afterEvaluate block. This is no longer necessary.
+
+A simple configuration (apart from the processor configuration itself) to automatically process an OpenAPI YAML and build the generated sources can look like this:
+
+[source,kotlin]
+----
+sourceSets {
+    create("api") {
+        resources {
+            srcDir(layout.projectDirectory.dir("src/api"))
+        }
+    }
+
+    main {
+        java {
+            srcDir(tasks.named("processSpring"))
+        }
+    }
+}
+----
+
+=== Gradle 10 compatibility
+
+fixed a Gradle 10 compatibility warning
+
+
+== openapi-processor-maven 2026.1
+
+
+=== added <processor/>
+
+The `<processor/>` configuration is necessary to run a single processor on multiple inputs. See the documentation for more.
+
+=== fixed <targetDir/>
+
+automatic `<targetDir/>` selection did not select the correct folder when using `<processor/>`
+
+=== updated dependencies
+
+updated dependencies to maven 3.9
