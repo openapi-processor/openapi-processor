@@ -41,11 +41,11 @@ content:
 
   - url: ../../openapi-processor-maven
     start_path: docs
-    branches: [2024.1.x, 2021.1.x, 1.0.x, master]
+    branches: [2026.1.x, 2024.1.x, 2021.1.x, 1.0.x, master]
 
   - url: ../../openapi-processor-gradle
     start_path: docs
-    branches: [2025.1.x, 2023.2.x, 2023.1.x, 2022.2.x, 2022.1.x, 2021.3.x, master]
+    branches: [2026.1.x, 2025.1.x, 2023.2.x, 2023.1.x, 2022.2.x, 2022.1.x, master]
 
   - url: ../../openapi-processor-samples
     start_path: docs
