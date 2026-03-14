@@ -2,6 +2,8 @@
 
 = What's New
 
+include::2026-03.adoc[]
+
 include::2026-03gm.adoc[]
 
 include::2026-02.adoc[]

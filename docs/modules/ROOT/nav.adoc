@@ -3,11 +3,12 @@
 * xref:jdk.adoc[JDK 16+]
 
 * xref:new:index.adoc[What's New]
-** [small]#2026 gradle/maven#
-*** xref:new:2026-03gm.adoc[2026.1 [small]#(December)#]
 ** [small]#2026 processor#
+*** xref:new:2026-03.adoc[2026.3 [small]#(March)#]
 *** xref:new:2026-02.adoc[2026.2 [small]#(February)#]
 *** xref:new:2026-01.adoc[2026.1 [small]#(January)#]
+** [small]#2026 gradle/maven#
+*** xref:new:2026-03gm.adoc[2026.1 [small]#(March)#]
 ** [small]#2025 gradle#
 *** xref:new:2025-12g.adoc[2025.1 [small]#(December)#]
 ** [small]#2025 processor#

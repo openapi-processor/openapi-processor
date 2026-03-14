@@ -8,7 +8,7 @@ This just lists a few things that *may* happen in the future in no particular or
 
 October 25
 
-this is a two part thing
+this is a two-part thing
 
 1. openapi-processor-jaxrs, this probably needs a few internal changes because the mapping is not described by a single annotation as with Spring or Micronaut.
 
@@ -18,7 +18,7 @@ this is a two part thing
 
 October 24
 
-the processor automatically generates names based on the yaml/json path for inline types (so they are unique). May be nice to map the generated name to a nicer name.
+the processor automatically generates names based on the yaml/json path for inline types, (so they are unique). Maybe nice to map the generated name to a nicer name.
 
 == autodetect unused mappings
 
@@ -32,10 +32,10 @@ October 24
 
 - native compilation
 
-it is possible, don't know yet how to run native test, compiling tests as native image fails.
+it is possible, don't know yet how to run native test, compiling tests as a native image fails.
 
 
-== json schema validator
+== JSON schema validator
 
 May 24
 

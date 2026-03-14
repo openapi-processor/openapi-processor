@@ -1,0 +1,52 @@
+include::spring:ROOT:partial$vars.adoc[]
+
+== March 2026
+
+* openapi-processor-spring/micronaut 2026.3
+
+=== jackson 3 support
+
+it is now possible to switch between Jackson v2 and Jackson v3.
+
+[source,yaml,title=mapping.yaml]
+----
+openapi-processor-mapping: v18
+
+options:
+  package-name: ...
+
+  # jackson version (optional): v2 (default), v3
+  jackson: v2
+  #jackson: v3
+----
+
+=== fixed a stack overflow error
+
+combining a property like payload
+
+[source,yaml,title=openapi.yaml]
+----
+MyRequest:
+  type: object
+  properties:
+    payload:
+      type: string
+      format: byte
+----
+
+with a type mapping and enabling bean validation
+
+[source,yaml,title=mapping.yaml]
+----
+openapi-processor-mapping: v17
+
+options:
+  package-name: ....
+  bean-validation: jakarta
+
+map:
+  types:
+    - type: string:byte => byte[]
+----
+
+caused a stack overflow error.
