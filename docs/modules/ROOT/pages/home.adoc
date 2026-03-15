@@ -22,98 +22,104 @@ The *disadvantages* are:
 
 The *advantages* are:
 
-* you have a single place to maintain the api which makes it easier to create a consistent api and keep the overview.
-* it is easy to document in plain text. You can use Markdown in the OpenAPI `description` properties.
-* you don't need to manually write the controller annotations and remember all the annotation details.
-* you can skip generation of endpoints that have special (unsupported) requirements and write them manually.
-* generating only interfaces (and DTOs) for the endpoints minimizes the constraints for implementing the endpoint methods.
-* it helps to keep the implementation in sync with the OpenAPI description. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
+* you have a **single place to maintain the api** which makes it easier to create a consistent api and keep the overview.
+* it is **easy to document** in plain text. You can use **Markdown** in the OpenAPI `description` properties.
+* **no need to manually write controller annotations** and remember all the annotation details.
+* you can **skip generation of single endpoints** that have special (unsupported) requirements and write them manually.
+* generating only interfaces (and DTOs) for the endpoints **minimizes the constraints for implementing the endpoint methods**.
+* it helps to **keep the implementation in sync with the OpenAPI description**. If anything relevant changes in the API the interface changes and the compiler will warn that the interface is not implemented correctly.
 
 [.py-6]
 **code generation** +
-A processor generates java interfaces based on the endpoint descriptions of the API and simple POJO or Record classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface, and all that is left to *you* is the implementation of the generated interfaces in any way you like.
+A processor generates **Java interfaces** based on the endpoint descriptions of the API and simple **POJO** or **Record** classes for parameter or response schemas defined in the API with the help of the type mapping configuration. The processor adds all the required annotations to the interface, and all that is left to *you* is the implementation of the generated interfaces in any way you like.
 
 [.py-6]
 image::process-flow.png[process,700,align="center"]
 
-[.pt-6]
+[.pt-6.text-center]
 **supported OpenAPI versions**
-[.card]
+
+++++
+<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+++++
+[.card.w-half]
 ====
 [cols="2,>1",frame=none,grid=none]
 |===
-2+a|it supports link:{openapi}[OpenAPI] 3.2 ([.badge .badge-since]+new with 2025.5+), 3.1 and 3.0.
+2+a|it supports link:{openapi}[OpenAPI] 3.2 ([.badge .badge-since]+since 2025.5+), 3.1 and 3.0.
 |===
 ====
+++++
+</div>
+++++
 
-
-[.pt-6]
+[.pt-6.text-center]
 **supported target formats**
 
 ++++
-<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
 ++++
-[.card]
+[.card.w-half]
 ====
 [cols="2,>1",frame=none,grid=none]
 |===
 a|xref:spring::index.adoc[openapi-processor-*spring*]
 |link:{oap-central}[image:{central-spring}[]]
 
-2+a|creates link:{springboot}[Spring Boot] java interfaces & dtos (pojos or records) from the OpenAPI description using spring annotations.
+2+a|creates link:{springboot}[Spring Boot] java interfaces & DTOs (POJOs or records) from the OpenAPI description using Spring annotations.
 |===
 ====
 
-[.card]
+[.card.w-half]
 ====
 [cols="2,>1",frame=none,grid=none]
 |===
 a|xref:micronaut::index.adoc[openapi-processor-*micronaut*]
 |link:{oap-central}[image:{central-micronaut}[]]
 
-2+a|creates link:{micronaut}[Micronaut] java interfaces & dtos (pojos or records) from the OpenAPI description using micronaut annotations.
+2+a|creates link:{micronaut}[Micronaut] java interfaces & DTOs (POJOs or records) from the OpenAPI description using Micronaut annotations.
 |===
 ====
 
-// [.card]
-// ====
-// [cols="2,>1",frame=none,grid=none]
-// |===
-// a|xref:json::index.adoc[openapi-processor-*json*]
-// |link:{oap-central}[image:{central-json}[]]
-//
-// 2+a|converts the OpenAPI yaml description to json format.
-// |===
-// ====
+[.card.w-half]
+====
+[cols="3,>1",frame=none,grid=none]
+|===
+a|xref:json::index.adoc[openapi-processor-*json*]
+|link:{oap-central}[image:{central-json}[]]
+
+2+a|converts the OpenAPI YAML description to JSON format. It inlines all `$ref` s.
+|===
+====
 ++++
 </div>
 ++++
 
-[.pt-6]
-**supported build tools**
+[.pt-6.text-center]
+*supported build tools*
 
 ++++
-<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
 ++++
-[.card]
+[.card.w-half]
 ====
 [cols="2,>1",frame=none,grid=none]
 |===
 a|xref:gradle::index.adoc[openapi-processor-*gradle*]
 |link:{gradle-gradle}[image:{version-gradle}[]]
 
-2+a|gradle plugin to run any processor from link:{gradle}[Gradle].
+2+a|Gradle plugin to run any processor from link:{gradle}[Gradle].
 |===
 ====
 
-[.card]
+[.card.w-half]
 ====
 [cols="2,>1",frame=none,grid=none]
 |===
 a|xref:maven::index.adoc[openapi-processor-*maven*]
 |link:{oap-central}[image:{central-maven}[]]
 
-2+a|maven plugin to run any processor from link:{maven}[Maven].
+2+a|mMaven plugin to run any processor from link:{maven}[Maven].
 |===
 ====
 ++++
@@ -121,8 +127,8 @@ a|xref:maven::index.adoc[openapi-processor-*maven*]
 ++++
 
 
-[.pt-6]
-**.. a few things it can do**
+[.pt-6.text-center]
+*a few things it can do ...*
 
 ++++
 <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
@@ -130,40 +136,69 @@ a|xref:maven::index.adoc[openapi-processor-*maven*]
 
 [.card]
 ====
-it generates **java interfaces and java DTOs (POJO/Record) classes** for all defined endpoints and schemas to allow full control of the endpoint implementation.
+image::home/file-plus.svg[width=40]
+
+it generates **Java interfaces and DTOs (POJO or Record)** classes for all defined endpoints and schemas to allow full control of the endpoint implementation.
+
+It generates **human-readable code,** and if that is not enough, it can re-format the code by passing it to a code-formatter.
 
 [source,java,title=endpoint interface]
 ----
-package io.openapiprocessor.openapi.api;
+package io.openapiprocessor.samples.foo;
 
 import io.openapiprocessor.openapi.support.Generated;
-import io.openapiprocessor.samples.MappedBar;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Generated(value = "openapi-processor-spring", version = "...")
-public interface BarApi {
+@Generated( value = "openapi-processor-spring", version = "...")
+public interface FooApi {
 
-    /**
-     * echo a Bar.
-     * simple sample endpoint
-     *
-     * @return bar
-     */
-    @PostMapping(path = "/bar", consumes = {"application/json"}, produces = {"application/json"})
-    MappedBar postBar(@RequestBody(required = false) @Valid MappedBar body);
+  /**
+   * echo a Foo. simple sample endpoint
+   *
+   * @return foo
+   */
+  @PostMapping(
+      path = "/foo",
+      consumes = {"application/json"},
+      produces = {"application/json"})
+  Foo postFoo(@RequestBody(required = false) @Valid Foo body);
 
 }
+
 ----
 
+[source,java,title=DTO]
+----
+package io.openapiprocessor.samples.foo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.openapiprocessor.openapi.support.Generated;
+import jakarta.validation.constraints.Size;
+import java.util.UUID;
+
+/**
+ * Foo object description
+ *
+ * @param foo foo property description
+ * @param id id property description
+ */
+@Generated( value = "openapi-processor-spring", version = "...")
+public record Foo(@Size(max = 10) @JsonProperty("foo") String foo, @JsonProperty("id") UUID id) {
+}
+----
 ====
 
 [.card]
 ====
-it has a **powerful type mapping configuration** (with generic support) to map schemas defined in the OpenAPI description to existing java types. Mappings can be defined globally, for a specific response, parameter or endpoint or HTTP method (of an endpoint).
+image::home/arrow-big-right-dash.svg[width=40]
 
-[source,yaml,subs=attributes+,title=global type mapping]
+it has a xref:spring::mapping/index.adoc[*powerful type mapping configuration*] (with *generic support*, allows *nesting*) to map schemas defined in the OpenAPI description to existing Java types.
+
+Mappings can be defined globally, for an endpoint, response, parameter or HTTP method. More specific mappings override less specific mappings.
+
+[source,yaml,subs=attributes+,title=type mapping]
 ----
 openapi-processor-mapping: {var-mapping-version}
 options:
@@ -173,13 +208,37 @@ map:
   types: # list of global mappings
     - type: array => java.util.Collection
     - type: string:date-time => java.time.Instant
+
+  paths:
+    # endpoint mappings
+    /endpoint:
+      types:
+        # generated DTO implements Serializable
+        - type: Schema =+ java.io.Serializable
+
+      parameters:
+        # map parameters
+        - name: foo => java.util.List
+        - add: bar => java.util.Set
+
+      responses:
+        # map responses
+        - content: application/vnd.any => java.util.Set
+        - content: application/json => java.util.Map
+
+      # HTTP method mappings
+      get:
+        types:
+          - type: Foo => MappedFoo
 ----
 
 ====
 
 [.card]
 ====
-it offers **annotation mapping** to add additional annotations to the DTOs generated from the OpenAPI schemas.
+image::home/at-sign.svg[width=40]
+
+it offers xref:spring::mapping/annotation.adoc[*annotation mapping*] to add additional annotations to the DTOs generated from the OpenAPI schemas.
 
 [source,yaml,subs=attributes+,title=global annotation mapping]
 ----
@@ -197,6 +256,38 @@ map:
 
 [.card]
 ====
+image::home/folder-tree.svg[width=40]
+
+it can generate code into **Java packages** by placing OpenAPI YAML fragments into the desired package and `$ref` ing it from the main `openapi.yaml`. This works best with OpenAPI 3.2 and the new `$self` property.
+
+The processor will generate the code based on `foo.yaml` and `resources.yaml` into the `io.openapiprocessor.samples.foo` package.
+
+----
+sample
+\---- src
+      +---- api
+      |     +---- mapping.yaml
+      |     \---- openapi.yaml
+      \---- main
+            +---- kotlin
+            |     +---- io
+            |     |     \---- openapiprocessor
+            |     |           \---- samples
+            |     |                 +---- foo
+            |     |                 |     +---- FooController.kt
+            |     |                 |     +---- foo.yaml
+            |     |                 |     \---- resources.yaml
+            |     |                 \---- bar
+            |     |                       \---- ...
+            \---- resources
+                  \---- application.properties
+----
+====
+
+[.card]
+====
+image::home/copy-plus.svg[width=40]
+
 it can map OpenAPI `x-` tensions to add additional annotations to schema properties.
 
 [source,yaml,subs=attributes+,title=global x-tension mapping]
@@ -215,39 +306,73 @@ map:
 ----
 ====
 
-[.card]
+
+[.card.w-third]
 ====
-it can add **additional parameters** to an endpoint which are not defined in the OpenAPI description. For example to pass an `HttpServletRequest` to the endpoint implementation which is nothing you want to describe in the API.
+image::home/link-2.svg[width=40]
+
+it handles **relative `$ref` 's** between multiple OpenAPI YAML/JSON files.
 ====
 
-[.card]
+[.card.w-third]
 ====
-it generates **human-readable code**.
+image::home/circle-plus.svg[width=40]
+
+it can **add additional parameters** to an endpoint which are not defined in the OpenAPI description. For example, to pass an `HttpServletRequest` to the endpoint implementation which is nothing you want to describe in the API.
 ====
 
-[.card]
+[.card.w-third]
 ====
-it supports **bean validations**. The constraints of the OpenAPI description map to java bean validation annotations.
+image::home/circle-minus.svg[width=40]
+
+it can **drop parameters** of an endpoint defined in the OpenAPI description. This may be useful if a parameter is handled by a request filter and therefore is not needed in the endpoint method anymore.
 ====
 
-[.card]
+[.card.w-third]
 ====
-it supports **JSON merge patch** apis by generating DTOs with jackson-databind-nullable where requested.
+image::home/tag.svg[width=40]
+
+it can generate **marker interfaces** for responses instead of using `Object` in case an endpoint has multiple different responses. This makes code navigation easier.
 ====
 
-[.card]
+// [.card.w-half]
+// ====
+// Jackson v2 and v3 support.
+// ====
+
+[.card.w-third]
 ====
-it allows to **exclude endpoints** from generation. This is useful if the processor does not create the correct code for an endpoint. That way the processor can still be used for all the other endpoints.
+image::home/shield-check.svg[width=40]
+
+it supports **bean validations** (`javax` and `jakarta`). The constraints of the OpenAPI description map to java bean validation annotations.
 ====
 
-[.card]
+[.card.w-third]
 ====
-it handles **multiple responses** by generating one endpoint method for each response content type.
+image::home/layers-2.svg[width=40]
+
+it supports **JSON merge patch** apis by generating DTOs with https://github.com/OpenAPITools/jackson-databind-nullable[jackson-databind-nullable] where requested.
 ====
 
-[.card]
+[.card.w-third]
 ====
-it handles **relative `$ref` 's** between multiple YAML/JSON files.
+image::home/file-x.svg[width=40]
+
+it allows *excluding endpoints* from generation. This is useful if the processor does not create the correct code for an endpoint. That way the processor can still be used for all the other endpoints.
+====
+
+[.card.w-third]
+====
+image::home/square-stack.svg[width=60]
+
+it handles xref:spring::processor/endpoint-content.adoc[*multiple responses*] by generating one endpoint method for each response content type.
+====
+
+[.card.w-third]
+====
+image::home/circle-check-big.svg[width=40]
+
+It is stable. It has a *large test suite* with unit tests and integration tests. The integration tests run the processor on OpenAPI descriptions and check/compile the generated output.
 ====
 
 // [.card]
