@@ -15,6 +15,7 @@ content:
   - url: ../../openapi-processor-spring
     start_path: docs
     branches:
+      - 2026.3.x
       - 2026.2.x
       - 2026.1.x
       - 2025.5.x
@@ -32,7 +33,7 @@ content:
   - url: ../../openapi-processor-micronaut
     start_path: docs
     branches:
-      - 2026.2.x
+      - 2026.3.x
       - master
 
   - url: ../../openapi-processor-json
