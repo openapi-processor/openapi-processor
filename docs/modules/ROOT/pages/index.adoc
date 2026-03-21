@@ -71,7 +71,7 @@ The artifacts are available from link:{oap-central}[maven central] with the foll
 </dependency>
 ----
 
-[source,xml,title=gradle]
+[source,groovy,title=gradle]
 ----
 'io.openapiprocessor:openapi-processor-{project}:{version}'
 ----
@@ -79,6 +79,78 @@ The artifacts are available from link:{oap-central}[maven central] with the foll
 Replace `\{project}` & `\{version}` with the required values.
 
 For example `spring`, `json` or `maven` for `\{project}` and `\{version}` with the version from the corresponding version badge.
+
+== patch level bug fixes
+
+NOTE: Usually there is no need to worry about this.
+
+The processors use a common jar (`openapi-processor-core`) that provides most of the processor logic.
+
+If there is a bug then in most cases it gets fixed in the `core` library.
+
+It is possible to explicitly add a specific `core` version as dependency without updating the processor (e.g. `openapi-processor-spring`).
+
+The only reasons to explicitly add the `core` jar is to test the fix, or if you are affected by the bug and don't want to wait for the next release of the processor.
+
+If the bug does not affect you, just ignore it.
+
+
+
+[tabs]
+====
+Maven::
++
+Using Maven the `core` jar can be added to the `openapi-processor-maven` plugin block in the `pom.xml`. Replace `${openapiprocessor.core}` with the patch level version.
+
+[source,xml]
+----
+  <!-- ... -->
+
+  <plugin>
+      <groupId>io.openapiprocessor</groupId>
+      <artifactId>openapi-processor-maven-plugin</artifactId>
+      <version>${openapiprocessor.maven}</version>
+
+      <dependencies>
+          <dependency>
+              <groupId>io.openapiprocessor</groupId>
+              <artifactId>openapi-processor-spring</artifactId>
+              <version>${openapiprocessor.spring}</version>
+          </dependency>
+          <dependency>
+              <groupId>io.openapiprocessor</groupId>
+              <artifactId>openapi-processor-core</artifactId>
+             <version>${openapiprocessor.core}</version>
+          </dependency>
+
+          <!-- ... -->
+
+      <dependencies>
+
+      <!-- ... -->
+
+  </plugin>
+----
+Gradle::
++
+In the `build.gradle.kts` add the patch level version to the processor configuration block.
+
+[source,kotlin]
+----
+openapiProcessor {
+    // ...
+    process("spring") {
+        processor("io.openapiprocessor:openapi-processor-spring:{version}")
+        processor("io.openapiprocessor:openapi-processor-core:{core-version}")
+        // ...
+   }
+   // ...
+}
+----
+====
+
+
+
 
 
 //== implementing a processor
