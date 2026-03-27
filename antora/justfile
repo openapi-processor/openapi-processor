@@ -8,3 +8,7 @@ local:
 # serve site
 serve:
   npx http-server ../public -c-1 -p 8080
+
+# explain package
+explain package:
+  npm explain {{package}}
