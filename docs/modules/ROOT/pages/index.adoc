@@ -94,14 +94,15 @@ The only reasons to explicitly add the `core` jar is to test the fix, or if you 
 
 If the bug does not affect you, just ignore it.
 
-
-
 [tabs]
 ====
 Maven::
 +
+++++
+<div></div>
+++++
 Using Maven the `core` jar can be added to the `openapi-processor-maven` plugin block in the `pom.xml`. Replace `${openapiprocessor.core}` with the patch level version.
-
++
 [source,xml]
 ----
   <!-- ... -->
@@ -133,11 +134,26 @@ Using Maven the `core` jar can be added to the `openapi-processor-maven` plugin 
 ----
 Gradle::
 +
+++++
+<div></div>
+++++
 In the `build.gradle.kts` add the patch level version to the processor configuration block.
-
++
 [source,kotlin]
 ----
 openapiProcessor {
+    // new dependency setup
+    // ...
+    process("spring") {
+        dependencies {
+            process("io.openapiprocessor:openapi-processor-spring:{version}")
+            process("io.openapiprocessor:openapi-processor-core:{core-version}")
+        }
+        // ...
+   }
+   // ...
+
+    // old dependency setup
     // ...
     process("spring") {
         processor("io.openapiprocessor:openapi-processor-spring:{version}")
@@ -145,6 +161,7 @@ openapiProcessor {
         // ...
    }
    // ...
+
 }
 ----
 ====
