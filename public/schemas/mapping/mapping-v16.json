@@ -23,6 +23,9 @@
     },
     "bean-validation": {
       "$ref": "#/definitions/BeanValidation"
+    },
+    "annotation-targets": {
+      "$ref": "#/definitions/AnnotationTargets"
     }
   },
   "required": [
@@ -357,7 +360,7 @@
     },
     "ResultStyleMapping": {
       "description": "result style of a http response. 'success' uses success (ok) response type, 'all' uses Object/? type.",
-      "type": "string",
+      "enum": ["success", "all"],
       "default": "success",
       "examples": [
         "all",
