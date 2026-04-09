@@ -1,6 +1,11 @@
 .idea
 .antora-cache
 node_modules
-public/*
+
+public/
 !public/schemas
+
+public/*
+!public/schemas/**
+
 twitter.template
