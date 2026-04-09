@@ -5,9 +5,11 @@
   "description": "openapi-processor configuration and type mappings",
   "type": "object",
   "properties": {
-    "openapi-processor-mapping": {
-      "description": "version of the mapping format.",
-      "enum": ["v18"]
+    "patternProperties": {
+      "^openapi-processor-.+": {
+        "description": "version of the mapping format.",
+        "type": "string"
+      }
     },
     "options": {
       "$ref": "#/definitions/Options"
@@ -23,10 +25,13 @@
     },
     "bean-validation": {
       "$ref": "#/definitions/BeanValidation"
+    },
+    "annotation-targets": {
+      "$ref": "#/definitions/AnnotationTargets"
     }
   },
+  "additionalProperties": true,
   "required": [
-    "openapi-processor-mapping",
     "options"
   ],
   "definitions": {
@@ -60,11 +65,6 @@
           "description": "enable bean validation annotations for OpenAPI constraints.",
           "default": false,
           "enum": [false, true, "javax", "jakarta"]
-        },
-        "jackson": {
-          "description": "jackson annotations version.",
-          "default": "v2",
-          "enum": ["v2", "v3"]
         },
         "javadoc": {
           "description": "generate javadoc from OpenAPI 'description' properties.",
@@ -171,7 +171,7 @@
           }
         }
       },
-      "additionalProperties": false,
+      "additionalProperties": true,
       "oneOf": [
         { "required": ["package-name"] },
         { "required": ["package-names"] }
