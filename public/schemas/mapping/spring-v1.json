@@ -4,8 +4,8 @@
   "title": "JSON Schema for openapi-processor-spring mapping.yaml v1",
   "description": "openapi-processor-spring configuration and type mappings",
   "allOf": [
-    { "$ref": "#/definitions/SpringMapping" },
-    { "$ref": "https://openapiprocessor.io/schemas/mapping/mapping-v18.json" }
+    { "$ref": "https://openapiprocessor.io/schemas/mapping/mapping-v18.json" },
+    { "$ref": "#/definitions/SpringMapping" }
   ],
   "definitions": {
     "SpringMapping": {
