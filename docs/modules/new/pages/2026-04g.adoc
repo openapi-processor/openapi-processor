@@ -1,0 +1,53 @@
+include::spring:ROOT:partial$vars.adoc[]
+
+== April 2026
+
+== openapi-processor-gradle 2026.2
+
+This version will only work with *gradle 8.7+*
+
+|===
+|minimum Gradle version |minimum Java version
+
+|8.7+
+|17
+|===
+
+=== configuring the processor dependency
+
+configuring the processor dependency is changing.
+
+It is now properly using the Gradle API instead of a partial custom implementation. That way it will automatically handle every dependency format Gradle accepts in the project `dependencies` block.
+
+The _old_ way will still work, but it will go away in the future.
+
+[source,kotlin,title="build.gradle.kts"]
+----
+// obsolete, "custom" implementation
+
+openapiProcessor {
+    // ....
+
+    // still works
+    process("spring") {
+        processor("io.openapiprocessor:openapi-processor-spring:<version>")
+
+        // ....
+    }
+}
+
+
+// new, using Gradle APIs
+
+openapiProcessor {
+    // ....
+
+    process("spring") {
+        dependencies {
+            process("io.openapiprocessor:openapi-processor-spring:<version>")
+        }
+
+       // ....
+    }
+}
+----
