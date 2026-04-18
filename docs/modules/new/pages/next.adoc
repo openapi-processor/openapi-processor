@@ -32,12 +32,9 @@ October 24
 
 - native compilation
 
-it is possible, don't know yet how to run native test, compiling tests as a native image fails.
-
-
 == JSON schema validator
 
 May 24
 
 - internal refactoring to separate validator code by draft version
-- native compilation
+- native compilation, it is possible, don't know yet how to run native test, compiling tests as a native image fails.
