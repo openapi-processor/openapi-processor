@@ -1,6 +1,6 @@
 include::spring:ROOT:partial$vars.adoc[]
 
-== March 2026
+== April 2026
 
 * openapi-processor-spring/micronaut 2026.3
 
